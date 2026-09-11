@@ -45,52 +45,75 @@
       <div id="gallery"></div>
 
       <script>
-        //Initialize Supabase Client
         const SUPABASE_URL = "https://tsyadfkwthcnvflsoinr.supabase.co";
-        const SUPABASE_KEY = "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
-        
-        const supabase = window.supabase.createClient(
-          SUPABASE_URL, 
-          SUPABASE_KEY
-        );
+const SUPABASE_KEY = "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
 
-        const upload = document.getElementById("upload");
-        const status = document.getElementById("status");
-        const gallery = document.getElementById("gallery");
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-        upload.addEventListener("change", async function () {
-          const file = upload.files[0];
+const upload = document.getElementById("upload");
+const status = document.getElementById("status");
+const gallery = document.getElementById("gallery");
 
-          if (!file) return;
+async function loadGallery() {
+  const { data, error } = await supabase.storage
+    .from("quince-photos")
+    .list("", {
+      limit: 100,
+      sortBy: { column: "created_at", order: "desc" }
+    });
 
-          status.textContent = "Uploading...";
+  if (error) {
+    console.error(error);
+    status.textContent = "Could not load photos.";
+    return;
+  }
 
-          const fileName = Date.now() + "_" + file.name
+  gallery.innerHTML = "";
 
-          const { error } = await supabase.storage
-          .from("quince-photos")
-          .upload(fileName, file);
+  data.forEach(function (file) {
+    const { data: publicUrlData } = supabase.storage
+      .from("quince-photos")
+      .getPublicUrl(file.name);
 
-          if (error) {
-            console.error(error);
-            status.textContent="Upload failed: " +error.message;
-            return;
-          }
+    const image = document.createElement("img");
 
-          status.textContent = "Photo uploaded successfully! 🥳";
+    image.src = publicUrlData.publicUrl;
+    image.alt = "Quinceañera photo";
 
-          const { data } = supabase.storage
-          .from("quince-photos")
-          .getPublicUrl(fileName);
+    gallery.appendChild(image);
+  });
+}
 
-          const image = document.createElement("img");
-          image.src = data.publicUrl;
-          image.alt = "Quinceañera photo";
+upload.addEventListener("change", async function () {
+  const file = upload.files[0];
 
-          gallery.appendChild(image);
+  if (!file) return;
 
-          upload.value = "";
-        });
+  status.textContent = "Uploading...";
+
+  const fileName = Date.now() + "_" + file.name;
+
+  const { error } = await supabase.storage
+    .from("quince-photos")
+    .upload(fileName, file);
+
+  if (error) {
+    console.error(error);
+    status.textContent = "Upload failed: " + error.message;
+    return;
+  }
+
+  status.textContent = "Photo uploaded successfully! 🥳";
+
+  upload.value = "";
+
+  loadGallery();
+});
+
+loadGallery();
       </script>
     </body>
   </html>
