@@ -2,11 +2,95 @@
   <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <meta name="viewport" contect="width=device-width, initial-scale=1">
-      <title>Quince Photo Gallery</title>
+      <meta name="viewport" context="width=device-width, initial-scale=1">
+      <title>Quinceañera Photo Gallery</title>
+
+      <!-- Supabase JS Library -->
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+      <style>
+        body {
+          font-family: system-ui, -apple-system, sans-sherif;
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+          line-height: 1.5;
+        }
+        #upload {
+          margin: 15px 0;
+        }
+        #status {
+          margin: 10px 0;
+          font-weight: bold;
+        }
+        #gallery {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 15px;
+          margin-top: 20px;
+        }
+        #gallery img {
+          width: 100%;
+          height:150px;
+          object-fit: cover;
+          border-radius: 8px;
+        }
+      </style>
     </head>
     <body>
-      <h1>Quinceañera photo upload</h1>
+      <h1>quinceañera Photo Gallery</h1>
+      <p>Upload your photos below!</p>
       <input type="file" id="upload" accept="image/*">
+      <div id="status"></div>
+      <div id="gallery"></div>
+
+      <script>
+        //Initialize Supabase Client
+        const SUPABASE_URL = "https://tsyadfkwthcnvflsoinr.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
+        
+        const supabase = window.supabase.createClient(
+          SUPABASE_URL, 
+          SUPABASE_KEY
+        );
+
+        const upload = document.getElementById("upload");
+        const status = document.getElementById("status");
+        const gallery = document.getElementById("gallery");
+
+        upload.addEventListener("change", async function () {
+          const file = upload.files[0];
+
+          if (!file) return;
+
+          status.textContent = "Uploading...";
+
+          const fileName = Date.now() + "_" + file.name
+
+          const { error } = await supabase.storage
+          .from("quince-photos")
+          .upload(fileName, file);
+
+          if (error) {
+            console.error(error);
+            status.textContent="Upload failed: " +error.message;
+            return;
+          }
+
+          status.textContent = "Photo uploaded successfully! 🥳";
+
+          const { data } = supabase.storage
+          .from("quince-photos")
+          .getPublicUrl(fileName);
+
+          const image = document.createElement("img");
+          image.src = data.publicUrl;
+          image.alt = "Quinceañera photo";
+
+          gallery.appendChild(image);
+
+          upload.value = "";
+        });
+      </script>
     </body>
   </html>
