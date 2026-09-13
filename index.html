@@ -59,7 +59,7 @@ const gallery = document.getElementById("gallery");
 
 async function loadGallery() {
   const { data, error } = await supabase.storage
-    .from("quince-photos")
+    .from("Quince photos")
     .list("", {
       limit: 100,
       sortBy: { column: "created_at", order: "desc" }
@@ -75,7 +75,7 @@ async function loadGallery() {
 
   data.forEach(function (file) {
     const { data: publicUrlData } = supabase.storage
-      .from("quince-photos")
+      .from("Quince photos")
       .getPublicUrl(file.name);
 
     const image = document.createElement("img");
@@ -97,7 +97,7 @@ upload.addEventListener("change", async function () {
   const fileName = Date.now() + "_" + file.name;
 
   const { error } = await supabase.storage
-    .from("quince-photos")
+    .from("Quince photos")
     .upload(fileName, file);
 
   if (error) {
