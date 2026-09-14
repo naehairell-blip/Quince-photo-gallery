@@ -48,18 +48,28 @@
         const status = document.getElementById("status");
 
         const SUPABASE_URL = "https://tsyadfkwthcnvflsoinr.supabase.co";
-        const SUPABASE_KEY = "sb_publishabde_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
+        const SUPABASE_KEY = "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
 
-        alert("Before client");
+        try{
+          alert("1. start test");
 
-        const supabase = window.supabase.createClient(
-          SUPABASE_URL,
-          SUPABASE_KEY
-          );
+          alert("2. supabase library: " + typeof window.supabase);
 
-        alert("client created");
+          alert("3. createClient:" + typeof window.supabase.createClient);
 
-        status.textContent = "Supabase client is working";
+          const supabase = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+            );
+
+          alert("4. client created");
+
+          status.textContent = "supabase client is working";
+        } catch (error) {
+          alert("ERROR: " + error.message);
+          status.textContent = "ERROR: " + error.message;
+          console.error(error);
+        }
       </script>
     </body>
   </html>
