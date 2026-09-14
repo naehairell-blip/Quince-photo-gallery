@@ -45,10 +45,38 @@
       <div id="gallery"></div>
 
       <script>
-        const status = document.getElementById("status");
+  const SUPABASE_URL = "https://tsyadfkwthcnvflsoinr.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
 
-        status.textContent = "JavaScript is working!🥳";
-      </script>    
+  const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  const upload = document.getElementById("upload");
+  const status = document.getElementById("status");
+
+  upload.addEventListener("change", async function () {
+    const file = upload.files[0];
+
+    if (!file) return;
+
+    status.textContent = "Uploading...";
+
+    const fileName = Date.now() + "_" + file.name;
+
+    const { error } = await supabase.storage
+      .from("Quince photos")
+      .upload(fileName, file);
+
+    if (error) {
+      console.error("Upload error:", error);
+      status.textContent = "Upload failed: " + error.message;
+      return;
+    }
+
+    status.textContent = "Photo uploaded successfully! 🥳";
+  });  
       </script>
     </body>
   </html>
