@@ -2,7 +2,7 @@
   <html lang="en">
     <head>
       <meta charset="UTF-8">
-      <meta name="viewport" context="width=device-width, initial-scale=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Quinceañera Photo Gallery</title>
 
       <!-- Supabase JS Library -->
@@ -10,7 +10,7 @@
 
       <style>
         body {
-          font-family: system-ui, -apple-system, sans-sherif;
+          font-family: system-ui, -apple-system, sans-serif;
           max-width: 800px;
           margin: 0 auto;
           padding: 20px;
@@ -46,74 +46,78 @@
 
       <script>
         const SUPABASE_URL = "https://tsyadfkwthcnvflsoinr.supabase.co";
-const SUPABASE_KEY = "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
+        const SUPABASE_KEY = "sb_publishable_19cupNWcrUKor171W0H1bQ_jjRYHrBC";
 
-const supabase = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+        const supabase = window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_KEY
+          );
 
-const upload = document.getElementById("upload");
-const status = document.getElementById("status");
-const gallery = document.getElementById("gallery");
+        const upload = document.getElementById("upload");
+        const status = document.getElementById("status");
+        const gallery = document.getElementById("gallery");
 
-async function loadGallery() {
-  const { data, error } = await supabase.storage
-    .from("Quince photos")
-    .list("", {
-      limit: 100,
-      sortBy: { column: "created_at", order: "desc" }
-    });
+        async function loadGallery() {
+          status.textContent = "Loading photos...";
 
-  if (error) {
-    console.error(error);
-    status.textContent = "Could not load photos.";
-    return;
-  }
+          const { data, error } = await supabase.storage
+          .from("Quince photos")
+          .list("", {
+            limit: 100,
+            sortBy: { column:"created_at", order: "desc" }
+          });
 
-  gallery.innerHTML = "";
+        if (error) {
+          console.error("Gallery error:", error);
+          status.textContent = "Could no load photos: "+ error.message;
+          return;
+        }
 
-  data.forEach(function (file) {
-    const { data: publicUrlData } = supabase.storage
-      .from("Quince photos")
-      .getPublicUrl(file.name);
+        gallery.innerHTML = "";
 
-    const image = document.createElement("img");
+        data.forEach(function (file) {
+          const publicUrl = supabase.storage
+          .from("Quince photos")
+          .getPublicUrl(file.name).data.publicUrl;
 
-    image.src = publicUrlData.publicUrl;
-    image.alt = "Quinceañera photo";
+          const image=document.createElement("img");
 
-    gallery.appendChild(image);
-  });
-}
+          image.src=publicUrl;
+          image.alt="Quinceañera Photo";
 
-upload.addEventListener("change", async function () {
-  const file = upload.files[0];
+          gallery.appendChild(image);
+        });
 
-  if (!file) return;
+        status.textContent="";
+        }
 
-  status.textContent = "Uploading...";
+        upload.addEventListener("change", async function () {
+          const file = upload.files[0];
 
-  const fileName = Date.now() + "_" + file.name;
+          if(!file) return;
 
-  const { error } = await supabase.storage
-    .from("Quince photos")
-    .upload(fileName, file);
+          status.textContent = "Uploading...";
 
-  if (error) {
-    console.error(error);
-    status.textContent = "Upload failed: " + error.message;
-    return;
-  }
+          const fileName = Date.now() + "_" + file.name;
 
-  status.textContent = "Photo uploaded successfully! 🥳";
+          const { error } = await supabase.storage
+          .from("Quince photos")
+          .upload(fileName, file);
 
-  upload.value = "";
+          if (error) {
+            console.error("Upload error:", error);
+            status.textContent = "Upload failed:" + error.message;
+            return;
+          }
 
-  loadGallery();
-});
+          status.textContent = "photo uploaded successfully!🥳";
 
-loadGallery();
+          upload.value = "";
+
+          await loadGallery();
+        });
+
+        loadGallery();
       </script>
     </body>
   </html>
