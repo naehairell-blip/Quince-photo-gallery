@@ -45,13 +45,21 @@
       <div id="gallery"></div>
 
       <script>
-        alert("NEW TEST 123");
-
         const status = document.getElementById("status");
 
-        alert("Status found")
+        const SUPABASE_URL = "https://tsyadfkwthcnvflsoinr.supabase.co";
+        const SUPABASE_KEY = "sb_publishabde_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
 
-        status.extContent = "Status box is working";
+        alert("Before client");
+
+        const supabase = window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_KEY
+          );
+
+        alert("client created");
+
+        status.textContent = "Supabase client is working";
       </script>
     </body>
   </html>
