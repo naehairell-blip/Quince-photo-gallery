@@ -45,19 +45,21 @@
       <div id="gallery"></div>
 
       <script>
-        alert("Step 1");
-
         const status = document.getElementById("status");
 
-        alert("Step 2");
+        const SUPABASE_URL = "https://tsyadfkwthcnvflsoinr.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_19cupNWcrUKor171W0H1bQ_jjRYHrBC";
 
-        if (window.supabase) {
-          alert("Step 3: Supabase is loaded!");
-          status.textContent = "Supabase is loaded!";
-        } else {
-          alert("Step 3: Supabase is NOT loaded.");
-          status.textContent = "Supabase is NOT loaded.";
-        }
+        alert("Before client");
+
+        const supabase = window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_KEY
+          );
+
+        alert("Client created!");
+
+        status.textContent = "Supabase client is working!";
       </script>
     </body>
   </html>
