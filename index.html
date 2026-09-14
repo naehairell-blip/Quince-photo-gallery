@@ -51,7 +51,13 @@
 
         alert("Step 2");
 
-        status.textContent = "The page can access the status box!";
+        if (window.supabase) {
+          alert("Step 3: Supabase is loaded!");
+          status.textContent = "Supabase is loaded!";
+        } else {
+          alert("Step 3: Supabase is NOT loaded.");
+          status.textContent = "Supabase is NOT loaded.";
+        }
       </script>
     </body>
   </html>
