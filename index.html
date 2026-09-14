@@ -50,26 +50,37 @@
         const SUPABASE_URL = "https://tsyadfkwthcnvflsoinr.supabase.co";
         const SUPABASE_KEY = "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
 
-        try{
-          alert("1. start test");
+        const supabase = window.supabase.createClient(
+          SUPABASE_URL,
+          SUPABASE_KEY
+          );
 
-          alert("2. supabase library: " + typeof window.supabase);
+        alert("Supabase client is working");
 
-          alert("3. createClient:" + typeof window.supabase.createClient);
+        async function testBucket() {
+          try {
+            alert("Testing bucket...");
 
-          const supabase = window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-            );
+            const { data, error } = await supabase.storage
+            .from("Quince photos")
+            .list();
 
-          alert("4. client created");
+            if (error) {
+              alert("BUCKET ERROR: " + error.message)
 
-          status.textContent = "supabase client is working";
-        } catch (error) {
-          alert("ERROR: " + error.message);
-          status.textContent = "ERROR: " + error.message;
-          console.error(error);
+            status.textContent =
+              "Bucket works! Found" + data.length + " file(s).";
+
+            console.log(data);
+
+          }catch (error) {
+            alert("ERROR: " + error.message);
+            status.textContent = "ERROR: " + error.message;
+            console.error(error);
+          }
         }
+
+        testBucket();
       </script>
     </body>
   </html>
