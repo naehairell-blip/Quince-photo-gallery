@@ -67,6 +67,10 @@
 
             if (error) {
               alert("BUCKET ERROR: " + error.message)
+              status.textContent = "Bucket error: " + error.message;
+              sonsole.error(error);
+              return;
+            }
 
             status.textContent =
               "Bucket works! Found" + data.length + " file(s).";
