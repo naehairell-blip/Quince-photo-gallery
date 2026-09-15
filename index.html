@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Quinceañera Gallery</title>
+  <title>Quinceañera Photos</title>
 
   <!-- Elegant fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Montserrat:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
 
   <style>
 
@@ -18,816 +18,460 @@
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-
-      font-family: "Montserrat", Arial, sans-serif;
-
-      color: #173f32;
+      font-family: 'Montserrat', sans-serif;
+      color: #f8f1df;
 
       background:
         radial-gradient(
-          circle at 50% 38%,
-          #4c9275 0%,
-          #34745b 23%,
-          #205b46 43%,
-          #123f30 67%,
-          #082b20 85%,
-          #041b14 100%
+          circle at center center,
+          #4d9476 0%,
+          #3d8064 18%,
+          #2d6b53 36%,
+          #205540 55%,
+          #123c2d 73%,
+          #09291f 88%,
+          #041a13 100%
         );
 
+      min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
     }
 
 
-    /* =====================================================
-       LARGE BACKGROUND HALF CIRCLES
-       ===================================================== */
+    /* =========================
+       BACKGROUND HALF CIRCLES
+       ========================= */
 
-    .background-decoration {
+    body::before,
+    body::after {
+      content: "";
       position: fixed;
-      inset: 0;
-
       pointer-events: none;
-
-      overflow: hidden;
-
+      border: 1px solid rgba(218, 177, 82, 0.24);
+      border-radius: 50%;
       z-index: 0;
     }
 
-    .circle {
-      position: absolute;
-
-      border: 1px solid rgba(225, 190, 99, 0.25);
-
-      border-radius: 50%;
+    body::before {
+      width: 520px;
+      height: 520px;
+      left: -350px;
+      top: 8%;
     }
 
-    .circle.one {
+    body::after {
       width: 620px;
       height: 620px;
-
-      top: -390px;
-      left: -210px;
-    }
-
-    .circle.two {
-      width: 450px;
-      height: 450px;
-
-      top: -265px;
-      left: -125px;
-
-      border-color: rgba(225, 190, 99, 0.16);
-    }
-
-    .circle.three {
-      width: 700px;
-      height: 700px;
-
-      bottom: -470px;
-      right: -250px;
-    }
-
-    .circle.four {
-      width: 510px;
-      height: 510px;
-
-      bottom: -350px;
-      right: -165px;
-
-      border-color: rgba(225, 190, 99, 0.17);
+      right: -430px;
+      bottom: 2%;
     }
 
 
-    /* =====================================================
-       SUBTLE GOLD SPECKLES
-       ===================================================== */
-
-    .background-decoration::after {
-      content: "";
-
-      position: absolute;
-
-      inset: 0;
-
-      background-image:
-        radial-gradient(
-          circle,
-          rgba(230, 197, 112, 0.18) 1px,
-          transparent 1px
-        );
-
-      background-size: 55px 55px;
-
-      opacity: 0.18;
-    }
-
-
-    /* =====================================================
-       PAGE
-       ===================================================== */
+    /* =========================
+       MAIN PAGE
+       ========================= */
 
     .page {
-      position: relative;
-
-      z-index: 2;
-
-      width: min(1120px, 94%);
-
-      margin: 0 auto;
-
-      padding: 35px 0 75px;
-    }
-
-
-    /* =====================================================
-       HEADER
-       ===================================================== */
-
-    .top-frame {
-      position: relative;
-
-      padding: 70px 35px 65px;
-
-      text-align: center;
-
-      border: 1px solid rgba(229, 194, 105, 0.9);
-
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255,255,255,0.045),
-          rgba(255,255,255,0.01)
-        );
-
-      box-shadow:
-        0 0 0 6px rgba(221, 185, 94, 0.07),
-        0 0 0 13px rgba(221, 185, 94, 0.025),
-        0 25px 60px rgba(0,0,0,0.27);
-
-      overflow: hidden;
-    }
-
-    .top-frame::before {
-      content: "";
-
-      position: absolute;
-
-      inset: 11px;
-
-      border: 1px solid rgba(229, 194, 105, 0.48);
-
-      pointer-events: none;
-    }
-
-    .top-frame::after {
-      content: "";
-
-      position: absolute;
-
-      inset: 20px;
-
-      border: 1px solid rgba(229, 194, 105, 0.12);
-
-      pointer-events: none;
-    }
-
-
-    /* =====================================================
-       BOTANICAL CORNER ART
-       ===================================================== */
-
-    .botanical {
-      position: absolute;
-
-      width: 210px;
-      height: 210px;
-
-      pointer-events: none;
-
-      opacity: 0.95;
-    }
-
-    .botanical svg {
       width: 100%;
-      height: 100%;
-    }
-
-    .botanical path,
-    .botanical ellipse,
-    .botanical circle {
-      fill: none;
-
-      stroke: #dfbd68;
-
-      stroke-width: 1.7;
-
-      stroke-linecap: round;
-
-      stroke-linejoin: round;
-    }
-
-    .botanical.top-left {
-      top: -5px;
-      left: -5px;
-    }
-
-    .botanical.top-right {
-      top: -5px;
-      right: -5px;
-
-      transform: scaleX(-1);
-    }
-
-    .botanical.bottom-left {
-      bottom: -5px;
-      left: -5px;
-
-      transform: scaleY(-1);
-    }
-
-    .botanical.bottom-right {
-      bottom: -5px;
-      right: -5px;
-
-      transform: scale(-1);
+      min-height: 100vh;
+      padding: 35px 18px 55px;
+      position: relative;
+      z-index: 1;
     }
 
 
-    /* =====================================================
-       TITLE
-       ===================================================== */
+    /* =========================
+       OUTER GOLD CORNERS
+       ========================= */
 
-    .small-title {
+    .outer-frame {
+      width: 100%;
+      max-width: 1050px;
+      min-height: calc(100vh - 70px);
+      margin: 0 auto;
       position: relative;
 
-      z-index: 3;
+      padding: 24px;
 
-      margin-bottom: 10px;
-
-      color: #e5c574;
-
-      font-size: 13px;
-
-      font-weight: 600;
-
-      letter-spacing: 5px;
-
-      text-transform: uppercase;
+      border: 1px solid rgba(221, 181, 87, 0.55);
     }
 
-    h1 {
-      position: relative;
+    .outer-frame::before,
+    .outer-frame::after,
+    .corner-top-right,
+    .corner-bottom-left {
 
-      z-index: 3;
+      content: "";
+      position: absolute;
 
-      margin: 0;
+      width: 65px;
+      height: 65px;
 
-      color: #f2d88b;
+      pointer-events: none;
+    }
 
-      /*
-        More elegant and refined than the previous
-        handwritten title.
-      */
 
-      font-family: "Parisienne", cursive;
+    /* Top left */
 
-      font-size: clamp(76px, 13vw, 135px);
+    .outer-frame::before {
+      left: -1px;
+      top: -1px;
 
+      border-left: 2px solid #dcb657;
+      border-top: 2px solid #dcb657;
+    }
+
+
+    /* Bottom right */
+
+    .outer-frame::after {
+      right: -1px;
+      bottom: -1px;
+
+      border-right: 2px solid #dcb657;
+      border-bottom: 2px solid #dcb657;
+    }
+
+
+    /* Top right */
+
+    .corner-top-right {
+      right: -1px;
+      top: -1px;
+
+      border-right: 2px solid #dcb657;
+      border-top: 2px solid #dcb657;
+    }
+
+
+    /* Bottom left */
+
+    .corner-bottom-left {
+      left: -1px;
+      bottom: -1px;
+
+      border-left: 2px solid #dcb657;
+      border-bottom: 2px solid #dcb657;
+    }
+
+
+    /* Inner corner lines */
+
+    .inner-corners {
+      position: absolute;
+      inset: 8px;
+      pointer-events: none;
+      border: 1px solid rgba(220, 182, 87, 0.28);
+    }
+
+
+    /* =========================
+       HEADER
+       ========================= */
+
+    .header {
+      text-align: center;
+      padding: 15px 10px 30px;
+    }
+
+
+    /* Small Edwardian-style title */
+
+    .main-title {
+      font-family: 'Parisienne', cursive;
+
+      font-size: clamp(29px, 6vw, 42px);
+
+      line-height: 1;
       font-weight: 400;
 
-      line-height: 0.92;
+      color: #e0bd62;
+
+      margin: 0 auto 18px;
+
+      letter-spacing: 0.3px;
 
       text-shadow:
-        0 2px 0 rgba(0,0,0,0.12),
-        0 10px 30px rgba(0,0,0,0.22);
+        0 1px 8px rgba(0,0,0,0.18);
+
+      max-width: 90%;
     }
 
-    .title-line {
-      position: relative;
 
-      z-index: 3;
-
-      width: min(570px, 75%);
-
+    .gold-rule {
+      width: 155px;
       height: 1px;
 
-      margin: 28px auto 22px;
+      margin: 0 auto 18px;
 
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          #b9923f,
-          #f1d58a,
-          #b9923f,
-          transparent
-        );
+      background: #dcb657;
+
+      position: relative;
     }
 
-    .title-line::before,
-    .title-line::after {
+    .gold-rule::before,
+    .gold-rule::after {
       content: "";
 
       position: absolute;
-
       top: 50%;
 
       width: 7px;
       height: 7px;
 
-      border: 1px solid #dfbd68;
+      border: 1px solid #dcb657;
 
       transform: translateY(-50%) rotate(45deg);
     }
 
-    .title-line::before {
-      left: 20%;
+    .gold-rule::before {
+      left: -10px;
     }
 
-    .title-line::after {
-      right: 20%;
+    .gold-rule::after {
+      right: -10px;
     }
 
-    .subtitle {
+
+    /* =========================
+       CREAM INVITATION PANEL
+       ========================= */
+
+    .invitation {
       position: relative;
-
-      z-index: 3;
-
-      max-width: 680px;
-
-      margin: 0 auto;
-
-      color: #f6ecd5;
-
-      font-size: 14px;
-
-      line-height: 1.9;
-
-      letter-spacing: 0.8px;
-    }
-
-
-    /* =====================================================
-       GOLD DIVIDER
-       ===================================================== */
-
-    .gold-divider {
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      gap: 14px;
-
-      margin: 42px auto;
-    }
-
-    .gold-divider::before,
-    .gold-divider::after {
-      content: "";
-
-      width: 150px;
-
-      max-width: 27vw;
-
-      height: 1px;
-
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          #d8b35d
-        );
-    }
-
-    .gold-divider::after {
-      background:
-        linear-gradient(
-          90deg,
-          #d8b35d,
-          transparent
-        );
-    }
-
-    .gold-divider span {
-      position: relative;
-
-      width: 13px;
-      height: 13px;
-
-      border: 1px solid #e1bf69;
-
-      transform: rotate(45deg);
-    }
-
-    .gold-divider span::before,
-    .gold-divider span::after {
-      content: "";
-
-      position: absolute;
-
-      width: 5px;
-      height: 5px;
-
-      border: 1px solid #e1bf69;
-
-      border-radius: 50%;
-    }
-
-    .gold-divider span::before {
-      top: -8px;
-      left: -8px;
-    }
-
-    .gold-divider span::after {
-      bottom: -8px;
-      right: -8px;
-    }
-
-
-    /* =====================================================
-       MAIN IVORY CARD
-       ===================================================== */
-
-    .content-card {
-      position: relative;
-
-      margin-top: 40px;
-
-      padding: 65px 35px 70px;
 
       background:
         linear-gradient(
           145deg,
-          #fffdf7,
-          #f8efd9
+          #fffdf5 0%,
+          #f8f0dd 100%
         );
 
-      border: 3px solid #d1a94e;
+      color: #244b3a;
+
+      padding: 48px 25px 42px;
+
+      border: 2px solid #d5ad51;
 
       box-shadow:
-        0 0 0 6px rgba(220, 183, 95, 0.17),
-        0 0 0 12px rgba(220, 183, 95, 0.055),
-        0 25px 65px rgba(0,0,0,0.32);
+        0 0 0 7px rgba(221, 182, 88, 0.15),
+        0 18px 45px rgba(0, 0, 0, 0.25);
 
-      overflow: hidden;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    .content-card::before {
+
+    .invitation::before {
       content: "";
 
       position: absolute;
+      inset: 7px;
 
-      inset: 12px;
-
-      border: 1px solid #d1ad58;
-
-      pointer-events: none;
-    }
-
-    .content-card::after {
-      content: "";
-
-      position: absolute;
-
-      inset: 19px;
-
-      border: 1px solid rgba(190, 149, 61, 0.25);
+      border: 1px solid rgba(182, 139, 53, 0.5);
 
       pointer-events: none;
     }
 
 
-    /* =====================================================
-       IVORY CARD BOTANICAL CORNERS
-       ===================================================== */
+    /* =========================
+       SECTION HEADINGS
+       ========================= */
 
-    .card-botanical {
-      position: absolute;
+    .section-title {
 
-      width: 175px;
-      height: 175px;
+      font-family: 'Bodoni Moda', serif;
 
-      pointer-events: none;
-
-      z-index: 2;
-    }
-
-    .card-botanical svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .card-botanical path,
-    .card-botanical ellipse,
-    .card-botanical circle {
-      fill: none;
-
-      stroke: #bf9841;
-
-      stroke-width: 1.5;
-
-      stroke-linecap: round;
-
-      stroke-linejoin: round;
-    }
-
-    .card-botanical.top-left {
-      top: 17px;
-      left: 17px;
-    }
-
-    .card-botanical.top-right {
-      top: 17px;
-      right: 17px;
-
-      transform: scaleX(-1);
-    }
-
-    .card-botanical.bottom-left {
-      bottom: 17px;
-      left: 17px;
-
-      transform: scaleY(-1);
-    }
-
-    .card-botanical.bottom-right {
-      bottom: 17px;
-      right: 17px;
-
-      transform: scale(-1);
-    }
-
-
-    /* =====================================================
-       SECTION HEADING
-       ===================================================== */
-
-    .section-heading {
-      position: relative;
-
-      z-index: 4;
-
-      text-align: center;
-
-      margin-bottom: 38px;
-    }
-
-    .section-heading h2 {
-      margin: 0;
-
-      color: #1b5943;
-
-      /*
-        This is intentionally softer and more
-        readable than the giant title.
-      */
-
-      font-family: "Montserrat", Arial, sans-serif;
-
-      font-size: clamp(27px, 5vw, 40px);
+      font-size: clamp(28px, 5vw, 43px);
 
       font-weight: 500;
 
-      letter-spacing: 0.4px;
-    }
+      text-align: center;
 
-    .section-heading p {
-      margin: 13px auto 0;
+      margin: 0 0 9px;
 
-      max-width: 620px;
+      color: #2e6950;
 
-      color: #77725f;
-
-      font-size: 14px;
-
-      line-height: 1.8;
-
-      letter-spacing: 0.2px;
+      letter-spacing: 0.3px;
     }
 
 
-    /* =====================================================
-       UPLOAD AREA
-       ===================================================== */
-
-    .upload-area {
-      position: relative;
-
-      z-index: 4;
-
-      max-width: 680px;
-
-      margin: 0 auto;
-
-      padding: 38px 25px;
+    .section-subtitle {
 
       text-align: center;
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,0.88),
-          rgba(248,240,220,0.8)
-        );
-
-      border: 1px solid #d5b363;
-
-      box-shadow:
-        0 0 0 5px rgba(202, 163, 73, 0.06),
-        inset 0 0 30px rgba(193, 152, 62, 0.06);
-    }
-
-    .upload-area h3 {
-      margin: 0 0 9px;
-
-      color: #1a553f;
-
-      font-family: "Montserrat", Arial, sans-serif;
-
-      font-size: 19px;
-
-      font-weight: 600;
-    }
-
-    .upload-area p {
-      margin: 0 0 24px;
-
-      color: #777767;
+      font-family: 'Montserrat', sans-serif;
 
       font-size: 13px;
 
-      line-height: 1.7;
+      color: #6d6758;
+
+      margin: 0 0 30px;
+
+      letter-spacing: 1.3px;
     }
 
 
-    /* =====================================================
-       BUTTON
-       ===================================================== */
+    /* =========================
+       UPLOAD AREA
+       ========================= */
+
+    .upload-box {
+
+      text-align: center;
+
+      padding: 24px 18px;
+
+      border: 1px solid rgba(181, 143, 57, 0.6);
+
+      background: rgba(255,255,255,0.45);
+
+      margin-bottom: 42px;
+    }
+
 
     .upload-button {
+
       display: inline-block;
 
-      padding: 15px 38px;
+      background: #2c6b51;
 
       color: #fffdf5;
 
-      background:
-        linear-gradient(
-          135deg,
-          #27694f,
-          #0e3a2c
-        );
+      border: 1px solid #d4ad55;
 
-      border: 2px solid #d9b65e;
+      padding: 14px 28px;
 
-      box-shadow:
-        0 5px 16px rgba(0,0,0,0.17),
-        inset 0 0 0 1px rgba(255,255,255,0.1);
-
-      font-size: 12px;
-
-      font-weight: 600;
-
-      letter-spacing: 1.8px;
-
-      text-transform: uppercase;
-
-      cursor: pointer;
-
-      transition: all 0.25s ease;
-    }
-
-    .upload-button:hover {
-      transform: translateY(-2px);
-
-      box-shadow:
-        0 8px 22px rgba(0,0,0,0.2);
-    }
-
-    input[type="file"] {
-      display: none;
-    }
-
-    #status {
-      min-height: 24px;
-
-      margin-top: 20px;
-
-      color: #1d6047;
+      font-family: 'Montserrat', sans-serif;
 
       font-size: 13px;
 
       font-weight: 600;
+
+      letter-spacing: 1.2px;
+
+      cursor: pointer;
+
+      transition: all 0.2s ease;
+
+      box-shadow:
+        0 5px 15px rgba(0,0,0,0.15);
     }
 
 
-    /* =====================================================
+    .upload-button:hover {
+
+      background: #21543f;
+
+      transform: translateY(-1px);
+
+      box-shadow:
+        0 7px 18px rgba(0,0,0,0.2);
+    }
+
+
+    #photoInput {
+      display: none;
+    }
+
+
+    #status {
+
+      margin-top: 14px;
+
+      font-size: 12px;
+
+      color: #5f5a4d;
+
+      min-height: 18px;
+    }
+
+
+    /* =========================
        GALLERY TITLE
-       ===================================================== */
+       ========================= */
 
-    .gallery-title {
-      position: relative;
+    .gallery-heading {
 
-      z-index: 4;
+      font-family: 'Bodoni Moda', serif;
 
-      margin: 58px 0 28px;
+      font-size: clamp(26px, 5vw, 40px);
+
+      font-weight: 500;
+
+      color: #2e6950;
 
       text-align: center;
 
-      color: #1b5943;
-
-      font-family: "Perpetua", cursive;
-
-      font-size: clamp(52px, 8vw, 78px);
-
-      font-weight: 400;
-
-      line-height: 1;
+      margin: 0 0 7px;
     }
 
 
-    /* =====================================================
-       GALLERY
-       ===================================================== */
+    .gallery-description {
 
-    .gallery {
-      position: relative;
+      text-align: center;
 
-      z-index: 4;
+      color: #716b5e;
+
+      font-size: 12px;
+
+      letter-spacing: 1px;
+
+      margin: 0 0 27px;
+    }
+
+
+    /* =========================
+       PHOTO GALLERY
+       ========================= */
+
+    #gallery {
 
       display: grid;
 
       grid-template-columns:
-        repeat(
-          auto-fill,
-          minmax(190px, 1fr)
-        );
+        repeat(auto-fill, minmax(180px, 1fr));
 
-      gap: 20px;
-
-      padding: 12px;
+      gap: 18px;
     }
 
 
-    /* =====================================================
-       PHOTO FRAMES
-       ===================================================== */
-
     .photo-frame {
-      position: relative;
+
+      background: #fffdf5;
 
       padding: 7px;
 
-      background:
-        linear-gradient(
-          135deg,
-          #f0d38a,
-          #b98d36,
-          #f3d993,
-          #aa7d2c,
-          #efd184
-        );
+      border: 1px solid #cba64d;
 
       box-shadow:
-        0 7px 20px rgba(0,0,0,0.17);
+        0 5px 16px rgba(0,0,0,0.16);
 
       transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
     }
+
 
     .photo-frame:hover {
-      transform:
-        translateY(-5px)
-        scale(1.01);
+
+      transform: translateY(-3px);
 
       box-shadow:
-        0 12px 28px rgba(0,0,0,0.2);
+        0 9px 22px rgba(0,0,0,0.22);
     }
 
-    .photo-frame::before {
-      content: "";
-
-      position: absolute;
-
-      inset: 3px;
-
-      border: 1px solid rgba(255,255,255,0.85);
-
-      pointer-events: none;
-    }
 
     .photo-frame img {
-      display: block;
 
       width: 100%;
 
@@ -835,111 +479,78 @@
 
       object-fit: cover;
 
-      background: #eee;
-
-      border: 3px solid #fffaf0;
+      display: block;
     }
 
 
-    /* =====================================================
-       FOOTER
-       ===================================================== */
+    /* =========================
+       SMALL FOOTER
+       ========================= */
 
     .footer {
-      position: relative;
-
-      margin-top: 48px;
 
       text-align: center;
 
-      color: #e5c574;
+      margin-top: 35px;
 
-      font-size: 11px;
+      font-size: 10px;
 
       letter-spacing: 1.5px;
 
-      text-transform: uppercase;
+      color: rgba(242, 221, 167, 0.75);
     }
 
 
-    /* =====================================================
+    /* =========================
        MOBILE
-       ===================================================== */
+       ========================= */
 
     @media (max-width: 600px) {
 
       .page {
-        width: 94%;
-
-        padding-top: 22px;
+        padding: 20px 10px 35px;
       }
 
-      .top-frame {
-        padding: 60px 18px 55px;
+      .outer-frame {
+        padding: 17px;
+        min-height: calc(100vh - 40px);
       }
 
-      h1 {
-        font-size: 76px;
+      .invitation {
+        padding: 38px 17px 35px;
       }
 
-      .small-title {
-        font-size: 9px;
-
-        letter-spacing: 3px;
+      .main-title {
+        font-size: 31px;
+        margin-bottom: 15px;
       }
 
-      .subtitle {
-        font-size: 12px;
-
-        line-height: 1.8;
+      .section-title {
+        font-size: 29px;
       }
 
-      .botanical {
-        width: 145px;
-        height: 145px;
+      .gallery-heading {
+        font-size: 28px;
       }
 
-      .content-card {
-        padding:
-          50px 14px
-          55px;
-      }
-
-      .card-botanical {
-        width: 120px;
-        height: 120px;
-      }
-
-      .section-heading h2 {
-        font-size: 27px;
-      }
-
-      .section-heading p {
-        font-size: 13px;
-      }
-
-      .gallery-title {
-        font-size: 55px;
-      }
-
-      .gallery {
+      #gallery {
         grid-template-columns:
-          repeat(2, 1fr);
+          repeat(2, minmax(0, 1fr));
 
-        gap: 10px;
-
-        padding: 5px;
+        gap: 12px;
       }
 
       .photo-frame img {
         height: 190px;
       }
 
-      .upload-area {
-        padding:
-          30px 17px;
+      .outer-frame::before,
+      .outer-frame::after,
+      .corner-top-right,
+      .corner-bottom-left {
+        width: 45px;
+        height: 45px;
       }
-
     }
 
   </style>
@@ -948,405 +559,104 @@
 
 <body>
 
+  <div class="page">
 
-  <!-- =====================================================
-       BACKGROUND DECORATION
-       ===================================================== -->
+    <div class="outer-frame">
 
-  <div class="background-decoration">
+      <div class="corner-top-right"></div>
+      <div class="corner-bottom-left"></div>
+      <div class="inner-corners"></div>
 
-    <div class="circle one"></div>
-    <div class="circle two"></div>
-    <div class="circle three"></div>
-    <div class="circle four"></div>
+
+      <!-- HEADER -->
+
+      <header class="header">
+
+        <h1 class="main-title">
+          Quinceañera Photos
+        </h1>
+
+        <div class="gold-rule"></div>
+
+      </header>
+
+
+      <!-- CREAM CENTER -->
+
+      <main class="invitation">
+
+
+        <!-- UPLOAD -->
+
+        <section>
+
+          <h2 class="section-title">
+            Share Your Photos
+          </h2>
+
+          <p class="section-subtitle">
+            Capture the memories and add them to the celebration
+          </p>
+
+
+          <div class="upload-box">
+
+            <label
+              for="photoInput"
+              class="upload-button"
+            >
+              SELECT PHOTOS
+            </label>
+
+            <input
+              type="file"
+              id="photoInput"
+              accept="image/*"
+              multiple
+            >
+
+            <div id="status"></div>
+
+          </div>
+
+        </section>
+
+
+        <!-- GALLERY -->
+
+        <section>
+
+          <h2 class="gallery-heading">
+            Memories From The Celebration
+          </h2>
+
+          <p class="gallery-description">
+            Photos shared by family and friends
+          </p>
+
+          <div id="gallery"></div>
+
+        </section>
+
+
+      </main>
+
+
+      <div class="footer">
+        A COLLECTION OF MEMORIES
+      </div>
+
+    </div>
 
   </div>
 
 
-  <main class="page">
-
-
-    <!-- =====================================================
-         HEADER
-         ===================================================== -->
-
-    <header class="top-frame">
-
-
-      <!-- TOP LEFT BOTANICAL -->
-
-      <div class="botanical top-left">
-
-        <svg viewBox="0 0 200 200">
-
-          <path d="M18 175 C45 135 54 92 105 42 C128 20 153 14 180 17" />
-
-          <path d="M48 130 C35 108 23 103 13 105 C23 119 31 127 48 130" />
-
-          <path d="M58 109 C51 86 40 77 27 76 C34 93 43 103 58 109" />
-
-          <path d="M73 88 C71 65 80 50 94 43 C94 61 87 76 73 88" />
-
-          <path d="M91 68 C103 49 119 42 133 44 C124 59 110 66 91 68" />
-
-          <path d="M113 48 C132 32 149 29 162 34 C148 45 132 50 113 48" />
-
-          <ellipse cx="28" cy="145" rx="10" ry="17" transform="rotate(-48 28 145)" />
-
-          <ellipse cx="150" cy="22" rx="9" ry="15" transform="rotate(60 150 22)" />
-
-          <circle cx="166" cy="37" r="4" />
-
-          <circle cx="94" cy="43" r="4" />
-
-        </svg>
-
-      </div>
-
-
-      <!-- TOP RIGHT BOTANICAL -->
-
-      <div class="botanical top-right">
-
-        <svg viewBox="0 0 200 200">
-
-          <path d="M18 175 C45 135 54 92 105 42 C128 20 153 14 180 17" />
-
-          <path d="M48 130 C35 108 23 103 13 105 C23 119 31 127 48 130" />
-
-          <path d="M58 109 C51 86 40 77 27 76 C34 93 43 103 58 109" />
-
-          <path d="M73 88 C71 65 80 50 94 43 C94 61 87 76 73 88" />
-
-          <path d="M91 68 C103 49 119 42 133 44 C124 59 110 66 91 68" />
-
-          <path d="M113 48 C132 32 149 29 162 34 C148 45 132 50 113 48" />
-
-          <ellipse cx="28" cy="145" rx="10" ry="17" transform="rotate(-48 28 145)" />
-
-          <ellipse cx="150" cy="22" rx="9" ry="15" transform="rotate(60 150 22)" />
-
-          <circle cx="166" cy="37" r="4" />
-
-          <circle cx="94" cy="43" r="4" />
-
-        </svg>
-
-      </div>
-
-
-      <!-- BOTTOM LEFT BOTANICAL -->
-
-      <div class="botanical bottom-left">
-
-        <svg viewBox="0 0 200 200">
-
-          <path d="M18 175 C45 135 54 92 105 42 C128 20 153 14 180 17" />
-
-          <path d="M48 130 C35 108 23 103 13 105 C23 119 31 127 48 130" />
-
-          <path d="M58 109 C51 86 40 77 27 76 C34 93 43 103 58 109" />
-
-          <path d="M73 88 C71 65 80 50 94 43 C94 61 87 76 73 88" />
-
-          <path d="M91 68 C103 49 119 42 133 44 C124 59 110 66 91 68" />
-
-          <path d="M113 48 C132 32 149 29 162 34 C148 45 132 50 113 48" />
-
-          <ellipse cx="28" cy="145" rx="10" ry="17" transform="rotate(-48 28 145)" />
-
-          <ellipse cx="150" cy="22" rx="9" ry="15" transform="rotate(60 150 22)" />
-
-          <circle cx="166" cy="37" r="4" />
-
-          <circle cx="94" cy="43" r="4" />
-
-        </svg>
-
-      </div>
-
-
-      <!-- BOTTOM RIGHT BOTANICAL -->
-
-      <div class="botanical bottom-right">
-
-        <svg viewBox="0 0 200 200">
-
-          <path d="M18 175 C45 135 54 92 105 42 C128 20 153 14 180 17" />
-
-          <path d="M48 130 C35 108 23 103 13 105 C23 119 31 127 48 130" />
-
-          <path d="M58 109 C51 86 40 77 27 76 C34 93 43 103 58 109" />
-
-          <path d="M73 88 C71 65 80 50 94 43 C94 61 87 76 73 88" />
-
-          <path d="M91 68 C103 49 119 42 133 44 C124 59 110 66 91 68" />
-
-          <path d="M113 48 C132 32 149 29 162 34 C148 45 132 50 113 48" />
-
-          <ellipse cx="28" cy="145" rx="10" ry="17" transform="rotate(-48 28 145)" />
-
-          <ellipse cx="150" cy="22" rx="9" ry="15" transform="rotate(60 150 22)" />
-
-          <circle cx="166" cy="37" r="4" />
-
-          <circle cx="94" cy="43" r="4" />
-
-        </svg>
-
-      </div>
-
-
-      <div class="small-title">
-        A Celebration Of Love & Memories
-      </div>
-
-
-      <h1>
-        Quinceañera Gallery
-      </h1>
-
-
-      <div class="title-line"></div>
-
-
-      <p class="subtitle">
-        Share your favorite photos and memories from the celebration.
-        Every picture helps make this beautiful day unforgettable.
-      </p>
-
-    </header>
-
-
-    <!-- =====================================================
-         DIVIDER
-         ===================================================== -->
-
-    <div class="gold-divider">
-      <span></span>
-    </div>
-
-
-    <!-- =====================================================
-         MAIN CARD
-         ===================================================== -->
-
-    <section class="content-card">
-
-
-      <!-- CARD BOTANICAL CORNERS -->
-
-      <div class="card-botanical top-left">
-
-        <svg viewBox="0 0 200 200">
-
-          <path d="M15 180 C50 145 55 94 105 47 C130 23 155 15 182 16" />
-
-          <path d="M49 133 C35 113 24 108 13 110 C22 124 33 131 49 133" />
-
-          <path d="M63 108 C54 86 44 78 31 79 C37 95 47 103 63 108" />
-
-          <path d="M77 88 C75 66 84 51 98 44 C98 61 91 76 77 88" />
-
-          <path d="M95 68 C106 51 122 44 137 46 C127 60 113 67 95 68" />
-
-          <path d="M119 48 C137 34 153 31 166 36 C151 46 137 51 119 48" />
-
-          <ellipse cx="31" cy="151" rx="10" ry="18" transform="rotate(-45 31 151)" />
-
-          <ellipse cx="153" cy="23" rx="9" ry="15" transform="rotate(55 153 23)" />
-
-          <circle cx="168" cy="39" r="4" />
-
-        </svg>
-
-      </div>
-
-
-      <div class="card-botanical top-right">
-
-        <svg viewBox="0 0 200 200">
-
-          <path d="M15 180 C50 145 55 94 105 47 C130 23 155 15 182 16" />
-
-          <path d="M49 133 C35 113 24 108 13 110 C22 124 33 131 49 133" />
-
-          <path d="M63 108 C54 86 44 78 31 79 C37 95 47 103 63 108" />
-
-          <path d="M77 88 C75 66 84 51 98 44 C98 61 91 76 77 88" />
-
-          <path d="M95 68 C106 51 122 44 137 46 C127 60 113 67 95 68" />
-
-          <path d="M119 48 C137 34 153 31 166 36 C151 46 137 51 119 48" />
-
-          <ellipse cx="31" cy="151" rx="10" ry="18" transform="rotate(-45 31 151)" />
-
-          <ellipse cx="153" cy="23" rx="9" ry="15" transform="rotate(55 153 23)" />
-
-          <circle cx="168" cy="39" r="4" />
-
-        </svg>
-
-      </div>
-
-
-      <div class="card-botanical bottom-left">
-
-        <svg viewBox="0 0 200 200">
-
-          <path d="M15 180 C50 145 55 94 105 47 C130 23 155 15 182 16" />
-
-          <path d="M49 133 C35 113 24 108 13 110 C22 124 33 131 49 133" />
-
-          <path d="M63 108 C54 86 44 78 31 79 C37 95 47 103 63 108" />
-
-          <path d="M77 88 C75 66 84 51 98 44 C98 61 91 76 77 88" />
-
-          <path d="M95 68 C106 51 122 44 137 46 C127 60 113 67 95 68" />
-
-          <path d="M119 48 C137 34 153 31 166 36 C151 46 137 51 119 48" />
-
-          <ellipse cx="31" cy="151" rx="10" ry="18" transform="rotate(-45 31 151)" />
-
-          <ellipse cx="153" cy="23" rx="9" ry="15" transform="rotate(55 153 23)" />
-
-          <circle cx="168" cy="39" r="4" />
-
-        </svg>
-
-      </div>
-
-
-      <div class="card-botanical bottom-right">
-
-        <svg viewBox="0 0 200 200">
-
-          <path d="M15 180 C50 145 55 94 105 47 C130 23 155 15 182 16" />
-
-          <path d="M49 133 C35 113 24 108 13 110 C22 124 33 131 49 133" />
-
-          <path d="M63 108 C54 86 44 78 31 79 C37 95 47 103 63 108" />
-
-          <path d="M77 88 C75 66 84 51 98 44 C98 61 91 76 77 88" />
-
-          <path d="M95 68 C106 51 122 44 137 46 C127 60 113 67 95 68" />
-
-          <path d="M119 48 C137 34 153 31 166 36 C151 46 137 51 119 48" />
-
-          <ellipse cx="31" cy="151" rx="10" ry="18" transform="rotate(-45 31 151)" />
-
-          <ellipse cx="153" cy="23" rx="9" ry="15" transform="rotate(55 153 23)" />
-
-          <circle cx="168" cy="39" r="4" />
-
-        </svg>
-
-      </div>
-
-
-      <!-- =====================================================
-           SHARE PHOTOS
-           ===================================================== -->
-
-      <div class="section-heading">
-
-        <h2>
-          Share Your Photos
-        </h2>
-
-        <p>
-          Share your photos and memories from the celebration.
-          Every little moment helps tell the story of this special day.
-        </p>
-
-      </div>
-
-
-      <!-- =====================================================
-           UPLOAD
-           ===================================================== -->
-
-      <div class="upload-area">
-
-        <h3>
-          Add Your Memories
-        </h3>
-
-        <p>
-          Select one or several photos from your device.
-        </p>
-
-        <label
-          for="photoInput"
-          class="upload-button"
-        >
-          Choose Photos
-        </label>
-
-        <input
-          type="file"
-          id="photoInput"
-          accept="image/*"
-          multiple
-        >
-
-        <div id="status"></div>
-
-      </div>
-
-
-      <!-- =====================================================
-           GALLERY DIVIDER
-           ===================================================== -->
-
-      <div class="gold-divider">
-        <span></span>
-      </div>
-
-
-      <!-- =====================================================
-           GALLERY TITLE
-           ===================================================== -->
-
-      <h2 class="gallery-title">
-        Memories From The Celebration
-      </h2>
-
-
-      <!-- =====================================================
-           GALLERY
-           ===================================================== -->
-
-      <div
-        id="gallery"
-        class="gallery">
-      </div>
-
-
-    </section>
-
-
-    <footer class="footer">
-      Made with love for this special celebration
-    </footer>
-
-
-  </main>
-
-
-  <!-- =====================================================
-       SUPABASE
-       ===================================================== -->
+  <!-- SUPABASE -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
   <script>
-
-
-    /* =====================================================
-       SUPABASE CONFIGURATION
-       ===================================================== */
 
     const SUPABASE_URL =
       "https://tsyadfkwthcnvflsoinr.supabase.co";
@@ -1362,278 +672,217 @@
       );
 
 
-    /* =====================================================
+    const photoInput =
+      document.getElementById("photoInput");
+
+    const gallery =
+      document.getElementById("gallery");
+
+    const status =
+      document.getElementById("status");
+
+
+    /* =========================
        IMAGE COMPRESSION
-       ===================================================== */
+       ========================= */
 
     function compressImage(file) {
 
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
 
-        const reader =
-          new FileReader();
+        const img = new Image();
 
-        reader.onload =
-          function(event) {
-
-            const img =
-              new Image();
-
-            img.onload =
-              function() {
-
-                const maxWidth = 2000;
-                const maxHeight = 2000;
-
-                let width =
-                  img.width;
-
-                let height =
-                  img.height;
+        const reader = new FileReader();
 
 
-                if (
-                  width > maxWidth ||
-                  height > maxHeight
-                ) {
+        reader.onload = function(event) {
 
-                  const ratio =
-                    Math.min(
-                      maxWidth / width,
-                      maxHeight / height
-                    );
+          img.onload = function() {
 
-                  width *= ratio;
+            const maxWidth = 2000;
+            const maxHeight = 2000;
 
-                  height *= ratio;
-                }
+            let width = img.width;
+            let height = img.height;
 
 
-                const canvas =
-                  document.createElement(
-                    "canvas"
-                  );
+            if (width > maxWidth) {
+
+              height =
+                height * (maxWidth / width);
+
+              width = maxWidth;
+            }
 
 
-                canvas.width =
-                  width;
+            if (height > maxHeight) {
 
-                canvas.height =
-                  height;
+              width =
+                width * (maxHeight / height);
 
-
-                const ctx =
-                  canvas.getContext(
-                    "2d"
-                  );
+              height = maxHeight;
+            }
 
 
-                ctx.drawImage(
-                  img,
-                  0,
-                  0,
-                  width,
-                  height
-                );
+            const canvas =
+              document.createElement("canvas");
+
+            canvas.width = width;
+            canvas.height = height;
 
 
-                canvas.toBlob(
-                  blob => {
+            const ctx =
+              canvas.getContext("2d");
 
-                    if (!blob) {
-
-                      reject(
-                        new Error(
-                          "Image compression failed."
-                        )
-                      );
-
-                      return;
-                    }
+            ctx.drawImage(
+              img,
+              0,
+              0,
+              width,
+              height
+            );
 
 
-                    const compressedFile =
-                      new File(
-                        [blob],
-                        "photo.jpg",
-                        {
-                          type:
-                            "image/jpeg"
-                        }
-                      );
+            canvas.toBlob(
+              (blob) => {
 
+                resolve(blob);
 
-                    resolve(
-                      compressedFile
-                    );
-
-                  },
-                  "image/jpeg",
-                  0.85
-                );
-
-              };
-
-
-            img.onerror =
-              reject;
-
-            img.src =
-              event.target.result;
+              },
+              "image/jpeg",
+              0.85
+            );
 
           };
 
 
-        reader.onerror =
-          reject;
+          img.src = event.target.result;
 
-        reader.readAsDataURL(
-          file
-        );
+        };
+
+
+        reader.readAsDataURL(file);
 
       });
 
     }
 
 
-    /* =====================================================
+    /* =========================
        UPLOAD PHOTOS
-       ===================================================== */
+       ========================= */
 
-    document
-      .getElementById("photoInput")
-      .addEventListener(
-        "change",
-        async function(event) {
+    photoInput.addEventListener(
+      "change",
+      async function() {
 
-          const files =
-            event.target.files;
+        const files =
+          Array.from(photoInput.files);
 
 
-          if (
-            !files ||
-            files.length === 0
-          ) {
-            return;
-          }
+        if (!files.length) {
+          return;
+        }
 
 
-          const status =
-            document.getElementById(
-              "status"
-            );
+        status.textContent =
+          `Uploading ${files.length} photo${files.length > 1 ? "s" : ""}...`;
 
 
-          status.textContent =
-            `Preparing ${files.length} photo${files.length === 1 ? "" : "s"}...`;
+        let uploaded = 0;
 
 
-          let uploaded = 0;
+        for (
+          let i = 0;
+          i < files.length;
+          i++
+        ) {
+
+          const file = files[i];
 
 
           try {
 
-            for (
-              let i = 0;
-              i < files.length;
-              i++
-            ) {
+            const compressedFile =
+              await compressImage(file);
 
-              const compressedFile =
-                await compressImage(
-                  files[i]
+
+            const filePath =
+              "uploads/" +
+              Date.now() +
+              "-" +
+              Math.random()
+                .toString(36)
+                .substring(2, 10) +
+              "-" +
+              i +
+              ".jpg";
+
+
+            const {
+              error
+            } =
+              await supabaseClient
+                .storage
+                .from("Quince photos")
+                .upload(
+                  filePath,
+                  compressedFile,
+                  {
+                    cacheControl: "3600",
+                    contentType: "image/jpeg",
+                    upsert: false
+                  }
                 );
 
 
-              const filePath =
-                "uploads/" +
-                Date.now() +
-                "-" +
-                Math.random()
-                  .toString(36)
-                  .substring(2, 10) +
-                "-" +
-                i +
-                ".jpg";
+            if (error) {
 
+              console.error(
+                "Upload error:",
+                error
+              );
 
-              const { error } =
-                await supabaseClient
-                  .storage
-                  .from(
-                    "Quince photos"
-                  )
-                  .upload(
-                    filePath,
-                    compressedFile,
-                    {
-                      cacheControl:
-                        "3600",
-
-                      contentType:
-                        "image/jpeg",
-
-                      upsert:
-                        false
-                    }
-                  );
-
-
-              if (error) {
-                throw error;
-              }
-
-
-              uploaded++;
-
-
-              status.textContent =
-                `Uploaded ${uploaded} of ${files.length} photos...`;
-
+              continue;
             }
 
 
-            status.textContent =
-              `✓ ${uploaded} photo${uploaded === 1 ? "" : "s"} added!`;
+            uploaded++;
 
+          }
 
-            event.target.value =
-              "";
-
-
-            loadGallery();
-
-
-          } catch (error) {
+          catch (error) {
 
             console.error(
+              "Photo error:",
               error
             );
-
-
-            status.textContent =
-              "Something went wrong while uploading. Please try again.";
 
           }
 
         }
-      );
 
 
-    /* =====================================================
+        status.textContent =
+          `${uploaded} photo${uploaded !== 1 ? "s" : ""} uploaded successfully!`;
+
+
+        photoInput.value = "";
+
+
+        loadGallery();
+
+      }
+    );
+
+
+    /* =========================
        LOAD GALLERY
-       ===================================================== */
+       ========================= */
 
     async function loadGallery() {
 
-      const gallery =
-        document.getElementById(
-          "gallery"
-        );
-
-
-      gallery.innerHTML =
-        "";
+      gallery.innerHTML = "";
 
 
       const {
@@ -1642,22 +891,15 @@
       } =
         await supabaseClient
           .storage
-          .from(
-            "Quince photos"
-          )
+          .from("Quince photos")
           .list(
             "uploads",
             {
               limit: 100,
-
               offset: 0,
-
               sortBy: {
-                column:
-                  "created_at",
-
-                order:
-                  "desc"
+                column: "created_at",
+                order: "desc"
               }
             }
           );
@@ -1666,96 +908,72 @@
       if (error) {
 
         console.error(
+          "Gallery error:",
           error
         );
 
+        return;
+      }
+
+
+      if (!data || data.length === 0) {
 
         gallery.innerHTML =
-          "<p>Unable to load photos.</p>";
+          "<p style='text-align:center; color:#777;'>No photos yet.</p>";
 
         return;
       }
 
 
-      if (
-        !data ||
-        data.length === 0
-      ) {
+      data.forEach((file) => {
 
-        gallery.innerHTML =
-          "<p style='text-align:center; color:#777;'>Photos will appear here after they are uploaded.</p>";
-
-        return;
-      }
+        const filePath =
+          "uploads/" + file.name;
 
 
-      data.forEach(
-        file => {
-
-          const filePath =
-            "uploads/" +
-            file.name;
-
-
-          const {
-            data:
-              publicUrlData
-          } =
-            supabaseClient
-              .storage
-              .from(
-                "Quince photos"
-              )
-              .getPublicUrl(
-                filePath
-              );
+        const {
+          data: publicUrlData
+        } =
+          supabaseClient
+            .storage
+            .from("Quince photos")
+            .getPublicUrl(filePath);
 
 
-          const frame =
-            document.createElement(
-              "div"
-            );
+        const frame =
+          document.createElement("div");
+
+        frame.className =
+          "photo-frame";
 
 
-          frame.className =
-            "photo-frame";
+        const img =
+          document.createElement("img");
+
+        img.src =
+          publicUrlData.publicUrl;
+
+        img.alt =
+          "Quinceañera photo";
+
+        img.loading =
+          "lazy";
 
 
-          const img =
-            document.createElement(
-              "img"
-            );
+        frame.appendChild(img);
 
+        gallery.appendChild(frame);
 
-          img.src =
-            publicUrlData.publicUrl;
-
-
-          img.alt =
-            "Quinceañera memory";
-
-
-          frame.appendChild(
-            img
-          );
-
-
-          gallery.appendChild(
-            frame
-          );
-
-        }
-      );
+      });
 
     }
 
 
-    /* =====================================================
+    /* =========================
        INITIAL LOAD
-       ===================================================== */
+       ========================= */
 
     loadGallery();
-
 
   </script>
 
