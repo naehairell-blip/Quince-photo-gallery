@@ -7,7 +7,6 @@
 
   <title>Quinceañera Photo Gallery</title>
 
-  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -55,8 +54,10 @@
 
     #status {
       margin-top: 15px;
+      padding: 12px;
       font-weight: bold;
-      min-height: 24px;
+      min-height: 30px;
+      word-break: break-word;
     }
 
     #gallery {
@@ -83,6 +84,7 @@
   </style>
 </head>
 
+
 <body>
 
   <div class="container">
@@ -92,6 +94,7 @@
     <p class="subtitle">
       Upload and share your favorite photos from the celebration! 📸
     </p>
+
 
     <div class="upload-box">
 
@@ -103,14 +106,19 @@
         accept="image/*"
       >
 
-      <div id="status"></div>
+      <div id="status">
+        Ready. Choose a photo to begin.
+      </div>
 
     </div>
+
 
     <h2>Photos</h2>
 
     <div id="gallery">
-      <div class="empty">Loading photos...</div>
+      <div class="empty">
+        Gallery loading...
+      </div>
     </div>
 
   </div>
@@ -118,12 +126,390 @@
 
   <script>
 
-    // =====================================
-    // SUPABASE INFORMATION
-    // =====================================
+    // ==========================================
+    // SUPABASE SETTINGS
+    // ==========================================
 
     const SUPABASE_URL =
       "https://tsyadfkwthcnvflsoinr.supabase.co";
 
     const SUPABASE_KEY =
-      "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC
+      "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
+
+    const BUCKET_NAME =
+      "Quince photos";
+
+
+    // ==========================================
+    // PAGE ELEMENTS
+    // ==========================================
+
+    const uploadInput =
+      document.getElementById("upload");
+
+    const status =
+      document.getElementById("status");
+
+    const gallery =
+      document.getElementById("gallery");
+
+
+    // ==========================================
+    // CREATE SUPABASE CLIENT
+    // ==========================================
+
+    let supabaseClient = null;
+
+    try {
+
+      if (!window.supabase) {
+
+        status.textContent =
+          "ERROR: Supabase library did not load.";
+
+      } else {
+
+        supabaseClient =
+          window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+          );
+
+        console.log(
+          "Supabase client created successfully."
+        );
+
+      }
+
+    } catch (error) {
+
+      status.textContent =
+        "ERROR creating Supabase client: " +
+        error.message;
+
+      console.error(error);
+
+    }
+
+
+    // ==========================================
+    // TEST UPLOAD
+    // ==========================================
+
+    uploadInput.addEventListener(
+      "change",
+      async function () {
+
+        console.log("CHANGE EVENT FIRED");
+
+        status.textContent =
+          "Step 1: Photo selected.";
+
+        const file =
+          uploadInput.files[0];
+
+
+        if (!file) {
+
+          status.textContent =
+            "No photo was selected.";
+
+          return;
+        }
+
+
+        console.log(
+          "Selected file:",
+          file
+        );
+
+
+        status.textContent =
+          "Step 2: Photo selected successfully. " +
+          "Preparing upload...";
+
+
+        if (!supabaseClient) {
+
+          status.textContent =
+            "ERROR: Supabase client is not available.";
+
+          return;
+        }
+
+
+        // Create a unique filename
+
+        const extension =
+          file.name.includes(".")
+            ? file.name.substring(
+                file.name.lastIndexOf(".")
+              )
+            : "";
+
+        const fileName =
+          Date.now() +
+          "_" +
+          Math.random()
+            .toString(36)
+            .substring(2, 10) +
+          extension;
+
+
+        const filePath =
+          "uploads/" + fileName;
+
+
+        console.log(
+          "Uploading to:",
+          filePath
+        );
+
+
+        status.textContent =
+          "Step 3: Uploading photo to Supabase...";
+
+
+        try {
+
+          const result =
+            await supabaseClient.storage
+              .from(BUCKET_NAME)
+              .upload(
+                filePath,
+                file,
+                {
+                  cacheControl: "3600",
+                  contentType: file.type,
+                  upsert: false
+                }
+              );
+
+
+          console.log(
+            "SUPABASE RESULT:",
+            result
+          );
+
+
+          if (result.error) {
+
+            status.textContent =
+              "UPLOAD ERROR: " +
+              result.error.message;
+
+            console.error(
+              "Supabase upload error:",
+              result.error
+            );
+
+            return;
+          }
+
+
+          status.textContent =
+            "Step 4: Upload successful! 🎉";
+
+
+          // Get public URL
+
+          const publicResult =
+            supabaseClient.storage
+              .from(BUCKET_NAME)
+              .getPublicUrl(filePath);
+
+
+          console.log(
+            "PUBLIC URL:",
+            publicResult.data.publicUrl
+          );
+
+
+          // Display uploaded photo
+
+          const image =
+            document.createElement("img");
+
+          image.src =
+            publicResult.data.publicUrl;
+
+          image.alt =
+            "Quinceañera photo";
+
+          image.className =
+            "photo";
+
+
+          gallery.prepend(image);
+
+
+          status.textContent =
+            "Photo uploaded successfully! 🎉";
+
+
+          uploadInput.value = "";
+
+
+        } catch (error) {
+
+          console.error(
+            "UNEXPECTED ERROR:",
+            error
+          );
+
+          status.textContent =
+            "UNEXPECTED ERROR: " +
+            error.message;
+
+        }
+
+      }
+    );
+
+
+    // ==========================================
+    // LOAD EXISTING PHOTOS
+    // ==========================================
+
+    async function loadPhotos() {
+
+      if (!supabaseClient) {
+        return;
+      }
+
+
+      try {
+
+        status.textContent =
+          "Checking photo gallery...";
+
+
+        const result =
+          await supabaseClient.storage
+            .from(BUCKET_NAME)
+            .list(
+              "uploads",
+              {
+                limit: 100,
+                offset: 0,
+                sortBy: {
+                  column: "created_at",
+                  order: "desc"
+                }
+              }
+            );
+
+
+        console.log(
+          "GALLERY RESULT:",
+          result
+        );
+
+
+        if (result.error) {
+
+          gallery.innerHTML =
+            '<div class="empty">' +
+            "Gallery error: " +
+            result.error.message +
+            "</div>";
+
+          status.textContent =
+            "Gallery error: " +
+            result.error.message;
+
+          return;
+        }
+
+
+        gallery.innerHTML = "";
+
+
+        if (
+          !result.data ||
+          result.data.length === 0
+        ) {
+
+          gallery.innerHTML =
+            '<div class="empty">' +
+            "No photos in the gallery yet." +
+            "</div>";
+
+          status.textContent =
+            "Gallery connected. No photos found.";
+
+          return;
+        }
+
+
+        result.data.forEach(
+          function (file) {
+
+            if (!file.name) {
+              return;
+            }
+
+
+            const filePath =
+              "uploads/" + file.name;
+
+
+            const publicResult =
+              supabaseClient.storage
+                .from(BUCKET_NAME)
+                .getPublicUrl(filePath);
+
+
+            const image =
+              document.createElement("img");
+
+
+            image.src =
+              publicResult.data.publicUrl;
+
+            image.alt =
+              "Quinceañera photo";
+
+            image.className =
+              "photo";
+
+
+            gallery.appendChild(image);
+
+          }
+        );
+
+
+        status.textContent =
+          "Gallery loaded! " +
+          result.data.length +
+          " photo(s) found.";
+
+
+      } catch (error) {
+
+        console.error(
+          "GALLERY ERROR:",
+          error
+        );
+
+        status.textContent =
+          "Gallery error: " +
+          error.message;
+
+      }
+
+    }
+
+
+    // ==========================================
+    // START
+    // ==========================================
+
+    loadPhotos();
+
+  </script>
+
+</body>
+
+</html>
