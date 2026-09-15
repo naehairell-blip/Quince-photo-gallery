@@ -1,661 +1,966 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Quinceañera Gallery</title>
 
-  <!-- Elegant readable fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  >
+  <!-- Elegant fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
-
-    /* ==========================================
-       COLORS
-       ========================================== */
-
-    :root {
-      --emerald: #064d3b;
-      --deep-emerald: #032f25;
-      --gold: #c9a44c;
-      --light-gold: #e3cc82;
-      --cream: #f8f3e7;
-      --dark-text: #173b32;
-    }
-
-
-    /* ==========================================
-       GENERAL PAGE
-       ========================================== */
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
-      padding: 0;
+      min-height: 100vh;
+
       font-family: "Montserrat", Arial, sans-serif;
+
+      color: #173f32;
+
       background:
         radial-gradient(
-          circle at top,
-          #0b624c 0%,
-          var(--emerald) 45%,
-          var(--deep-emerald) 100%
+          circle at 50% 35%,
+          #3f8067 0%,
+          #28624d 28%,
+          #164937 58%,
+          #0a3025 82%,
+          #061f18 100%
         );
-      color: var(--cream);
-      min-height: 100vh;
+
+      overflow-x: hidden;
     }
 
+    /* =====================================================
+       DECORATIVE GOLD BACKGROUND
+       ===================================================== */
 
-    .container {
-      width: 100%;
-      max-width: 950px;
-      margin: 0 auto;
-      padding: 0 18px 50px;
-    }
-
-
-    /* ==========================================
-       HEADER
-       ========================================== */
-
-    .header {
-      position: relative;
-      text-align: center;
-      padding: 60px 20px 50px;
-      overflow: hidden;
-    }
-
-
-    .header::before,
-    .header::after {
+    body::before,
+    body::after {
       content: "";
-      position: absolute;
-      left: 7%;
-      right: 7%;
-      height: 1px;
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      width: 520px;
+      height: 520px;
+
+      top: -210px;
+      left: -210px;
+
+      border: 2px solid rgba(221, 183, 93, 0.45);
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 0 12px rgba(221, 183, 93, 0.08),
+        0 0 0 25px rgba(221, 183, 93, 0.04);
+    }
+
+    body::after {
+      width: 520px;
+      height: 520px;
+
+      bottom: -230px;
+      right: -230px;
+
+      border: 2px solid rgba(221, 183, 93, 0.45);
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 0 12px rgba(221, 183, 93, 0.08),
+        0 0 0 25px rgba(221, 183, 93, 0.04);
+    }
+
+    /* =====================================================
+       MAIN PAGE
+       ===================================================== */
+
+    .page {
+      position: relative;
+      z-index: 1;
+
+      width: min(1100px, 94%);
+      margin: 0 auto;
+
+      padding: 45px 0 70px;
+    }
+
+    /* =====================================================
+       ORNATE TOP FRAME
+       ===================================================== */
+
+    .top-frame {
+      position: relative;
+
+      padding: 55px 35px 45px;
+
+      text-align: center;
+
+      border: 1px solid rgba(224, 190, 105, 0.85);
+
       background:
         linear-gradient(
-          to right,
-          transparent,
-          var(--gold),
-          transparent
+          135deg,
+          rgba(255,255,255,0.05),
+          rgba(255,255,255,0.015)
         );
+
+      box-shadow:
+        0 0 0 6px rgba(218, 180, 89, 0.08),
+        0 0 35px rgba(0,0,0,0.25);
     }
 
-
-    .header::before {
-      top: 30px;
-    }
-
-
-    .header::after {
-      bottom: 25px;
-    }
-
-
-    .ornament {
-      color: var(--gold);
-      font-size: 30px;
-      letter-spacing: 8px;
-      margin-bottom: 14px;
-    }
-
-
-    h1 {
-      margin: 0;
-      font-family: "Cinzel", Georgia, serif;
-      font-size: clamp(38px, 9vw, 64px);
-      font-weight: 600;
-      letter-spacing: 2px;
-      line-height: 1.15;
-      color: var(--light-gold);
-      text-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.25);
-    }
-
-
-    .header-subtitle {
-      max-width: 600px;
-      margin: 18px auto 0;
-      font-size: 13px;
-      line-height: 1.8;
-      color: var(--cream);
-      letter-spacing: 0.4px;
-    }
-
-
-    /* ==========================================
-       ORNATE DECORATIVE FRAME
-       ========================================== */
-
-    .gold-frame {
-      position: relative;
-      border: 1px solid var(--gold);
-      padding: 8px;
-      margin-bottom: 28px;
-    }
-
-
-    .gold-frame::before {
+    .top-frame::before {
       content: "";
+
       position: absolute;
-      inset: 5px;
-      border: 1px solid rgba(227, 204, 130, 0.55);
+      inset: 10px;
+
+      border: 1px solid rgba(224, 190, 105, 0.45);
+
       pointer-events: none;
     }
 
+    /* =====================================================
+       GOLD CORNER FLOURISHES
+       ===================================================== */
 
-    .corner {
+    .flourish {
       position: absolute;
-      color: var(--gold);
-      font-family: Georgia, serif;
-      font-size: 28px;
-      line-height: 1;
-      z-index: 2;
+
+      width: 150px;
+      height: 150px;
+
+      pointer-events: none;
     }
 
+    .flourish::before,
+    .flourish::after {
+      content: "";
 
-    .corner.top-left {
-      top: -4px;
-      left: -4px;
+      position: absolute;
+
+      border-color: #dcb75f;
+      border-style: solid;
+
+      opacity: 0.95;
     }
 
+    .flourish::before {
+      width: 115px;
+      height: 115px;
 
-    .corner.top-right {
-      top: -4px;
-      right: -4px;
-      transform: rotate(90deg);
+      border-width: 3px 0 0 3px;
+
+      border-radius: 75% 0 0 0;
+
+      top: 15px;
+      left: 15px;
+
+      transform: rotate(8deg);
     }
 
+    .flourish::after {
+      width: 70px;
+      height: 70px;
 
-    .corner.bottom-left {
-      bottom: -4px;
-      left: -4px;
-      transform: rotate(-90deg);
+      border-width: 0 0 3px 3px;
+
+      border-radius: 0 0 0 80%;
+
+      top: 45px;
+      left: 45px;
+
+      transform: rotate(-15deg);
     }
 
+    .flourish span,
+    .flourish span::before,
+    .flourish span::after {
+      position: absolute;
 
-    .corner.bottom-right {
-      bottom: -4px;
-      right: -4px;
-      transform: rotate(180deg);
+      display: block;
+
+      border: 2px solid #dcb75f;
+
+      border-radius: 50%;
     }
 
+    .flourish span {
+      width: 24px;
+      height: 24px;
 
-    /* ==========================================
-       UPLOAD CARD
-       ========================================== */
-
-    .upload-card {
-      background: var(--cream);
-      color: var(--dark-text);
-      padding: 35px 25px;
-      text-align: center;
-      position: relative;
+      top: 20px;
+      left: 88px;
     }
 
+    .flourish span::before {
+      content: "";
 
-    .upload-card h2 {
-      margin: 0;
-      font-family: "Cinzel", Georgia, serif;
-      font-size: 30px;
+      width: 17px;
+      height: 17px;
+
+      top: 28px;
+      left: 25px;
+    }
+
+    .flourish span::after {
+      content: "";
+
+      width: 12px;
+      height: 12px;
+
+      top: 52px;
+      left: 45px;
+    }
+
+    .top-left {
+      top: 0;
+      left: 0;
+
+      transform: rotate(0deg);
+    }
+
+    .top-right {
+      top: 0;
+      right: 0;
+
+      transform: scaleX(-1);
+    }
+
+    .bottom-left {
+      bottom: 0;
+      left: 0;
+
+      transform: scaleY(-1);
+    }
+
+    .bottom-right {
+      bottom: 0;
+      right: 0;
+
+      transform: scale(-1);
+    }
+
+    /* =====================================================
+       TITLE
+       ===================================================== */
+
+    .small-title {
+      margin-bottom: 8px;
+
+      color: #e4c46e;
+
+      font-size: 15px;
       font-weight: 600;
-      color: var(--emerald);
-      letter-spacing: 1px;
+
+      letter-spacing: 5px;
+      text-transform: uppercase;
     }
 
+    h1 {
+      margin: 0;
 
-    .gold-divider {
-      width: 90px;
+      color: #f2d98a;
+
+      font-family: "Allura", cursive;
+
+      font-size: clamp(72px, 12vw, 125px);
+
+      font-weight: 400;
+
+      line-height: 0.9;
+
+      text-shadow:
+        0 3px 0 rgba(0,0,0,0.12),
+        0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .title-line {
+      width: min(500px, 70%);
+
       height: 1px;
-      margin: 13px auto 15px;
+
+      margin: 25px auto 20px;
+
       background:
         linear-gradient(
-          to right,
+          90deg,
           transparent,
-          var(--gold),
+          #dcb75f,
+          #f0d58b,
+          #dcb75f,
           transparent
         );
     }
 
+    .subtitle {
+      margin: 0 auto;
 
-    .upload-description {
-      max-width: 500px;
-      margin: 0 auto 22px;
-      font-size: 13px;
-      line-height: 1.7;
-      color: #596760;
+      max-width: 650px;
+
+      color: #f5ead0;
+
+      font-size: 15px;
+
+      line-height: 1.8;
+
+      letter-spacing: 1px;
     }
 
+    /* =====================================================
+       GOLD ORNAMENT BETWEEN SECTIONS
+       ===================================================== */
 
-    /* ==========================================
-       UPLOAD BUTTON
-       ========================================== */
+    .gold-ornament {
+      display: flex;
 
-    .upload-button {
-      display: inline-block;
-      padding: 14px 28px;
-      background: var(--emerald);
-      color: var(--light-gold);
-      border: 1px solid var(--gold);
-      font-family: "Montserrat", Arial, sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow:
-        0 4px 12px rgba(3, 47, 37, 0.2);
+      align-items: center;
+      justify-content: center;
+
+      gap: 12px;
+
+      margin: 35px auto;
     }
 
+    .gold-ornament::before,
+    .gold-ornament::after {
+      content: "";
 
-    .upload-button:hover {
-      background: #08644c;
-      box-shadow:
-        0 5px 16px rgba(3, 47, 37, 0.3);
+      width: 120px;
+      max-width: 25vw;
+
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          #dcb75f
+        );
     }
 
-
-    .upload-button:active {
-      transform: translateY(1px);
+    .gold-ornament::after {
+      background:
+        linear-gradient(
+          90deg,
+          #dcb75f,
+          transparent
+        );
     }
 
+    .gold-ornament span {
+      width: 15px;
+      height: 15px;
 
-    #upload {
-      display: none;
+      border: 2px solid #dcb75f;
+
+      transform: rotate(45deg);
     }
 
+    /* =====================================================
+       CONTENT CARD
+       ===================================================== */
 
-    /* ==========================================
-       STATUS
-       ========================================== */
-
-    #status {
-      min-height: 24px;
-      margin-top: 18px;
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1.5;
-      color: var(--emerald);
-      word-break: break-word;
-    }
-
-
-    /* ==========================================
-       GALLERY SECTION
-       ========================================== */
-
-    .gallery-section {
-      background: var(--cream);
-      color: var(--dark-text);
-      padding: 30px 18px 35px;
+    .content-card {
       position: relative;
+
+      margin-top: 40px;
+
+      padding: 55px 30px 60px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #fffdf6,
+          #f8f0dc
+        );
+
+      border: 3px solid #d4ad50;
+
+      box-shadow:
+        0 0 0 7px rgba(220, 183, 95, 0.18),
+        0 18px 45px rgba(0,0,0,0.30);
+
+      overflow: hidden;
     }
 
+    .content-card::before {
+      content: "";
 
-    .gallery-title {
+      position: absolute;
+      inset: 12px;
+
+      border: 1px solid #d4ad50;
+
+      pointer-events: none;
+    }
+
+    .content-card::after {
+      content: "";
+
+      position: absolute;
+
+      width: 400px;
+      height: 400px;
+
+      top: -260px;
+      right: -230px;
+
+      border: 1px solid rgba(180, 140, 48, 0.35);
+
+      border-radius: 50%;
+
+      box-shadow:
+        0 0 0 15px rgba(180, 140, 48, 0.05),
+        0 0 0 30px rgba(180, 140, 48, 0.04);
+    }
+
+    /* =====================================================
+       CARD CORNER FLOURISHES
+       ===================================================== */
+
+    .card-flourish {
+      position: absolute;
+
+      width: 115px;
+      height: 115px;
+
+      pointer-events: none;
+
+      z-index: 2;
+    }
+
+    .card-flourish::before {
+      content: "";
+
+      position: absolute;
+
+      width: 85px;
+      height: 85px;
+
+      border: 2px solid #cba64d;
+
+      border-right: 0;
+      border-bottom: 0;
+
+      border-radius: 80% 0 0 0;
+    }
+
+    .card-flourish::after {
+      content: "";
+
+      position: absolute;
+
+      width: 35px;
+      height: 35px;
+
+      border: 2px solid #cba64d;
+
+      border-radius: 70% 0 70% 0;
+
+      transform: rotate(20deg);
+    }
+
+    .card-top-left {
+      top: 17px;
+      left: 17px;
+    }
+
+    .card-top-right {
+      top: 17px;
+      right: 17px;
+
+      transform: scaleX(-1);
+    }
+
+    .card-bottom-left {
+      bottom: 17px;
+      left: 17px;
+
+      transform: scaleY(-1);
+    }
+
+    .card-bottom-right {
+      bottom: 17px;
+      right: 17px;
+
+      transform: scale(-1);
+    }
+
+    /* =====================================================
+       SECTION HEADING
+       ===================================================== */
+
+    .section-heading {
+      position: relative;
+      z-index: 3;
+
       text-align: center;
-      margin-bottom: 25px;
+
+      margin-bottom: 35px;
     }
 
-
-    .gallery-title h2 {
+    .section-heading h2 {
       margin: 0;
-      font-family: "Cinzel", Georgia, serif;
-      font-size: 31px;
-      font-weight: 600;
-      color: var(--emerald);
-      letter-spacing: 0.8px;
+
+      color: #174b3a;
+
+      font-family: "Allura", cursive;
+
+      font-size: clamp(48px, 8vw, 75px);
+
+      font-weight: 400;
+
+      line-height: 1;
     }
 
+    .section-heading p {
+      margin: 13px auto 0;
 
-    .gallery-title p {
-      margin: 9px 0 0;
-      font-size: 12px;
-      color: #6b756f;
-    }
+      max-width: 600px;
 
+      color: #6d705f;
 
-    /* ==========================================
-       GALLERY
-       ========================================== */
+      font-size: 14px;
 
-    #gallery {
-      display: grid;
-      grid-template-columns:
-        repeat(auto-fill, minmax(145px, 1fr));
-      gap: 16px;
-    }
+      line-height: 1.7;
 
-
-    .photo {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-      background: #e8e0ce;
-
-      border: 3px solid var(--cream);
-
-      box-shadow:
-        0 0 0 1px var(--gold),
-        0 5px 14px rgba(3, 47, 37, 0.16);
-
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-
-    .photo:hover {
-      transform: translateY(-2px);
-
-      box-shadow:
-        0 0 0 1px var(--gold),
-        0 7px 18px rgba(3, 47, 37, 0.22);
-    }
-
-
-    .empty {
-      text-align: center;
-      grid-column: 1 / -1;
-      padding: 45px 20px;
-
-      background: #fffdf8;
-
-      border: 1px solid var(--gold);
-
-      color: #6b756f;
-
-      font-size: 13px;
-    }
-
-
-    /* ==========================================
-       FOOTER
-       ========================================== */
-
-    .footer {
-      text-align: center;
-      padding: 28px 15px 10px;
-      color: #d9c98e;
-      font-size: 11px;
       letter-spacing: 0.4px;
     }
 
+    /* =====================================================
+       UPLOAD AREA
+       ===================================================== */
 
-    .footer-ornament {
-      font-family: Georgia, serif;
-      font-size: 25px;
-      color: var(--gold);
-      margin-bottom: 8px;
+    .upload-area {
+      position: relative;
+      z-index: 3;
+
+      max-width: 650px;
+
+      margin: 0 auto;
+
+      padding: 35px 25px;
+
+      text-align: center;
+
+      background: rgba(255,255,255,0.65);
+
+      border: 1px solid #d9bb70;
+
+      box-shadow:
+        inset 0 0 30px rgba(200,165,75,0.08);
     }
 
+    .upload-area h3 {
+      margin: 0 0 8px;
 
-    /* ==========================================
+      color: #174b3a;
+
+      font-size: 19px;
+
+      font-weight: 600;
+
+      letter-spacing: 0.5px;
+    }
+
+    .upload-area p {
+      margin: 0 0 22px;
+
+      color: #777767;
+
+      font-size: 13px;
+
+      line-height: 1.6;
+    }
+
+    /* =====================================================
+       UPLOAD BUTTON
+       ===================================================== */
+
+    .upload-button {
+      display: inline-block;
+
+      padding: 14px 32px;
+
+      color: #fffdf4;
+
+      background:
+        linear-gradient(
+          135deg,
+          #1c5944,
+          #0f392b
+        );
+
+      border: 2px solid #dcb75f;
+
+      box-shadow:
+        0 5px 15px rgba(0,0,0,0.16),
+        inset 0 0 0 1px rgba(255,255,255,0.1);
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+      letter-spacing: 1.5px;
+
+      text-transform: uppercase;
+
+      cursor: pointer;
+
+      transition: all 0.25s ease;
+    }
+
+    .upload-button:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    #status {
+      min-height: 24px;
+
+      margin-top: 20px;
+
+      color: #1c5944;
+
+      font-size: 13px;
+
+      font-weight: 600;
+    }
+
+    /* =====================================================
+       GALLERY
+       ===================================================== */
+
+    .gallery-title {
+      position: relative;
+      z-index: 3;
+
+      margin: 60px 0 25px;
+
+      text-align: center;
+
+      color: #174b3a;
+
+      font-family: "Allura", cursive;
+
+      font-size: clamp(48px, 7vw, 68px);
+
+      font-weight: 400;
+    }
+
+    .gallery {
+      position: relative;
+      z-index: 3;
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+
+      gap: 18px;
+
+      padding: 10px;
+    }
+
+    /* =====================================================
+       PHOTO FRAMES
+       ===================================================== */
+
+    .photo-frame {
+      position: relative;
+
+      padding: 7px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f4df9d,
+          #b88a32,
+          #f3d987,
+          #b88a32
+        );
+
+      box-shadow:
+        0 6px 18px rgba(0,0,0,0.15);
+
+      transition: transform 0.25s ease;
+    }
+
+    .photo-frame:hover {
+      transform: translateY(-4px) rotate(0.5deg);
+    }
+
+    .photo-frame::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 3px;
+
+      border: 1px solid rgba(255,255,255,0.75);
+
+      pointer-events: none;
+    }
+
+    .photo-frame img {
+      display: block;
+
+      width: 100%;
+
+      height: 250px;
+
+      object-fit: cover;
+
+      background: #eee;
+
+      border: 3px solid #fffaf0;
+    }
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    .footer {
+      position: relative;
+
+      margin-top: 45px;
+
+      text-align: center;
+
+      color: #e4c46e;
+
+      font-size: 12px;
+
+      letter-spacing: 1px;
+    }
+
+    /* =====================================================
        MOBILE
-       ========================================== */
+       ===================================================== */
 
     @media (max-width: 600px) {
 
-      .container {
-        padding-left: 12px;
-        padding-right: 12px;
+      .page {
+        width: 94%;
+
+        padding-top: 25px;
       }
 
-
-      .header {
-        padding-top: 52px;
-        padding-bottom: 42px;
+      .top-frame {
+        padding: 50px 18px 40px;
       }
-
 
       h1 {
-        font-size: 43px;
-        letter-spacing: 1px;
+        font-size: 76px;
       }
 
+      .small-title {
+        font-size: 11px;
 
-      .header-subtitle {
-        font-size: 12px;
+        letter-spacing: 3px;
       }
 
+      .subtitle {
+        font-size: 13px;
+      }
 
-      .upload-card {
+      .flourish {
+        width: 105px;
+        height: 105px;
+      }
+
+      .content-card {
+        padding: 45px 15px 50px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 10px;
+
+        padding: 5px;
+      }
+
+      .photo-frame img {
+        height: 190px;
+      }
+
+      .upload-area {
         padding: 30px 18px;
       }
-
-
-      .upload-card h2 {
-        font-size: 27px;
-      }
-
-
-      .gallery-section {
-        padding-left: 12px;
-        padding-right: 12px;
-      }
-
-
-      .gallery-title h2 {
-        font-size: 27px;
-      }
-
-
-      #gallery {
-        grid-template-columns:
-          repeat(2, 1fr);
-
-        gap: 12px;
-      }
-
-
-      .photo {
-        height: 210px;
-      }
-
     }
 
   </style>
-
 </head>
-
 
 <body>
 
+  <main class="page">
 
-  <!-- ==========================================
-       HEADER
-       ========================================== -->
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
 
-  <header class="header">
+    <header class="top-frame">
 
-    <div class="ornament">
-      ❧ ❦ ❧
+      <div class="flourish top-left">
+        <span></span>
+      </div>
+
+      <div class="flourish top-right">
+        <span></span>
+      </div>
+
+      <div class="flourish bottom-left">
+        <span></span>
+      </div>
+
+      <div class="flourish bottom-right">
+        <span></span>
+      </div>
+
+      <div class="small-title">
+        A Celebration Of Love & Memories
+      </div>
+
+      <h1>
+        Quinceañera Gallery
+      </h1>
+
+      <div class="title-line"></div>
+
+      <p class="subtitle">
+        Share your favorite photos and memories from the celebration.
+        Every picture helps make this beautiful day unforgettable.
+      </p>
+
+    </header>
+
+
+    <!-- =====================================================
+         GOLD ORNAMENT
+         ===================================================== -->
+
+    <div class="gold-ornament">
+      <span></span>
     </div>
 
-    <h1>
-      Quinceañera Gallery
-    </h1>
 
-    <p class="header-subtitle">
-      Share your favorite moments and memories
-      from this special celebration.
-    </p>
+    <!-- =====================================================
+         MAIN CARD
+         ===================================================== -->
 
-  </header>
+    <section class="content-card">
 
-
-
-  <div class="container">
+      <div class="card-flourish card-top-left"></div>
+      <div class="card-flourish card-top-right"></div>
+      <div class="card-flourish card-bottom-left"></div>
+      <div class="card-flourish card-bottom-right"></div>
 
 
-    <!-- ==========================================
-         UPLOAD SECTION
-         ========================================== -->
+      <!-- UPLOAD -->
 
-    <div class="gold-frame">
-
-      <span class="corner top-left">❧</span>
-      <span class="corner top-right">❧</span>
-      <span class="corner bottom-left">❧</span>
-      <span class="corner bottom-right">❧</span>
-
-
-      <section class="upload-card">
+      <div class="section-heading">
 
         <h2>
           Share Your Photos
         </h2>
 
-        <div class="gold-divider"></div>
-
-        <p class="upload-description">
-          Select one or more photos from the celebration
-          and add them to the gallery.
+        <p>
+          Help us capture every little moment from this special celebration.
         </p>
 
+      </div>
+
+
+      <div class="upload-area">
+
+        <h3>
+          Add Your Memories
+        </h3>
+
+        <p>
+          Select one or several photos from your device.
+        </p>
 
         <label
-          for="upload"
+          for="photoInput"
           class="upload-button"
         >
           Choose Photos
         </label>
 
-
         <input
           type="file"
-          id="upload"
+          id="photoInput"
           accept="image/*"
           multiple
         >
 
+        <div id="status"></div>
 
-        <div id="status">
-          Ready. Choose one or more photos to begin.
-        </div>
-
-      </section>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         GALLERY
-         ========================================== -->
-
-    <div class="gold-frame">
-
-      <span class="corner top-left">❧</span>
-      <span class="corner top-right">❧</span>
-      <span class="corner bottom-left">❧</span>
-      <span class="corner bottom-right">❧</span>
-
-
-      <section class="gallery-section">
-
-        <div class="gallery-title">
-
-          <h2>
-            Memories From The Celebration
-          </h2>
-
-          <div class="gold-divider"></div>
-
-          <p>
-            A collection of memories shared by family and friends.
-          </p>
-
-        </div>
-
-
-        <div id="gallery">
-
-          <div class="empty">
-            Gallery loading...
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
-
-
-
-    <!-- ==========================================
-         FOOTER
-         ========================================== -->
-
-    <div class="footer">
-
-      <div class="footer-ornament">
-        ❧
       </div>
 
-      Thank you for helping capture
-      the memories of this special day.
 
-    </div>
+      <!-- GALLERY -->
+
+      <div class="gold-ornament">
+        <span></span>
+      </div>
+
+      <h2 class="gallery-title">
+        Memories From The Celebration
+      </h2>
+
+      <div
+        id="gallery"
+        class="gallery"
+      ></div>
+
+    </section>
 
 
-  </div>
+    <footer class="footer">
+      Made with love for this special celebration
+    </footer>
+
+  </main>
 
 
+  <!-- =====================================================
+       SUPABASE
+       ===================================================== -->
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <script>
-
-
-    // ==========================================
-    // SUPABASE SETTINGS
-    // ==========================================
 
     const SUPABASE_URL =
       "https://tsyadfkwthcnvflsoinr.supabase.co";
 
-
     const SUPABASE_KEY =
       "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
-
-
-    const BUCKET_NAME =
-      "Quince photos";
-
-
-    // ==========================================
-    // PAGE ELEMENTS
-    // ==========================================
-
-    const uploadInput =
-      document.getElementById("upload");
-
-
-    const status =
-      document.getElementById("status");
-
-
-    const gallery =
-      document.getElementById("gallery");
-
-
-    // ==========================================
-    // CREATE SUPABASE CLIENT
-    // ==========================================
 
     const supabaseClient =
       window.supabase.createClient(
@@ -664,495 +969,289 @@
       );
 
 
-    // ==========================================
-    // COMPRESS IMAGE
-    // ==========================================
+    /* =====================================================
+       IMAGE COMPRESSION
+       ===================================================== */
 
     function compressImage(file) {
 
-      return new Promise(
-        function(resolve, reject) {
+      return new Promise((resolve, reject) => {
 
-          const reader =
-            new FileReader();
+        const reader = new FileReader();
 
+        reader.onload = function(event) {
 
-          reader.onload =
-            function(event) {
+          const img = new Image();
 
-              const image =
-                new Image();
+          img.onload = function() {
 
+            const maxWidth = 2000;
+            const maxHeight = 2000;
 
-              image.onload =
-                function() {
+            let width = img.width;
+            let height = img.height;
 
-                  const MAX_WIDTH = 2000;
-                  const MAX_HEIGHT = 2000;
+            if (width > maxWidth || height > maxHeight) {
 
+              const ratio = Math.min(
+                maxWidth / width,
+                maxHeight / height
+              );
 
-                  let width =
-                    image.width;
+              width *= ratio;
+              height *= ratio;
+            }
 
+            const canvas =
+              document.createElement("canvas");
 
-                  let height =
-                    image.height;
+            canvas.width = width;
+            canvas.height = height;
 
+            const ctx =
+              canvas.getContext("2d");
 
-                  if (
-                    width > MAX_WIDTH ||
-                    height > MAX_HEIGHT
-                  ) {
+            ctx.drawImage(
+              img,
+              0,
+              0,
+              width,
+              height
+            );
 
-                    const widthRatio =
-                      MAX_WIDTH / width;
+            canvas.toBlob(
+              blob => {
 
-
-                    const heightRatio =
-                      MAX_HEIGHT / height;
-
-
-                    const ratio =
-                      Math.min(
-                        widthRatio,
-                        heightRatio
-                      );
-
-
-                    width =
-                      Math.round(
-                        width * ratio
-                      );
-
-
-                    height =
-                      Math.round(
-                        height * ratio
-                      );
-
-                  }
-
-
-                  const canvas =
-                    document.createElement(
-                      "canvas"
-                    );
-
-
-                  canvas.width =
-                    width;
-
-
-                  canvas.height =
-                    height;
-
-
-                  const context =
-                    canvas.getContext("2d");
-
-
-                  context.drawImage(
-                    image,
-                    0,
-                    0,
-                    width,
-                    height
-                  );
-
-
-                  canvas.toBlob(
-                    function(blob) {
-
-                      if (!blob) {
-
-                        reject(
-                          new Error(
-                            "Image compression failed."
-                          )
-                        );
-
-                        return;
-                      }
-
-
-                      const compressedFile =
-                        new File(
-                          [blob],
-                          file.name.replace(
-                            /\.[^/.]+$/,
-                            ""
-                          ) + ".jpg",
-                          {
-                            type:
-                              "image/jpeg"
-                          }
-                        );
-
-
-                      resolve(
-                        compressedFile
-                      );
-
-                    },
-                    "image/jpeg",
-                    0.85
-                  );
-
-                };
-
-
-              image.onerror =
-                function() {
-
+                if (!blob) {
                   reject(
                     new Error(
-                      "Could not read this image."
+                      "Image compression failed."
                     )
                   );
 
-                };
+                  return;
+                }
+
+                const compressedFile =
+                  new File(
+                    [blob],
+                    "photo.jpg",
+                    {
+                      type: "image/jpeg"
+                    }
+                  );
+
+                resolve(compressedFile);
+
+              },
+              "image/jpeg",
+              0.85
+            );
+          };
+
+          img.onerror = reject;
+
+          img.src = event.target.result;
+        };
+
+        reader.onerror = reject;
+
+        reader.readAsDataURL(file);
+      });
+    }
 
 
-              image.src =
-                event.target.result;
+    /* =====================================================
+       UPLOAD PHOTOS
+       ===================================================== */
 
-            };
+    document
+      .getElementById("photoInput")
+      .addEventListener(
+        "change",
+        async function(event) {
+
+          const files = event.target.files;
+
+          if (!files || files.length === 0) {
+            return;
+          }
+
+          const status =
+            document.getElementById("status");
+
+          status.textContent =
+            `Preparing ${files.length} photo${files.length === 1 ? "" : "s"}...`;
+
+          let uploaded = 0;
+
+          try {
+
+            for (
+              let i = 0;
+              i < files.length;
+              i++
+            ) {
+
+              const compressedFile =
+                await compressImage(files[i]);
+
+              const filePath =
+                "uploads/" +
+                Date.now() +
+                "-" +
+                Math.random()
+                  .toString(36)
+                  .substring(2, 10) +
+                "-" +
+                i +
+                ".jpg";
 
 
-          reader.onerror =
-            function() {
+              const { error } =
+                await supabaseClient
+                  .storage
+                  .from("Quince photos")
+                  .upload(
+                    filePath,
+                    compressedFile,
+                    {
+                      cacheControl: "3600",
+                      contentType: "image/jpeg",
+                      upsert: false
+                    }
+                  );
 
-              reject(
-                new Error(
-                  "Could not read the selected file."
-                )
-              );
 
-            };
+              if (error) {
+                throw error;
+              }
+
+              uploaded++;
+
+              status.textContent =
+                `Uploaded ${uploaded} of ${files.length} photos...`;
+            }
 
 
-          reader.readAsDataURL(file);
+            status.textContent =
+              `✓ ${uploaded} photo${uploaded === 1 ? "" : "s"} added!`;
+
+            event.target.value = "";
+
+            loadGallery();
+
+          } catch (error) {
+
+            console.error(error);
+
+            status.textContent =
+              "Something went wrong while uploading. Please try again.";
+
+          }
 
         }
       );
 
-    }
 
+    /* =====================================================
+       LOAD GALLERY
+       ===================================================== */
 
-    // ==========================================
-    // ADD PHOTO TO GALLERY
-    // ==========================================
+    async function loadGallery() {
 
-    function addPhoto(filePath) {
+      const gallery =
+        document.getElementById("gallery");
 
-      const publicResult =
-        supabaseClient.storage
-          .from(BUCKET_NAME)
-          .getPublicUrl(filePath);
+      gallery.innerHTML = "";
 
-
-      const image =
-        document.createElement("img");
-
-
-      image.src =
-        publicResult.data.publicUrl;
-
-
-      image.alt =
-        "Quinceañera photo";
-
-
-      image.className =
-        "photo";
-
-
-      gallery.prepend(image);
-
-    }
-
-
-    // ==========================================
-    // LOAD EXISTING PHOTOS
-    // ==========================================
-
-    async function loadPhotos() {
-
-      try {
-
-        const result =
-          await supabaseClient.storage
-            .from(BUCKET_NAME)
-            .list(
-              "uploads",
-              {
-                limit: 100,
-                offset: 0,
-                sortBy: {
-                  column: "created_at",
-                  order: "desc"
-                }
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .storage
+          .from("Quince photos")
+          .list(
+            "uploads",
+            {
+              limit: 100,
+              offset: 0,
+              sortBy: {
+                column: "created_at",
+                order: "desc"
               }
-            );
-
-
-        if (result.error) {
-
-          gallery.innerHTML =
-            '<div class="empty">' +
-            "Gallery error: " +
-            result.error.message +
-            "</div>";
-
-
-          status.textContent =
-            "Gallery error: " +
-            result.error.message;
-
-
-          return;
-        }
-
-
-        gallery.innerHTML = "";
-
-
-        if (
-          !result.data ||
-          result.data.length === 0
-        ) {
-
-          gallery.innerHTML =
-            '<div class="empty">' +
-            "No photos uploaded yet." +
-            "</div>";
-
-
-          status.textContent =
-            "Gallery is ready.";
-
-
-          return;
-        }
-
-
-        result.data.forEach(
-          function(file) {
-
-            if (!file.name) {
-              return;
             }
-
-
-            const filePath =
-              "uploads/" + file.name;
-
-
-            addPhoto(filePath);
-
-          }
-        );
-
-
-        status.textContent =
-          "Gallery loaded! " +
-          result.data.length +
-          " photo(s) found.";
-
-      }
-
-
-      catch (error) {
-
-        console.error(error);
-
-
-        status.textContent =
-          "Gallery error: " +
-          error.message;
-
-      }
-
-    }
-
-
-    // ==========================================
-    // UPLOAD MULTIPLE PHOTOS
-    // ==========================================
-
-    uploadInput.addEventListener(
-      "change",
-      async function() {
-
-        const files =
-          Array.from(
-            uploadInput.files
           );
 
 
-        if (files.length === 0) {
-          return;
-        }
+      if (error) {
 
+        console.error(error);
 
-        status.textContent =
-          "Preparing " +
-          files.length +
-          " photo(s)...";
+        gallery.innerHTML =
+          "<p>Unable to load photos.</p>";
 
-
-        let successful =
-          0;
-
-
-        let failed =
-          0;
-
-
-        for (
-          let i = 0;
-          i < files.length;
-          i++
-        ) {
-
-          const originalFile =
-            files[i];
-
-
-          try {
-
-            status.textContent =
-              "Uploading photo " +
-              (i + 1) +
-              " of " +
-              files.length +
-              "...";
-
-
-            // Compress photo
-
-            const compressedFile =
-              await compressImage(
-                originalFile
-              );
-
-
-            // Create unique filename
-
-            const uniqueName =
-              Date.now() +
-              "_" +
-              Math.random()
-                .toString(36)
-                .substring(2, 10) +
-              "_" +
-              i +
-              ".jpg";
-
-
-            const filePath =
-              "uploads/" +
-              uniqueName;
-
-
-            // Upload to Supabase
-
-            const result =
-              await supabaseClient.storage
-                .from(BUCKET_NAME)
-                .upload(
-                  filePath,
-                  compressedFile,
-                  {
-                    cacheControl: "3600",
-                    contentType:
-                      "image/jpeg",
-                    upsert: false
-                  }
-                );
-
-
-            if (result.error) {
-
-              console.error(
-                "Upload failed:",
-                result.error
-              );
-
-
-              failed++;
-
-
-              continue;
-            }
-
-
-            // Add uploaded photo
-
-            addPhoto(filePath);
-
-
-            successful++;
-
-          }
-
-
-          catch (error) {
-
-            console.error(
-              "Photo upload error:",
-              error
-            );
-
-
-            failed++;
-
-          }
-
-        }
-
-
-        // Final status
-
-        if (failed === 0) {
-
-          status.textContent =
-            "All " +
-            successful +
-            " photo(s) uploaded successfully! 🎉";
-
-        }
-
-
-        else {
-
-          status.textContent =
-            successful +
-            " photo(s) uploaded successfully. " +
-            failed +
-            " photo(s) failed.";
-
-        }
-
-
-        // Clear file picker
-
-        uploadInput.value = "";
-
+        return;
       }
-    );
 
 
-    // ==========================================
-    // START GALLERY
-    // ==========================================
+      if (!data || data.length === 0) {
 
-    loadPhotos();
+        gallery.innerHTML =
+          "<p style='text-align:center; color:#777;'>Photos will appear here after they are uploaded.</p>";
 
+        return;
+      }
+
+
+      data.forEach(file => {
+
+        const filePath =
+          "uploads/" + file.name;
+
+        const {
+          data: publicUrlData
+        } =
+          supabaseClient
+            .storage
+            .from("Quince photos")
+            .getPublicUrl(filePath);
+
+
+        const frame =
+          document.createElement("div");
+
+        frame.className =
+          "photo-frame";
+
+
+        const img =
+          document.createElement("img");
+
+        img.src =
+          publicUrlData.publicUrl;
+
+        img.alt =
+          "Quinceañera memory";
+
+
+        frame.appendChild(img);
+
+        gallery.appendChild(frame);
+
+      });
+
+    }
+
+
+    /* =====================================================
+       INITIAL LOAD
+       ===================================================== */
+
+    loadGallery();
 
   </script>
 
-
 </body>
-
 </html>
