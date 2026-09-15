@@ -45,19 +45,48 @@
       <div id="gallery"></div>
 
       <script>
-  alert("Step 1");
-
   const status = document.getElementById("status");
 
-  alert("Step 2");
+  const SUPABASE_URL = "https://tsyadfkwthcnvflsoinr.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
 
-  if (window.supabase) {
-    alert("Step 3: Supabase loaded!");
-    status.textContent = "Supabase is loaded! 🎉";
-  } else {
-    alert("Step 3: Supabase NOT loaded!");
-    status.textContent = "Supabase is NOT loaded! ❌";
+  const supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  status.textContent = "Supabase client created. Testing bucket...";
+
+  async function testBucket() {
+    try {
+      const { data, error } = await supabase.storage
+        .from("Quince photos")
+        .list();
+
+      if (error) {
+        status.textContent =
+          "BUCKET ERROR: " + error.message;
+
+        console.error(error);
+        return;
+      }
+
+      status.textContent =
+        "BUCKET WORKS! Found " +
+        data.length +
+        " file(s).";
+
+      console.log(data);
+
+    } catch (error) {
+      status.textContent =
+        "ERROR: " + error.message;
+
+      console.error(error);
+    }
   }
+
+  testBucket();
       </script>
     </body>
   </html>
