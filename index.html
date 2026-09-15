@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Quinceañera Photos</title>
+  <title>Quinceañera Gallery</title>
 
-  <!-- Elegant fonts -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
 
   <style>
 
@@ -18,17 +18,19 @@
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100%;
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Montserrat', sans-serif;
-      color: #f8f1df;
+      margin: 0;
+      min-height: 100vh;
 
+      font-family: "Montserrat", Arial, sans-serif;
+
+      color: #173f32;
+
+      /* CENTER OUTWARD GRADIENT */
       background:
         radial-gradient(
           circle at center center,
@@ -41,437 +43,888 @@
           #041a13 100%
         );
 
-      min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
     }
 
 
-    /* =========================
-       BACKGROUND HALF CIRCLES
-       ========================= */
+    /* =====================================================
+       BACKGROUND
+       ===================================================== */
 
-    body::before,
-    body::after {
-      content: "";
+    .background-decoration {
       position: fixed;
+
+      inset: 0;
+
       pointer-events: none;
-      border: 1px solid rgba(218, 177, 82, 0.24);
-      border-radius: 50%;
+
+      overflow: hidden;
+
       z-index: 0;
     }
 
-    body::before {
+
+    /* LARGE HALF CIRCLES */
+
+    .circle {
+      position: absolute;
+
+      border: 1px solid rgba(228, 194, 108, 0.24);
+
+      border-radius: 50%;
+    }
+
+    .circle.one {
+      width: 650px;
+      height: 650px;
+
+      top: -405px;
+      left: -225px;
+    }
+
+    .circle.two {
+      width: 470px;
+      height: 470px;
+
+      top: -295px;
+      left: -135px;
+
+      border-color:
+        rgba(228, 194, 108, 0.15);
+    }
+
+    .circle.three {
+      width: 720px;
+      height: 720px;
+
+      right: -270px;
+      bottom: -485px;
+    }
+
+    .circle.four {
       width: 520px;
       height: 520px;
-      left: -350px;
-      top: 8%;
-    }
 
-    body::after {
-      width: 620px;
-      height: 620px;
-      right: -430px;
-      bottom: 2%;
+      right: -170px;
+      bottom: -355px;
+
+      border-color:
+        rgba(228, 194, 108, 0.16);
     }
 
 
-    /* =========================
-       MAIN PAGE
-       ========================= */
+    /* =====================================================
+       PAGE
+       ===================================================== */
 
     .page {
-      width: 100%;
-      min-height: 100vh;
-      padding: 35px 18px 55px;
       position: relative;
-      z-index: 1;
-    }
 
+      z-index: 2;
 
-    /* =========================
-       OUTER GOLD CORNERS
-       ========================= */
+      width: min(1120px, 94%);
 
-    .outer-frame {
-      width: 100%;
-      max-width: 1050px;
-      min-height: calc(100vh - 70px);
       margin: 0 auto;
-      position: relative;
 
-      padding: 24px;
-
-      border: 1px solid rgba(221, 181, 87, 0.55);
-    }
-
-    .outer-frame::before,
-    .outer-frame::after,
-    .corner-top-right,
-    .corner-bottom-left {
-
-      content: "";
-      position: absolute;
-
-      width: 65px;
-      height: 65px;
-
-      pointer-events: none;
+      padding: 35px 0 80px;
     }
 
 
-    /* Top left */
-
-    .outer-frame::before {
-      left: -1px;
-      top: -1px;
-
-      border-left: 2px solid #dcb657;
-      border-top: 2px solid #dcb657;
-    }
-
-
-    /* Bottom right */
-
-    .outer-frame::after {
-      right: -1px;
-      bottom: -1px;
-
-      border-right: 2px solid #dcb657;
-      border-bottom: 2px solid #dcb657;
-    }
-
-
-    /* Top right */
-
-    .corner-top-right {
-      right: -1px;
-      top: -1px;
-
-      border-right: 2px solid #dcb657;
-      border-top: 2px solid #dcb657;
-    }
-
-
-    /* Bottom left */
-
-    .corner-bottom-left {
-      left: -1px;
-      bottom: -1px;
-
-      border-left: 2px solid #dcb657;
-      border-bottom: 2px solid #dcb657;
-    }
-
-
-    /* Inner corner lines */
-
-    .inner-corners {
-      position: absolute;
-      inset: 8px;
-      pointer-events: none;
-      border: 1px solid rgba(220, 182, 87, 0.28);
-    }
-
-
-    /* =========================
+    /* =====================================================
        HEADER
-       ========================= */
+       ===================================================== */
 
-    .header {
+    .top-frame {
+      position: relative;
+
+      padding: 75px 35px 68px;
+
       text-align: center;
-      padding: 15px 10px 30px;
-    }
 
-
-    /* Small Edwardian-style title */
-
-    .main-title {
-      font-family: 'Parisienne', cursive;
-
-      font-size: clamp(29px, 6vw, 42px);
-
-      line-height: 1;
-      font-weight: 400;
-
-      color: #e0bd62;
-
-      margin: 0 auto 18px;
-
-      letter-spacing: 0.3px;
-
-      text-shadow:
-        0 1px 8px rgba(0,0,0,0.18);
-
-      max-width: 90%;
-    }
-
-
-    .gold-rule {
-      width: 155px;
-      height: 1px;
-
-      margin: 0 auto 18px;
-
-      background: #dcb657;
-
-      position: relative;
-    }
-
-    .gold-rule::before,
-    .gold-rule::after {
-      content: "";
-
-      position: absolute;
-      top: 50%;
-
-      width: 7px;
-      height: 7px;
-
-      border: 1px solid #dcb657;
-
-      transform: translateY(-50%) rotate(45deg);
-    }
-
-    .gold-rule::before {
-      left: -10px;
-    }
-
-    .gold-rule::after {
-      right: -10px;
-    }
-
-
-    /* =========================
-       CREAM INVITATION PANEL
-       ========================= */
-
-    .invitation {
-      position: relative;
+      border:
+        1px solid
+        rgba(230, 197, 112, 0.95);
 
       background:
         linear-gradient(
-          145deg,
-          #fffdf5 0%,
-          #f8f0dd 100%
+          135deg,
+          rgba(255,255,255,0.045),
+          rgba(255,255,255,0.01)
         );
 
-      color: #244b3a;
-
-      padding: 48px 25px 42px;
-
-      border: 2px solid #d5ad51;
-
       box-shadow:
-        0 0 0 7px rgba(221, 182, 88, 0.15),
-        0 18px 45px rgba(0, 0, 0, 0.25);
+        0 0 0 6px rgba(221,185,94,0.07),
+        0 0 0 13px rgba(221,185,94,0.025),
+        0 25px 65px rgba(0,0,0,0.28);
 
-      max-width: 900px;
-      margin: 0 auto;
+      overflow: hidden;
     }
 
 
-    .invitation::before {
+    /* INNER HEADER BORDER */
+
+    .top-frame::before {
       content: "";
 
       position: absolute;
-      inset: 7px;
 
-      border: 1px solid rgba(182, 139, 53, 0.5);
+      inset: 11px;
+
+      border:
+        1px solid
+        rgba(230,197,112,0.48);
 
       pointer-events: none;
     }
 
 
-    /* =========================
-       SECTION HEADINGS
-       ========================= */
+    .top-frame::after {
+      content: "";
 
-    .section-title {
+      position: absolute;
 
-      font-family: 'Bodoni Moda', serif;
+      inset: 20px;
 
-      font-size: clamp(28px, 5vw, 43px);
+      border:
+        1px solid
+        rgba(230,197,112,0.13);
 
-      font-weight: 500;
-
-      text-align: center;
-
-      margin: 0 0 9px;
-
-      color: #2e6950;
-
-      letter-spacing: 0.3px;
+      pointer-events: none;
     }
 
 
-    .section-subtitle {
+    /* =====================================================
+       SIMPLE 90 DEGREE GOLD CORNERS
+       ===================================================== */
 
-      text-align: center;
+    .corner {
+      position: absolute;
 
-      font-family: 'Montserrat', sans-serif;
+      width: 105px;
+      height: 105px;
 
-      font-size: 13px;
+      pointer-events: none;
 
-      color: #6d6758;
-
-      margin: 0 0 30px;
-
-      letter-spacing: 1.3px;
+      z-index: 4;
     }
 
 
-    /* =========================
-       UPLOAD AREA
-       ========================= */
+    .corner::before,
+    .corner::after {
+      content: "";
 
-    .upload-box {
+      position: absolute;
 
-      text-align: center;
+      width: 72px;
+      height: 72px;
 
-      padding: 24px 18px;
+      border-color: #dfbd68;
 
-      border: 1px solid rgba(181, 143, 57, 0.6);
-
-      background: rgba(255,255,255,0.45);
-
-      margin-bottom: 42px;
+      border-style: solid;
     }
 
 
-    .upload-button {
+    .corner::before {
+      width: 82px;
+      height: 82px;
 
-      display: inline-block;
+      border-width: 2px 0 0 2px;
+    }
 
-      background: #2c6b51;
 
-      color: #fffdf5;
+    .corner::after {
+      width: 60px;
+      height: 60px;
 
-      border: 1px solid #d4ad55;
+      border-width: 1px 0 0 1px;
+    }
 
-      padding: 14px 28px;
 
-      font-family: 'Montserrat', sans-serif;
+    .corner.top-left {
+      top: 22px;
+      left: 22px;
+    }
+
+
+    .corner.top-left::before {
+      top: 0;
+      left: 0;
+    }
+
+
+    .corner.top-left::after {
+      top: 9px;
+      left: 9px;
+    }
+
+
+    .corner.top-right {
+      top: 22px;
+      right: 22px;
+
+      transform: scaleX(-1);
+    }
+
+
+    .corner.bottom-left {
+      bottom: 22px;
+      left: 22px;
+
+      transform: scaleY(-1);
+    }
+
+
+    .corner.bottom-right {
+      bottom: 22px;
+      right: 22px;
+
+      transform: scale(-1);
+    }
+
+
+    /* =====================================================
+       HEADER TEXT
+       ===================================================== */
+
+    .small-title {
+      position: relative;
+
+      z-index: 5;
+
+      margin-bottom: 12px;
+
+      color: #e7c878;
 
       font-size: 13px;
 
       font-weight: 600;
 
-      letter-spacing: 1.2px;
+      letter-spacing: 5px;
+
+      text-transform: uppercase;
+    }
+
+
+    h1 {
+      position: relative;
+
+      z-index: 5;
+
+      margin: 0;
+
+      color: #f3d98c;
+
+      /* NEW EDWARDIAN-STYLE FONT */
+      font-family: "Pinyon Script", cursive;
+
+      font-size:
+        clamp(78px, 13vw, 138px);
+
+      font-weight: 400;
+
+      line-height: 0.9;
+
+      text-shadow:
+        0 2px 0 rgba(0,0,0,0.12),
+        0 12px 30px rgba(0,0,0,0.22);
+    }
+
+
+    .title-line {
+      position: relative;
+
+      z-index: 5;
+
+      width: min(570px, 72%);
+
+      height: 1px;
+
+      margin: 30px auto 23px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          #b8913d,
+          #f2d78b,
+          #b8913d,
+          transparent
+        );
+    }
+
+
+    .title-line::before,
+    .title-line::after {
+      content: "";
+
+      position: absolute;
+
+      top: 50%;
+
+      width: 7px;
+      height: 7px;
+
+      border:
+        1px solid
+        #dfbd68;
+
+      transform:
+        translateY(-50%)
+        rotate(45deg);
+    }
+
+
+    .title-line::before {
+      left: 20%;
+    }
+
+
+    .title-line::after {
+      right: 20%;
+    }
+
+
+    .subtitle {
+      position: relative;
+
+      z-index: 5;
+
+      max-width: 680px;
+
+      margin: 0 auto;
+
+      color: #f7ecd5;
+
+      font-size: 14px;
+
+      line-height: 1.9;
+
+      letter-spacing: 0.8px;
+    }
+
+
+    /* =====================================================
+       GOLD DIVIDER
+       ===================================================== */
+
+    .gold-divider {
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 14px;
+
+      margin: 43px auto;
+    }
+
+
+    .gold-divider::before,
+    .gold-divider::after {
+      content: "";
+
+      width: 155px;
+
+      max-width: 27vw;
+
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          #d7b35c
+        );
+    }
+
+
+    .gold-divider::after {
+      background:
+        linear-gradient(
+          90deg,
+          #d7b35c,
+          transparent
+        );
+    }
+
+
+    .gold-divider span {
+      width: 12px;
+      height: 12px;
+
+      border:
+        1px solid
+        #e1bf69;
+
+      transform:
+        rotate(45deg);
+    }
+
+
+    /* =====================================================
+       MAIN IVORY PANEL
+       ===================================================== */
+
+    .content-card {
+      position: relative;
+
+      margin-top: 40px;
+
+      padding: 68px 35px 75px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #fffdf7,
+          #f8efd9
+        );
+
+      border:
+        3px solid
+        #d0a84c;
+
+      box-shadow:
+        0 0 0 6px rgba(220,183,95,0.18),
+        0 0 0 12px rgba(220,183,95,0.055),
+        0 27px 70px rgba(0,0,0,0.34);
+
+      overflow: hidden;
+    }
+
+
+    /* DOUBLE INNER GOLD BORDER */
+
+    .content-card::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 12px;
+
+      border:
+        1px solid
+        #d1ad58;
+
+      pointer-events: none;
+    }
+
+
+    .content-card::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 20px;
+
+      border:
+        1px solid
+        rgba(190,149,61,0.25);
+
+      pointer-events: none;
+    }
+
+
+    /* =====================================================
+       CARD CORNERS
+       ===================================================== */
+
+    .card-corner {
+      position: absolute;
+
+      width: 90px;
+      height: 90px;
+
+      z-index: 3;
+
+      pointer-events: none;
+    }
+
+
+    .card-corner::before,
+    .card-corner::after {
+      content: "";
+
+      position: absolute;
+
+      border-color: #c49d45;
+
+      border-style: solid;
+    }
+
+
+    .card-corner::before {
+      width: 67px;
+      height: 67px;
+
+      border-width: 2px 0 0 2px;
+    }
+
+
+    .card-corner::after {
+      width: 48px;
+      height: 48px;
+
+      border-width: 1px 0 0 1px;
+    }
+
+
+    .card-corner.top-left {
+      top: 28px;
+      left: 28px;
+    }
+
+
+    .card-corner.top-left::before {
+      top: 0;
+      left: 0;
+    }
+
+
+    .card-corner.top-left::after {
+      top: 9px;
+      left: 9px;
+    }
+
+
+    .card-corner.top-right {
+      top: 28px;
+      right: 28px;
+
+      transform: scaleX(-1);
+    }
+
+
+    .card-corner.bottom-left {
+      bottom: 28px;
+      left: 28px;
+
+      transform: scaleY(-1);
+    }
+
+
+    .card-corner.bottom-right {
+      bottom: 28px;
+      right: 28px;
+
+      transform: scale(-1);
+    }
+
+
+    /* =====================================================
+       SECTION HEADINGS
+       ===================================================== */
+
+    .section-heading {
+      position: relative;
+
+      z-index: 5;
+
+      text-align: center;
+
+      margin-bottom: 40px;
+    }
+
+
+    /*
+      NEW REFINED FONT
+      Similar elegant feeling to Perpetua.
+    */
+
+    .section-heading h2,
+    .gallery-title {
+
+      font-family:
+        "Cormorant Garamond",
+        "Times New Roman",
+        serif;
+
+      font-weight: 500;
+
+      letter-spacing: 0.3px;
+    }
+
+
+    .section-heading h2 {
+
+      margin: 0;
+
+      color: #195640;
+
+      font-size:
+        clamp(30px, 5vw, 43px);
+
+      line-height: 1.1;
+    }
+
+
+    .section-heading p {
+
+      margin:
+        14px auto 0;
+
+      max-width: 630px;
+
+      color: #77725f;
+
+      font-size: 14px;
+
+      line-height: 1.85;
+
+      letter-spacing: 0.2px;
+    }
+
+
+    /* =====================================================
+       UPLOAD AREA
+       ===================================================== */
+
+    .upload-area {
+
+      position: relative;
+
+      z-index: 5;
+
+      max-width: 680px;
+
+      margin: 0 auto;
+
+      padding: 40px 25px;
+
+      text-align: center;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.9),
+          rgba(248,240,220,0.82)
+        );
+
+      border:
+        1px solid
+        #d4b263;
+
+      box-shadow:
+        0 0 0 5px
+        rgba(202,163,73,0.055),
+
+        inset 0 0 30px
+        rgba(193,152,62,0.055);
+    }
+
+
+    .upload-area h3 {
+
+      margin:
+        0 0 9px;
+
+      color: #19553f;
+
+      font-size: 19px;
+
+      font-weight: 600;
+    }
+
+
+    .upload-area p {
+
+      margin:
+        0 0 24px;
+
+      color: #777767;
+
+      font-size: 13px;
+
+      line-height: 1.7;
+    }
+
+
+    /* =====================================================
+       BUTTON
+       ===================================================== */
+
+    .upload-button {
+
+      display: inline-block;
+
+      padding:
+        15px 39px;
+
+      color: #fffdf5;
+
+      background:
+        linear-gradient(
+          135deg,
+          #276a50,
+          #0e392b
+        );
+
+      border:
+        2px solid
+        #d9b65e;
+
+      box-shadow:
+        0 6px 17px
+        rgba(0,0,0,0.17),
+
+        inset 0 0 0 1px
+        rgba(255,255,255,0.1);
+
+      font-size: 12px;
+
+      font-weight: 600;
+
+      letter-spacing: 1.8px;
+
+      text-transform: uppercase;
 
       cursor: pointer;
 
-      transition: all 0.2s ease;
-
-      box-shadow:
-        0 5px 15px rgba(0,0,0,0.15);
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
 
     .upload-button:hover {
 
-      background: #21543f;
-
-      transform: translateY(-1px);
+      transform:
+        translateY(-2px);
 
       box-shadow:
-        0 7px 18px rgba(0,0,0,0.2);
+        0 9px 23px
+        rgba(0,0,0,0.2);
     }
 
 
-    #photoInput {
+    input[type="file"] {
       display: none;
     }
 
 
     #status {
 
-      margin-top: 14px;
+      min-height: 24px;
 
-      font-size: 12px;
+      margin-top: 20px;
 
-      color: #5f5a4d;
+      color: #1d6047;
 
-      min-height: 18px;
+      font-size: 13px;
+
+      font-weight: 600;
     }
 
 
-    /* =========================
+    /* =====================================================
        GALLERY TITLE
-       ========================= */
+       ===================================================== */
 
-    .gallery-heading {
+    .gallery-title {
 
-      font-family: 'Bodoni Moda', serif;
+      position: relative;
 
-      font-size: clamp(26px, 5vw, 40px);
+      z-index: 5;
 
-      font-weight: 500;
-
-      color: #2e6950;
-
-      text-align: center;
-
-      margin: 0 0 7px;
-    }
-
-
-    .gallery-description {
+      margin:
+        60px 0 30px;
 
       text-align: center;
 
-      color: #716b5e;
+      color: #195640;
 
-      font-size: 12px;
+      font-size:
+        clamp(31px, 5vw, 43px);
 
-      letter-spacing: 1px;
-
-      margin: 0 0 27px;
+      line-height: 1.15;
     }
 
 
-    /* =========================
-       PHOTO GALLERY
-       ========================= */
+    /* =====================================================
+       GALLERY
+       ===================================================== */
 
-    #gallery {
+    .gallery {
+
+      position: relative;
+
+      z-index: 5;
 
       display: grid;
 
       grid-template-columns:
-        repeat(auto-fill, minmax(180px, 1fr));
+        repeat(
+          auto-fill,
+          minmax(190px, 1fr)
+        );
 
-      gap: 18px;
+      gap: 20px;
+
+      padding: 12px;
     }
 
 
+    /* =====================================================
+       PHOTO FRAMES
+       ===================================================== */
+
     .photo-frame {
 
-      background: #fffdf5;
+      position: relative;
 
       padding: 7px;
 
-      border: 1px solid #cba64d;
+      background:
+        linear-gradient(
+          135deg,
+          #f1d48a,
+          #b88b35,
+          #f5dc92,
+          #aa7d2b,
+          #efd081
+        );
 
       box-shadow:
-        0 5px 16px rgba(0,0,0,0.16);
+        0 8px 21px
+        rgba(0,0,0,0.18);
 
       transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
 
     .photo-frame:hover {
 
-      transform: translateY(-3px);
+      transform:
+        translateY(-5px)
+        scale(1.01);
 
       box-shadow:
-        0 9px 22px rgba(0,0,0,0.22);
+        0 13px 29px
+        rgba(0,0,0,0.21);
+    }
+
+
+    .photo-frame::before {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 3px;
+
+      border:
+        1px solid
+        rgba(255,255,255,0.9);
+
+      pointer-events: none;
     }
 
 
     .photo-frame img {
+
+      display: block;
 
       width: 100%;
 
@@ -479,78 +932,169 @@
 
       object-fit: cover;
 
-      display: block;
+      background: #eee;
+
+      border:
+        3px solid
+        #fffaf0;
     }
 
 
-    /* =========================
-       SMALL FOOTER
-       ========================= */
+    /* =====================================================
+       FOOTER
+       ===================================================== */
 
     .footer {
 
+      position: relative;
+
+      margin-top: 50px;
+
       text-align: center;
 
-      margin-top: 35px;
+      color: #e5c574;
 
-      font-size: 10px;
+      font-size: 11px;
 
       letter-spacing: 1.5px;
 
-      color: rgba(242, 221, 167, 0.75);
+      text-transform: uppercase;
     }
 
 
-    /* =========================
+    /* =====================================================
        MOBILE
-       ========================= */
+       ===================================================== */
 
     @media (max-width: 600px) {
 
       .page {
-        padding: 20px 10px 35px;
+
+        width: 94%;
+
+        padding-top: 22px;
       }
 
-      .outer-frame {
-        padding: 17px;
-        min-height: calc(100vh - 40px);
+
+      .top-frame {
+
+        padding:
+          60px 18px 55px;
       }
 
-      .invitation {
-        padding: 38px 17px 35px;
+
+      h1 {
+
+        font-size: 77px;
       }
 
-      .main-title {
-        font-size: 31px;
-        margin-bottom: 15px;
+
+      .small-title {
+
+        font-size: 9px;
+
+        letter-spacing: 3px;
       }
 
-      .section-title {
-        font-size: 29px;
+
+      .subtitle {
+
+        font-size: 12px;
+
+        line-height: 1.8;
       }
 
-      .gallery-heading {
-        font-size: 28px;
+
+      .corner {
+
+        width: 75px;
+        height: 75px;
       }
 
-      #gallery {
+
+      .corner::before {
+
+        width: 55px;
+        height: 55px;
+      }
+
+
+      .corner::after {
+
+        width: 43px;
+        height: 43px;
+      }
+
+
+      .content-card {
+
+        padding:
+          52px 14px 58px;
+      }
+
+
+      .card-corner {
+
+        width: 65px;
+        height: 65px;
+      }
+
+
+      .card-corner::before {
+
+        width: 48px;
+        height: 48px;
+      }
+
+
+      .card-corner::after {
+
+        width: 36px;
+        height: 36px;
+      }
+
+
+      .section-heading h2 {
+
+        font-size: 30px;
+      }
+
+
+      .section-heading p {
+
+        font-size: 13px;
+      }
+
+
+      .gallery-title {
+
+        font-size: 32px;
+      }
+
+
+      .gallery {
+
         grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+          repeat(2, 1fr);
 
-        gap: 12px;
+        gap: 10px;
+
+        padding: 5px;
       }
+
 
       .photo-frame img {
+
         height: 190px;
       }
 
-      .outer-frame::before,
-      .outer-frame::after,
-      .corner-top-right,
-      .corner-bottom-left {
-        width: 45px;
-        height: 45px;
+
+      .upload-area {
+
+        padding:
+          30px 17px;
       }
+
     }
 
   </style>
@@ -559,107 +1103,212 @@
 
 <body>
 
-  <div class="page">
 
-    <div class="outer-frame">
+  <!-- =====================================================
+       BACKGROUND
+       ===================================================== -->
 
-      <div class="corner-top-right"></div>
-      <div class="corner-bottom-left"></div>
-      <div class="inner-corners"></div>
+  <div class="background-decoration">
 
+    <div class="circle one"></div>
 
-      <!-- HEADER -->
+    <div class="circle two"></div>
 
-      <header class="header">
+    <div class="circle three"></div>
 
-        <h1 class="main-title">
-          Quinceañera Photos
-        </h1>
-
-        <div class="gold-rule"></div>
-
-      </header>
-
-
-      <!-- CREAM CENTER -->
-
-      <main class="invitation">
-
-
-        <!-- UPLOAD -->
-
-        <section>
-
-          <h2 class="section-title">
-            Share Your Photos
-          </h2>
-
-          <p class="section-subtitle">
-            Capture the memories and add them to the celebration
-          </p>
-
-
-          <div class="upload-box">
-
-            <label
-              for="photoInput"
-              class="upload-button"
-            >
-              SELECT PHOTOS
-            </label>
-
-            <input
-              type="file"
-              id="photoInput"
-              accept="image/*"
-              multiple
-            >
-
-            <div id="status"></div>
-
-          </div>
-
-        </section>
-
-
-        <!-- GALLERY -->
-
-        <section>
-
-          <h2 class="gallery-heading">
-            Memories From The Celebration
-          </h2>
-
-          <p class="gallery-description">
-            Photos shared by family and friends
-          </p>
-
-          <div id="gallery"></div>
-
-        </section>
-
-
-      </main>
-
-
-      <div class="footer">
-        A COLLECTION OF MEMORIES
-      </div>
-
-    </div>
+    <div class="circle four"></div>
 
   </div>
 
 
-  <!-- SUPABASE -->
+  <main class="page">
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="top-frame">
+
+
+      <div class="corner top-left"></div>
+
+      <div class="corner top-right"></div>
+
+      <div class="corner bottom-left"></div>
+
+      <div class="corner bottom-right"></div>
+
+
+      <div class="small-title">
+        A Celebration Of Love & Memories
+      </div>
+
+
+      <h1>
+        Quinceañera Gallery
+      </h1>
+
+
+      <div class="title-line"></div>
+
+
+      <p class="subtitle">
+
+        Share your favorite photos and memories
+        from the celebration.
+
+        Every picture helps make this
+        beautiful day unforgettable.
+
+      </p>
+
+
+    </header>
+
+
+    <!-- =====================================================
+         DIVIDER
+         ===================================================== -->
+
+    <div class="gold-divider">
+      <span></span>
+    </div>
+
+
+    <!-- =====================================================
+         MAIN CARD
+         ===================================================== -->
+
+    <section class="content-card">
+
+
+      <div class="card-corner top-left"></div>
+
+      <div class="card-corner top-right"></div>
+
+      <div class="card-corner bottom-left"></div>
+
+      <div class="card-corner bottom-right"></div>
+
+
+      <!-- =================================================
+           SHARE PHOTOS
+           ================================================= -->
+
+      <div class="section-heading">
+
+        <h2>
+          Share Your Photos
+        </h2>
+
+
+        <p>
+
+          Share your photos and memories
+          from the celebration.
+
+          Every little moment helps tell the
+          story of this special day.
+
+        </p>
+
+      </div>
+
+
+      <!-- =================================================
+           UPLOAD
+           ================================================= -->
+
+      <div class="upload-area">
+
+        <h3>
+          Add Your Memories
+        </h3>
+
+
+        <p>
+          Select one or several photos from your device.
+        </p>
+
+
+        <label
+          for="photoInput"
+          class="upload-button"
+        >
+          Choose Photos
+        </label>
+
+
+        <input
+          type="file"
+          id="photoInput"
+          accept="image/*"
+          multiple
+        >
+
+
+        <div id="status"></div>
+
+      </div>
+
+
+      <!-- =================================================
+           DIVIDER
+           ================================================= -->
+
+      <div class="gold-divider">
+        <span></span>
+      </div>
+
+
+      <!-- =================================================
+           GALLERY
+           ================================================= -->
+
+      <h2 class="gallery-title">
+
+        Memories From The Celebration
+
+      </h2>
+
+
+      <div
+        id="gallery"
+        class="gallery">
+      </div>
+
+
+    </section>
+
+
+    <footer class="footer">
+
+      Made with love for this special celebration
+
+    </footer>
+
+
+  </main>
+
+
+  <!-- =====================================================
+       SUPABASE
+       ===================================================== -->
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 
   <script>
 
+
+    /* =====================================================
+       SUPABASE CONFIGURATION
+       ===================================================== */
+
     const SUPABASE_URL =
       "https://tsyadfkwthcnvflsoinr.supabase.co";
+
 
     const SUPABASE_KEY =
       "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
@@ -672,217 +1321,291 @@
       );
 
 
-    const photoInput =
-      document.getElementById("photoInput");
-
-    const gallery =
-      document.getElementById("gallery");
-
-    const status =
-      document.getElementById("status");
-
-
-    /* =========================
+    /* =====================================================
        IMAGE COMPRESSION
-       ========================= */
+       ===================================================== */
 
     function compressImage(file) {
 
-      return new Promise((resolve) => {
+      return new Promise(
+        (resolve, reject) => {
 
-        const img = new Image();
-
-        const reader = new FileReader();
-
-
-        reader.onload = function(event) {
-
-          img.onload = function() {
-
-            const maxWidth = 2000;
-            const maxHeight = 2000;
-
-            let width = img.width;
-            let height = img.height;
+          const reader =
+            new FileReader();
 
 
-            if (width > maxWidth) {
+          reader.onload =
+            function(event) {
 
-              height =
-                height * (maxWidth / width);
-
-              width = maxWidth;
-            }
+              const img =
+                new Image();
 
 
-            if (height > maxHeight) {
+              img.onload =
+                function() {
 
-              width =
-                width * (maxHeight / height);
+                  const maxWidth = 2000;
 
-              height = maxHeight;
-            }
-
-
-            const canvas =
-              document.createElement("canvas");
-
-            canvas.width = width;
-            canvas.height = height;
+                  const maxHeight = 2000;
 
 
-            const ctx =
-              canvas.getContext("2d");
+                  let width =
+                    img.width;
 
-            ctx.drawImage(
-              img,
-              0,
-              0,
-              width,
-              height
-            );
+                  let height =
+                    img.height;
 
 
-            canvas.toBlob(
-              (blob) => {
+                  if (
+                    width > maxWidth ||
+                    height > maxHeight
+                  ) {
 
-                resolve(blob);
-
-              },
-              "image/jpeg",
-              0.85
-            );
-
-          };
-
-
-          img.src = event.target.result;
-
-        };
+                    const ratio =
+                      Math.min(
+                        maxWidth / width,
+                        maxHeight / height
+                      );
 
 
-        reader.readAsDataURL(file);
+                    width *= ratio;
 
-      });
+                    height *= ratio;
+
+                  }
+
+
+                  const canvas =
+                    document.createElement(
+                      "canvas"
+                    );
+
+
+                  canvas.width =
+                    width;
+
+                  canvas.height =
+                    height;
+
+
+                  const ctx =
+                    canvas.getContext(
+                      "2d"
+                    );
+
+
+                  ctx.drawImage(
+                    img,
+                    0,
+                    0,
+                    width,
+                    height
+                  );
+
+
+                  canvas.toBlob(
+                    blob => {
+
+                      if (!blob) {
+
+                        reject(
+                          new Error(
+                            "Image compression failed."
+                          )
+                        );
+
+                        return;
+                      }
+
+
+                      const compressedFile =
+                        new File(
+                          [blob],
+                          "photo.jpg",
+                          {
+                            type:
+                              "image/jpeg"
+                          }
+                        );
+
+
+                      resolve(
+                        compressedFile
+                      );
+
+                    },
+                    "image/jpeg",
+                    0.85
+                  );
+
+                };
+
+
+              img.onerror =
+                reject;
+
+
+              img.src =
+                event.target.result;
+
+            };
+
+
+          reader.onerror =
+            reject;
+
+
+          reader.readAsDataURL(
+            file
+          );
+
+        }
+      );
 
     }
 
 
-    /* =========================
+    /* =====================================================
        UPLOAD PHOTOS
-       ========================= */
+       ===================================================== */
 
-    photoInput.addEventListener(
-      "change",
-      async function() {
+    document
+      .getElementById("photoInput")
+      .addEventListener(
+        "change",
+        async function(event) {
 
-        const files =
-          Array.from(photoInput.files);
-
-
-        if (!files.length) {
-          return;
-        }
+          const files =
+            event.target.files;
 
 
-        status.textContent =
-          `Uploading ${files.length} photo${files.length > 1 ? "s" : ""}...`;
+          if (
+            !files ||
+            files.length === 0
+          ) {
+
+            return;
+          }
 
 
-        let uploaded = 0;
+          const status =
+            document.getElementById(
+              "status"
+            );
 
 
-        for (
-          let i = 0;
-          i < files.length;
-          i++
-        ) {
+          status.textContent =
+            `Preparing ${files.length} photo${files.length === 1 ? "" : "s"}...`;
 
-          const file = files[i];
+
+          let uploaded = 0;
 
 
           try {
 
-            const compressedFile =
-              await compressImage(file);
+            for (
+              let i = 0;
+              i < files.length;
+              i++
+            ) {
 
-
-            const filePath =
-              "uploads/" +
-              Date.now() +
-              "-" +
-              Math.random()
-                .toString(36)
-                .substring(2, 10) +
-              "-" +
-              i +
-              ".jpg";
-
-
-            const {
-              error
-            } =
-              await supabaseClient
-                .storage
-                .from("Quince photos")
-                .upload(
-                  filePath,
-                  compressedFile,
-                  {
-                    cacheControl: "3600",
-                    contentType: "image/jpeg",
-                    upsert: false
-                  }
+              const compressedFile =
+                await compressImage(
+                  files[i]
                 );
 
 
-            if (error) {
+              const filePath =
+                "uploads/" +
+                Date.now() +
+                "-" +
+                Math.random()
+                  .toString(36)
+                  .substring(2, 10) +
+                "-" +
+                i +
+                ".jpg";
 
-              console.error(
-                "Upload error:",
-                error
-              );
 
-              continue;
+              const { error } =
+                await supabaseClient
+                  .storage
+                  .from(
+                    "Quince photos"
+                  )
+                  .upload(
+                    filePath,
+                    compressedFile,
+                    {
+                      cacheControl:
+                        "3600",
+
+                      contentType:
+                        "image/jpeg",
+
+                      upsert:
+                        false
+                    }
+                  );
+
+
+              if (error) {
+
+                throw error;
+
+              }
+
+
+              uploaded++;
+
+
+              status.textContent =
+                `Uploaded ${uploaded} of ${files.length} photos...`;
+
             }
 
 
-            uploaded++;
+            status.textContent =
+              `✓ ${uploaded} photo${uploaded === 1 ? "" : "s"} added!`;
 
-          }
 
-          catch (error) {
+            event.target.value =
+              "";
+
+
+            loadGallery();
+
+
+          } catch (error) {
 
             console.error(
-              "Photo error:",
               error
             );
+
+
+            status.textContent =
+              "Something went wrong while uploading. Please try again.";
 
           }
 
         }
+      );
 
 
-        status.textContent =
-          `${uploaded} photo${uploaded !== 1 ? "s" : ""} uploaded successfully!`;
-
-
-        photoInput.value = "";
-
-
-        loadGallery();
-
-      }
-    );
-
-
-    /* =========================
+    /* =====================================================
        LOAD GALLERY
-       ========================= */
+       ===================================================== */
 
     async function loadGallery() {
 
-      gallery.innerHTML = "";
+      const gallery =
+        document.getElementById(
+          "gallery"
+        );
+
+
+      gallery.innerHTML =
+        "";
 
 
       const {
@@ -891,15 +1614,22 @@
       } =
         await supabaseClient
           .storage
-          .from("Quince photos")
+          .from(
+            "Quince photos"
+          )
           .list(
             "uploads",
             {
               limit: 100,
+
               offset: 0,
+
               sortBy: {
-                column: "created_at",
-                order: "desc"
+                column:
+                  "created_at",
+
+                order:
+                  "desc"
               }
             }
           );
@@ -908,72 +1638,98 @@
       if (error) {
 
         console.error(
-          "Gallery error:",
           error
         );
 
-        return;
-      }
-
-
-      if (!data || data.length === 0) {
 
         gallery.innerHTML =
-          "<p style='text-align:center; color:#777;'>No photos yet.</p>";
+          "<p>Unable to load photos.</p>";
+
 
         return;
       }
 
 
-      data.forEach((file) => {
+      if (
+        !data ||
+        data.length === 0
+      ) {
 
-        const filePath =
-          "uploads/" + file.name;
-
-
-        const {
-          data: publicUrlData
-        } =
-          supabaseClient
-            .storage
-            .from("Quince photos")
-            .getPublicUrl(filePath);
+        gallery.innerHTML =
+          "<p style='text-align:center; color:#777;'>Photos will appear here after they are uploaded.</p>";
 
 
-        const frame =
-          document.createElement("div");
-
-        frame.className =
-          "photo-frame";
+        return;
+      }
 
 
-        const img =
-          document.createElement("img");
+      data.forEach(
+        file => {
 
-        img.src =
-          publicUrlData.publicUrl;
-
-        img.alt =
-          "Quinceañera photo";
-
-        img.loading =
-          "lazy";
+          const filePath =
+            "uploads/" +
+            file.name;
 
 
-        frame.appendChild(img);
+          const {
+            data:
+              publicUrlData
+          } =
+            supabaseClient
+              .storage
+              .from(
+                "Quince photos"
+              )
+              .getPublicUrl(
+                filePath
+              );
 
-        gallery.appendChild(frame);
 
-      });
+          const frame =
+            document.createElement(
+              "div"
+            );
+
+
+          frame.className =
+            "photo-frame";
+
+
+          const img =
+            document.createElement(
+              "img"
+            );
+
+
+          img.src =
+            publicUrlData.publicUrl;
+
+
+          img.alt =
+            "Quinceañera memory";
+
+
+          frame.appendChild(
+            img
+          );
+
+
+          gallery.appendChild(
+            frame
+          );
+
+        }
+      );
 
     }
 
 
-    /* =========================
+    /* =====================================================
        INITIAL LOAD
-       ========================= */
+       ===================================================== */
 
     loadGallery();
+
 
   </script>
 
