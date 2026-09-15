@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Montserrat:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
 
   <style>
 
@@ -32,317 +32,371 @@
 
       background:
         radial-gradient(
-          circle at 50% 35%,
-          #3f8067 0%,
-          #28624d 28%,
-          #164937 58%,
-          #0a3025 82%,
-          #061f18 100%
+          circle at 50% 38%,
+          #4c9275 0%,
+          #34745b 23%,
+          #205b46 43%,
+          #123f30 67%,
+          #082b20 85%,
+          #041b14 100%
         );
 
       overflow-x: hidden;
     }
 
+
     /* =====================================================
-       DECORATIVE GOLD BACKGROUND
+       LARGE BACKGROUND HALF CIRCLES
        ===================================================== */
 
-    body::before,
-    body::after {
-      content: "";
+    .background-decoration {
       position: fixed;
+      inset: 0;
+
       pointer-events: none;
+
+      overflow: hidden;
+
       z-index: 0;
     }
 
-    body::before {
-      width: 520px;
-      height: 520px;
+    .circle {
+      position: absolute;
 
-      top: -210px;
+      border: 1px solid rgba(225, 190, 99, 0.25);
+
+      border-radius: 50%;
+    }
+
+    .circle.one {
+      width: 620px;
+      height: 620px;
+
+      top: -390px;
       left: -210px;
-
-      border: 2px solid rgba(221, 183, 93, 0.45);
-      border-radius: 50%;
-
-      box-shadow:
-        0 0 0 12px rgba(221, 183, 93, 0.08),
-        0 0 0 25px rgba(221, 183, 93, 0.04);
     }
 
-    body::after {
-      width: 520px;
-      height: 520px;
+    .circle.two {
+      width: 450px;
+      height: 450px;
 
-      bottom: -230px;
-      right: -230px;
+      top: -265px;
+      left: -125px;
 
-      border: 2px solid rgba(221, 183, 93, 0.45);
-      border-radius: 50%;
-
-      box-shadow:
-        0 0 0 12px rgba(221, 183, 93, 0.08),
-        0 0 0 25px rgba(221, 183, 93, 0.04);
+      border-color: rgba(225, 190, 99, 0.16);
     }
+
+    .circle.three {
+      width: 700px;
+      height: 700px;
+
+      bottom: -470px;
+      right: -250px;
+    }
+
+    .circle.four {
+      width: 510px;
+      height: 510px;
+
+      bottom: -350px;
+      right: -165px;
+
+      border-color: rgba(225, 190, 99, 0.17);
+    }
+
 
     /* =====================================================
-       MAIN PAGE
+       SUBTLE GOLD SPECKLES
+       ===================================================== */
+
+    .background-decoration::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(230, 197, 112, 0.18) 1px,
+          transparent 1px
+        );
+
+      background-size: 55px 55px;
+
+      opacity: 0.18;
+    }
+
+
+    /* =====================================================
+       PAGE
        ===================================================== */
 
     .page {
       position: relative;
-      z-index: 1;
 
-      width: min(1100px, 94%);
+      z-index: 2;
+
+      width: min(1120px, 94%);
+
       margin: 0 auto;
 
-      padding: 45px 0 70px;
+      padding: 35px 0 75px;
     }
 
+
     /* =====================================================
-       ORNATE TOP FRAME
+       HEADER
        ===================================================== */
 
     .top-frame {
       position: relative;
 
-      padding: 55px 35px 45px;
+      padding: 70px 35px 65px;
 
       text-align: center;
 
-      border: 1px solid rgba(224, 190, 105, 0.85);
+      border: 1px solid rgba(229, 194, 105, 0.9);
 
       background:
         linear-gradient(
           135deg,
-          rgba(255,255,255,0.05),
-          rgba(255,255,255,0.015)
+          rgba(255,255,255,0.045),
+          rgba(255,255,255,0.01)
         );
 
       box-shadow:
-        0 0 0 6px rgba(218, 180, 89, 0.08),
-        0 0 35px rgba(0,0,0,0.25);
+        0 0 0 6px rgba(221, 185, 94, 0.07),
+        0 0 0 13px rgba(221, 185, 94, 0.025),
+        0 25px 60px rgba(0,0,0,0.27);
+
+      overflow: hidden;
     }
 
     .top-frame::before {
       content: "";
 
       position: absolute;
-      inset: 10px;
 
-      border: 1px solid rgba(224, 190, 105, 0.45);
+      inset: 11px;
 
-      pointer-events: none;
-    }
-
-    /* =====================================================
-       GOLD CORNER FLOURISHES
-       ===================================================== */
-
-    .flourish {
-      position: absolute;
-
-      width: 150px;
-      height: 150px;
+      border: 1px solid rgba(229, 194, 105, 0.48);
 
       pointer-events: none;
     }
 
-    .flourish::before,
-    .flourish::after {
+    .top-frame::after {
       content: "";
 
       position: absolute;
 
-      border-color: #dcb75f;
-      border-style: solid;
+      inset: 20px;
+
+      border: 1px solid rgba(229, 194, 105, 0.12);
+
+      pointer-events: none;
+    }
+
+
+    /* =====================================================
+       BOTANICAL CORNER ART
+       ===================================================== */
+
+    .botanical {
+      position: absolute;
+
+      width: 210px;
+      height: 210px;
+
+      pointer-events: none;
 
       opacity: 0.95;
     }
 
-    .flourish::before {
-      width: 115px;
-      height: 115px;
-
-      border-width: 3px 0 0 3px;
-
-      border-radius: 75% 0 0 0;
-
-      top: 15px;
-      left: 15px;
-
-      transform: rotate(8deg);
+    .botanical svg {
+      width: 100%;
+      height: 100%;
     }
 
-    .flourish::after {
-      width: 70px;
-      height: 70px;
+    .botanical path,
+    .botanical ellipse,
+    .botanical circle {
+      fill: none;
 
-      border-width: 0 0 3px 3px;
+      stroke: #dfbd68;
 
-      border-radius: 0 0 0 80%;
+      stroke-width: 1.7;
 
-      top: 45px;
-      left: 45px;
+      stroke-linecap: round;
 
-      transform: rotate(-15deg);
+      stroke-linejoin: round;
     }
 
-    .flourish span,
-    .flourish span::before,
-    .flourish span::after {
-      position: absolute;
-
-      display: block;
-
-      border: 2px solid #dcb75f;
-
-      border-radius: 50%;
+    .botanical.top-left {
+      top: -5px;
+      left: -5px;
     }
 
-    .flourish span {
-      width: 24px;
-      height: 24px;
-
-      top: 20px;
-      left: 88px;
-    }
-
-    .flourish span::before {
-      content: "";
-
-      width: 17px;
-      height: 17px;
-
-      top: 28px;
-      left: 25px;
-    }
-
-    .flourish span::after {
-      content: "";
-
-      width: 12px;
-      height: 12px;
-
-      top: 52px;
-      left: 45px;
-    }
-
-    .top-left {
-      top: 0;
-      left: 0;
-
-      transform: rotate(0deg);
-    }
-
-    .top-right {
-      top: 0;
-      right: 0;
+    .botanical.top-right {
+      top: -5px;
+      right: -5px;
 
       transform: scaleX(-1);
     }
 
-    .bottom-left {
-      bottom: 0;
-      left: 0;
+    .botanical.bottom-left {
+      bottom: -5px;
+      left: -5px;
 
       transform: scaleY(-1);
     }
 
-    .bottom-right {
-      bottom: 0;
-      right: 0;
+    .botanical.bottom-right {
+      bottom: -5px;
+      right: -5px;
 
       transform: scale(-1);
     }
+
 
     /* =====================================================
        TITLE
        ===================================================== */
 
     .small-title {
-      margin-bottom: 8px;
+      position: relative;
 
-      color: #e4c46e;
+      z-index: 3;
 
-      font-size: 15px;
+      margin-bottom: 10px;
+
+      color: #e5c574;
+
+      font-size: 13px;
+
       font-weight: 600;
 
       letter-spacing: 5px;
+
       text-transform: uppercase;
     }
 
     h1 {
+      position: relative;
+
+      z-index: 3;
+
       margin: 0;
 
-      color: #f2d98a;
+      color: #f2d88b;
 
-      font-family: "Allura", cursive;
+      /*
+        More elegant and refined than the previous
+        handwritten title.
+      */
 
-      font-size: clamp(72px, 12vw, 125px);
+      font-family: "Parisienne", cursive;
+
+      font-size: clamp(76px, 13vw, 135px);
 
       font-weight: 400;
 
-      line-height: 0.9;
+      line-height: 0.92;
 
       text-shadow:
-        0 3px 0 rgba(0,0,0,0.12),
-        0 8px 25px rgba(0,0,0,0.2);
+        0 2px 0 rgba(0,0,0,0.12),
+        0 10px 30px rgba(0,0,0,0.22);
     }
 
     .title-line {
-      width: min(500px, 70%);
+      position: relative;
+
+      z-index: 3;
+
+      width: min(570px, 75%);
 
       height: 1px;
 
-      margin: 25px auto 20px;
+      margin: 28px auto 22px;
 
       background:
         linear-gradient(
           90deg,
           transparent,
-          #dcb75f,
-          #f0d58b,
-          #dcb75f,
+          #b9923f,
+          #f1d58a,
+          #b9923f,
           transparent
         );
+    }
+
+    .title-line::before,
+    .title-line::after {
+      content: "";
+
+      position: absolute;
+
+      top: 50%;
+
+      width: 7px;
+      height: 7px;
+
+      border: 1px solid #dfbd68;
+
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    .title-line::before {
+      left: 20%;
+    }
+
+    .title-line::after {
+      right: 20%;
     }
 
     .subtitle {
+      position: relative;
+
+      z-index: 3;
+
+      max-width: 680px;
+
       margin: 0 auto;
 
-      max-width: 650px;
+      color: #f6ecd5;
 
-      color: #f5ead0;
+      font-size: 14px;
 
-      font-size: 15px;
+      line-height: 1.9;
 
-      line-height: 1.8;
-
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
     }
 
+
     /* =====================================================
-       GOLD ORNAMENT BETWEEN SECTIONS
+       GOLD DIVIDER
        ===================================================== */
 
-    .gold-ornament {
+    .gold-divider {
       display: flex;
 
       align-items: center;
+
       justify-content: center;
 
-      gap: 12px;
+      gap: 14px;
 
-      margin: 35px auto;
+      margin: 42px auto;
     }
 
-    .gold-ornament::before,
-    .gold-ornament::after {
+    .gold-divider::before,
+    .gold-divider::after {
       content: "";
 
-      width: 120px;
-      max-width: 25vw;
+      width: 150px;
+
+      max-width: 27vw;
 
       height: 1px;
 
@@ -350,30 +404,57 @@
         linear-gradient(
           90deg,
           transparent,
-          #dcb75f
+          #d8b35d
         );
     }
 
-    .gold-ornament::after {
+    .gold-divider::after {
       background:
         linear-gradient(
           90deg,
-          #dcb75f,
+          #d8b35d,
           transparent
         );
     }
 
-    .gold-ornament span {
-      width: 15px;
-      height: 15px;
+    .gold-divider span {
+      position: relative;
 
-      border: 2px solid #dcb75f;
+      width: 13px;
+      height: 13px;
+
+      border: 1px solid #e1bf69;
 
       transform: rotate(45deg);
     }
 
+    .gold-divider span::before,
+    .gold-divider span::after {
+      content: "";
+
+      position: absolute;
+
+      width: 5px;
+      height: 5px;
+
+      border: 1px solid #e1bf69;
+
+      border-radius: 50%;
+    }
+
+    .gold-divider span::before {
+      top: -8px;
+      left: -8px;
+    }
+
+    .gold-divider span::after {
+      bottom: -8px;
+      right: -8px;
+    }
+
+
     /* =====================================================
-       CONTENT CARD
+       MAIN IVORY CARD
        ===================================================== */
 
     .content-card {
@@ -381,20 +462,21 @@
 
       margin-top: 40px;
 
-      padding: 55px 30px 60px;
+      padding: 65px 35px 70px;
 
       background:
         linear-gradient(
           145deg,
-          #fffdf6,
-          #f8f0dc
+          #fffdf7,
+          #f8efd9
         );
 
-      border: 3px solid #d4ad50;
+      border: 3px solid #d1a94e;
 
       box-shadow:
-        0 0 0 7px rgba(220, 183, 95, 0.18),
-        0 18px 45px rgba(0,0,0,0.30);
+        0 0 0 6px rgba(220, 183, 95, 0.17),
+        0 0 0 12px rgba(220, 183, 95, 0.055),
+        0 25px 65px rgba(0,0,0,0.32);
 
       overflow: hidden;
     }
@@ -403,9 +485,10 @@
       content: "";
 
       position: absolute;
+
       inset: 12px;
 
-      border: 1px solid #d4ad50;
+      border: 1px solid #d1ad58;
 
       pointer-events: none;
     }
@@ -415,92 +498,74 @@
 
       position: absolute;
 
-      width: 400px;
-      height: 400px;
+      inset: 19px;
 
-      top: -260px;
-      right: -230px;
+      border: 1px solid rgba(190, 149, 61, 0.25);
 
-      border: 1px solid rgba(180, 140, 48, 0.35);
-
-      border-radius: 50%;
-
-      box-shadow:
-        0 0 0 15px rgba(180, 140, 48, 0.05),
-        0 0 0 30px rgba(180, 140, 48, 0.04);
+      pointer-events: none;
     }
 
+
     /* =====================================================
-       CARD CORNER FLOURISHES
+       IVORY CARD BOTANICAL CORNERS
        ===================================================== */
 
-    .card-flourish {
+    .card-botanical {
       position: absolute;
 
-      width: 115px;
-      height: 115px;
+      width: 175px;
+      height: 175px;
 
       pointer-events: none;
 
       z-index: 2;
     }
 
-    .card-flourish::before {
-      content: "";
-
-      position: absolute;
-
-      width: 85px;
-      height: 85px;
-
-      border: 2px solid #cba64d;
-
-      border-right: 0;
-      border-bottom: 0;
-
-      border-radius: 80% 0 0 0;
+    .card-botanical svg {
+      width: 100%;
+      height: 100%;
     }
 
-    .card-flourish::after {
-      content: "";
+    .card-botanical path,
+    .card-botanical ellipse,
+    .card-botanical circle {
+      fill: none;
 
-      position: absolute;
+      stroke: #bf9841;
 
-      width: 35px;
-      height: 35px;
+      stroke-width: 1.5;
 
-      border: 2px solid #cba64d;
+      stroke-linecap: round;
 
-      border-radius: 70% 0 70% 0;
-
-      transform: rotate(20deg);
+      stroke-linejoin: round;
     }
 
-    .card-top-left {
+    .card-botanical.top-left {
       top: 17px;
       left: 17px;
     }
 
-    .card-top-right {
+    .card-botanical.top-right {
       top: 17px;
       right: 17px;
 
       transform: scaleX(-1);
     }
 
-    .card-bottom-left {
+    .card-botanical.bottom-left {
       bottom: 17px;
       left: 17px;
 
       transform: scaleY(-1);
     }
 
-    .card-bottom-right {
+    .card-botanical.bottom-right {
       bottom: 17px;
       right: 17px;
 
       transform: scale(-1);
     }
+
 
     /* =====================================================
        SECTION HEADING
@@ -508,40 +573,47 @@
 
     .section-heading {
       position: relative;
-      z-index: 3;
+
+      z-index: 4;
 
       text-align: center;
 
-      margin-bottom: 35px;
+      margin-bottom: 38px;
     }
 
     .section-heading h2 {
       margin: 0;
 
-      color: #174b3a;
+      color: #1b5943;
 
-      font-family: "Allura", cursive;
+      /*
+        This is intentionally softer and more
+        readable than the giant title.
+      */
 
-      font-size: clamp(48px, 8vw, 75px);
+      font-family: "Montserrat", Arial, sans-serif;
 
-      font-weight: 400;
+      font-size: clamp(27px, 5vw, 40px);
 
-      line-height: 1;
+      font-weight: 500;
+
+      letter-spacing: 0.4px;
     }
 
     .section-heading p {
       margin: 13px auto 0;
 
-      max-width: 600px;
+      max-width: 620px;
 
-      color: #6d705f;
+      color: #77725f;
 
       font-size: 14px;
 
-      line-height: 1.7;
+      line-height: 1.8;
 
-      letter-spacing: 0.4px;
+      letter-spacing: 0.2px;
     }
+
 
     /* =====================================================
        UPLOAD AREA
@@ -549,75 +621,83 @@
 
     .upload-area {
       position: relative;
-      z-index: 3;
 
-      max-width: 650px;
+      z-index: 4;
+
+      max-width: 680px;
 
       margin: 0 auto;
 
-      padding: 35px 25px;
+      padding: 38px 25px;
 
       text-align: center;
 
-      background: rgba(255,255,255,0.65);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.88),
+          rgba(248,240,220,0.8)
+        );
 
-      border: 1px solid #d9bb70;
+      border: 1px solid #d5b363;
 
       box-shadow:
-        inset 0 0 30px rgba(200,165,75,0.08);
+        0 0 0 5px rgba(202, 163, 73, 0.06),
+        inset 0 0 30px rgba(193, 152, 62, 0.06);
     }
 
     .upload-area h3 {
-      margin: 0 0 8px;
+      margin: 0 0 9px;
 
-      color: #174b3a;
+      color: #1a553f;
+
+      font-family: "Montserrat", Arial, sans-serif;
 
       font-size: 19px;
 
       font-weight: 600;
-
-      letter-spacing: 0.5px;
     }
 
     .upload-area p {
-      margin: 0 0 22px;
+      margin: 0 0 24px;
 
       color: #777767;
 
       font-size: 13px;
 
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
+
     /* =====================================================
-       UPLOAD BUTTON
+       BUTTON
        ===================================================== */
 
     .upload-button {
       display: inline-block;
 
-      padding: 14px 32px;
+      padding: 15px 38px;
 
-      color: #fffdf4;
+      color: #fffdf5;
 
       background:
         linear-gradient(
           135deg,
-          #1c5944,
-          #0f392b
+          #27694f,
+          #0e3a2c
         );
 
-      border: 2px solid #dcb75f;
+      border: 2px solid #d9b65e;
 
       box-shadow:
-        0 5px 15px rgba(0,0,0,0.16),
+        0 5px 16px rgba(0,0,0,0.17),
         inset 0 0 0 1px rgba(255,255,255,0.1);
 
-      font-size: 13px;
+      font-size: 12px;
 
       font-weight: 600;
 
-      letter-spacing: 1.5px;
+      letter-spacing: 1.8px;
 
       text-transform: uppercase;
 
@@ -630,7 +710,7 @@
       transform: translateY(-2px);
 
       box-shadow:
-        0 8px 20px rgba(0,0,0,0.2);
+        0 8px 22px rgba(0,0,0,0.2);
     }
 
     input[type="file"] {
@@ -642,46 +722,61 @@
 
       margin-top: 20px;
 
-      color: #1c5944;
+      color: #1d6047;
 
       font-size: 13px;
 
       font-weight: 600;
     }
 
+
     /* =====================================================
-       GALLERY
+       GALLERY TITLE
        ===================================================== */
 
     .gallery-title {
       position: relative;
-      z-index: 3;
 
-      margin: 60px 0 25px;
+      z-index: 4;
+
+      margin: 58px 0 28px;
 
       text-align: center;
 
-      color: #174b3a;
+      color: #1b5943;
 
-      font-family: "Allura", cursive;
+      font-family: "Parisienne", cursive;
 
-      font-size: clamp(48px, 7vw, 68px);
+      font-size: clamp(52px, 8vw, 78px);
 
       font-weight: 400;
+
+      line-height: 1;
     }
+
+
+    /* =====================================================
+       GALLERY
+       ===================================================== */
 
     .gallery {
       position: relative;
-      z-index: 3;
+
+      z-index: 4;
 
       display: grid;
 
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      grid-template-columns:
+        repeat(
+          auto-fill,
+          minmax(190px, 1fr)
+        );
 
-      gap: 18px;
+      gap: 20px;
 
-      padding: 10px;
+      padding: 12px;
     }
+
 
     /* =====================================================
        PHOTO FRAMES
@@ -695,20 +790,28 @@
       background:
         linear-gradient(
           135deg,
-          #f4df9d,
-          #b88a32,
-          #f3d987,
-          #b88a32
+          #f0d38a,
+          #b98d36,
+          #f3d993,
+          #aa7d2c,
+          #efd184
         );
 
       box-shadow:
-        0 6px 18px rgba(0,0,0,0.15);
+        0 7px 20px rgba(0,0,0,0.17);
 
-      transition: transform 0.25s ease;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
     }
 
     .photo-frame:hover {
-      transform: translateY(-4px) rotate(0.5deg);
+      transform:
+        translateY(-5px)
+        scale(1.01);
+
+      box-shadow:
+        0 12px 28px rgba(0,0,0,0.2);
     }
 
     .photo-frame::before {
@@ -718,7 +821,7 @@
 
       inset: 3px;
 
-      border: 1px solid rgba(255,255,255,0.75);
+      border: 1px solid rgba(255,255,255,0.85);
 
       pointer-events: none;
     }
@@ -737,6 +840,7 @@
       border: 3px solid #fffaf0;
     }
 
+
     /* =====================================================
        FOOTER
        ===================================================== */
@@ -744,16 +848,19 @@
     .footer {
       position: relative;
 
-      margin-top: 45px;
+      margin-top: 48px;
 
       text-align: center;
 
-      color: #e4c46e;
+      color: #e5c574;
 
-      font-size: 12px;
+      font-size: 11px;
 
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+
+      text-transform: uppercase;
     }
+
 
     /* =====================================================
        MOBILE
@@ -764,11 +871,11 @@
       .page {
         width: 94%;
 
-        padding-top: 25px;
+        padding-top: 22px;
       }
 
       .top-frame {
-        padding: 50px 18px 40px;
+        padding: 60px 18px 55px;
       }
 
       h1 {
@@ -776,26 +883,48 @@
       }
 
       .small-title {
-        font-size: 11px;
+        font-size: 9px;
 
         letter-spacing: 3px;
       }
 
       .subtitle {
-        font-size: 13px;
+        font-size: 12px;
+
+        line-height: 1.8;
       }
 
-      .flourish {
-        width: 105px;
-        height: 105px;
+      .botanical {
+        width: 145px;
+        height: 145px;
       }
 
       .content-card {
-        padding: 45px 15px 50px;
+        padding:
+          50px 14px
+          55px;
+      }
+
+      .card-botanical {
+        width: 120px;
+        height: 120px;
+      }
+
+      .section-heading h2 {
+        font-size: 27px;
+      }
+
+      .section-heading p {
+        font-size: 13px;
+      }
+
+      .gallery-title {
+        font-size: 55px;
       }
 
       .gallery {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(2, 1fr);
 
         gap: 10px;
 
@@ -807,16 +936,35 @@
       }
 
       .upload-area {
-        padding: 30px 18px;
+        padding:
+          30px 17px;
       }
+
     }
 
   </style>
 </head>
 
+
 <body>
 
+
+  <!-- =====================================================
+       BACKGROUND DECORATION
+       ===================================================== -->
+
+  <div class="background-decoration">
+
+    <div class="circle one"></div>
+    <div class="circle two"></div>
+    <div class="circle three"></div>
+    <div class="circle four"></div>
+
+  </div>
+
+
   <main class="page">
+
 
     <!-- =====================================================
          HEADER
@@ -824,31 +972,143 @@
 
     <header class="top-frame">
 
-      <div class="flourish top-left">
-        <span></span>
+
+      <!-- TOP LEFT BOTANICAL -->
+
+      <div class="botanical top-left">
+
+        <svg viewBox="0 0 200 200">
+
+          <path d="M18 175 C45 135 54 92 105 42 C128 20 153 14 180 17" />
+
+          <path d="M48 130 C35 108 23 103 13 105 C23 119 31 127 48 130" />
+
+          <path d="M58 109 C51 86 40 77 27 76 C34 93 43 103 58 109" />
+
+          <path d="M73 88 C71 65 80 50 94 43 C94 61 87 76 73 88" />
+
+          <path d="M91 68 C103 49 119 42 133 44 C124 59 110 66 91 68" />
+
+          <path d="M113 48 C132 32 149 29 162 34 C148 45 132 50 113 48" />
+
+          <ellipse cx="28" cy="145" rx="10" ry="17" transform="rotate(-48 28 145)" />
+
+          <ellipse cx="150" cy="22" rx="9" ry="15" transform="rotate(60 150 22)" />
+
+          <circle cx="166" cy="37" r="4" />
+
+          <circle cx="94" cy="43" r="4" />
+
+        </svg>
+
       </div>
 
-      <div class="flourish top-right">
-        <span></span>
+
+      <!-- TOP RIGHT BOTANICAL -->
+
+      <div class="botanical top-right">
+
+        <svg viewBox="0 0 200 200">
+
+          <path d="M18 175 C45 135 54 92 105 42 C128 20 153 14 180 17" />
+
+          <path d="M48 130 C35 108 23 103 13 105 C23 119 31 127 48 130" />
+
+          <path d="M58 109 C51 86 40 77 27 76 C34 93 43 103 58 109" />
+
+          <path d="M73 88 C71 65 80 50 94 43 C94 61 87 76 73 88" />
+
+          <path d="M91 68 C103 49 119 42 133 44 C124 59 110 66 91 68" />
+
+          <path d="M113 48 C132 32 149 29 162 34 C148 45 132 50 113 48" />
+
+          <ellipse cx="28" cy="145" rx="10" ry="17" transform="rotate(-48 28 145)" />
+
+          <ellipse cx="150" cy="22" rx="9" ry="15" transform="rotate(60 150 22)" />
+
+          <circle cx="166" cy="37" r="4" />
+
+          <circle cx="94" cy="43" r="4" />
+
+        </svg>
+
       </div>
 
-      <div class="flourish bottom-left">
-        <span></span>
+
+      <!-- BOTTOM LEFT BOTANICAL -->
+
+      <div class="botanical bottom-left">
+
+        <svg viewBox="0 0 200 200">
+
+          <path d="M18 175 C45 135 54 92 105 42 C128 20 153 14 180 17" />
+
+          <path d="M48 130 C35 108 23 103 13 105 C23 119 31 127 48 130" />
+
+          <path d="M58 109 C51 86 40 77 27 76 C34 93 43 103 58 109" />
+
+          <path d="M73 88 C71 65 80 50 94 43 C94 61 87 76 73 88" />
+
+          <path d="M91 68 C103 49 119 42 133 44 C124 59 110 66 91 68" />
+
+          <path d="M113 48 C132 32 149 29 162 34 C148 45 132 50 113 48" />
+
+          <ellipse cx="28" cy="145" rx="10" ry="17" transform="rotate(-48 28 145)" />
+
+          <ellipse cx="150" cy="22" rx="9" ry="15" transform="rotate(60 150 22)" />
+
+          <circle cx="166" cy="37" r="4" />
+
+          <circle cx="94" cy="43" r="4" />
+
+        </svg>
+
       </div>
 
-      <div class="flourish bottom-right">
-        <span></span>
+
+      <!-- BOTTOM RIGHT BOTANICAL -->
+
+      <div class="botanical bottom-right">
+
+        <svg viewBox="0 0 200 200">
+
+          <path d="M18 175 C45 135 54 92 105 42 C128 20 153 14 180 17" />
+
+          <path d="M48 130 C35 108 23 103 13 105 C23 119 31 127 48 130" />
+
+          <path d="M58 109 C51 86 40 77 27 76 C34 93 43 103 58 109" />
+
+          <path d="M73 88 C71 65 80 50 94 43 C94 61 87 76 73 88" />
+
+          <path d="M91 68 C103 49 119 42 133 44 C124 59 110 66 91 68" />
+
+          <path d="M113 48 C132 32 149 29 162 34 C148 45 132 50 113 48" />
+
+          <ellipse cx="28" cy="145" rx="10" ry="17" transform="rotate(-48 28 145)" />
+
+          <ellipse cx="150" cy="22" rx="9" ry="15" transform="rotate(60 150 22)" />
+
+          <circle cx="166" cy="37" r="4" />
+
+          <circle cx="94" cy="43" r="4" />
+
+        </svg>
+
       </div>
+
 
       <div class="small-title">
         A Celebration Of Love & Memories
       </div>
 
+
       <h1>
         Quinceañera Gallery
       </h1>
 
+
       <div class="title-line"></div>
+
 
       <p class="subtitle">
         Share your favorite photos and memories from the celebration.
@@ -859,10 +1119,10 @@
 
 
     <!-- =====================================================
-         GOLD ORNAMENT
+         DIVIDER
          ===================================================== -->
 
-    <div class="gold-ornament">
+    <div class="gold-divider">
       <span></span>
     </div>
 
@@ -873,13 +1133,120 @@
 
     <section class="content-card">
 
-      <div class="card-flourish card-top-left"></div>
-      <div class="card-flourish card-top-right"></div>
-      <div class="card-flourish card-bottom-left"></div>
-      <div class="card-flourish card-bottom-right"></div>
+
+      <!-- CARD BOTANICAL CORNERS -->
+
+      <div class="card-botanical top-left">
+
+        <svg viewBox="0 0 200 200">
+
+          <path d="M15 180 C50 145 55 94 105 47 C130 23 155 15 182 16" />
+
+          <path d="M49 133 C35 113 24 108 13 110 C22 124 33 131 49 133" />
+
+          <path d="M63 108 C54 86 44 78 31 79 C37 95 47 103 63 108" />
+
+          <path d="M77 88 C75 66 84 51 98 44 C98 61 91 76 77 88" />
+
+          <path d="M95 68 C106 51 122 44 137 46 C127 60 113 67 95 68" />
+
+          <path d="M119 48 C137 34 153 31 166 36 C151 46 137 51 119 48" />
+
+          <ellipse cx="31" cy="151" rx="10" ry="18" transform="rotate(-45 31 151)" />
+
+          <ellipse cx="153" cy="23" rx="9" ry="15" transform="rotate(55 153 23)" />
+
+          <circle cx="168" cy="39" r="4" />
+
+        </svg>
+
+      </div>
 
 
-      <!-- UPLOAD -->
+      <div class="card-botanical top-right">
+
+        <svg viewBox="0 0 200 200">
+
+          <path d="M15 180 C50 145 55 94 105 47 C130 23 155 15 182 16" />
+
+          <path d="M49 133 C35 113 24 108 13 110 C22 124 33 131 49 133" />
+
+          <path d="M63 108 C54 86 44 78 31 79 C37 95 47 103 63 108" />
+
+          <path d="M77 88 C75 66 84 51 98 44 C98 61 91 76 77 88" />
+
+          <path d="M95 68 C106 51 122 44 137 46 C127 60 113 67 95 68" />
+
+          <path d="M119 48 C137 34 153 31 166 36 C151 46 137 51 119 48" />
+
+          <ellipse cx="31" cy="151" rx="10" ry="18" transform="rotate(-45 31 151)" />
+
+          <ellipse cx="153" cy="23" rx="9" ry="15" transform="rotate(55 153 23)" />
+
+          <circle cx="168" cy="39" r="4" />
+
+        </svg>
+
+      </div>
+
+
+      <div class="card-botanical bottom-left">
+
+        <svg viewBox="0 0 200 200">
+
+          <path d="M15 180 C50 145 55 94 105 47 C130 23 155 15 182 16" />
+
+          <path d="M49 133 C35 113 24 108 13 110 C22 124 33 131 49 133" />
+
+          <path d="M63 108 C54 86 44 78 31 79 C37 95 47 103 63 108" />
+
+          <path d="M77 88 C75 66 84 51 98 44 C98 61 91 76 77 88" />
+
+          <path d="M95 68 C106 51 122 44 137 46 C127 60 113 67 95 68" />
+
+          <path d="M119 48 C137 34 153 31 166 36 C151 46 137 51 119 48" />
+
+          <ellipse cx="31" cy="151" rx="10" ry="18" transform="rotate(-45 31 151)" />
+
+          <ellipse cx="153" cy="23" rx="9" ry="15" transform="rotate(55 153 23)" />
+
+          <circle cx="168" cy="39" r="4" />
+
+        </svg>
+
+      </div>
+
+
+      <div class="card-botanical bottom-right">
+
+        <svg viewBox="0 0 200 200">
+
+          <path d="M15 180 C50 145 55 94 105 47 C130 23 155 15 182 16" />
+
+          <path d="M49 133 C35 113 24 108 13 110 C22 124 33 131 49 133" />
+
+          <path d="M63 108 C54 86 44 78 31 79 C37 95 47 103 63 108" />
+
+          <path d="M77 88 C75 66 84 51 98 44 C98 61 91 76 77 88" />
+
+          <path d="M95 68 C106 51 122 44 137 46 C127 60 113 67 95 68" />
+
+          <path d="M119 48 C137 34 153 31 166 36 C151 46 137 51 119 48" />
+
+          <ellipse cx="31" cy="151" rx="10" ry="18" transform="rotate(-45 31 151)" />
+
+          <ellipse cx="153" cy="23" rx="9" ry="15" transform="rotate(55 153 23)" />
+
+          <circle cx="168" cy="39" r="4" />
+
+        </svg>
+
+      </div>
+
+
+      <!-- =====================================================
+           SHARE PHOTOS
+           ===================================================== -->
 
       <div class="section-heading">
 
@@ -888,11 +1255,16 @@
         </h2>
 
         <p>
-          Help us capture every little moment from this special celebration.
+          Share your photos and memories from the celebration.
+          Every little moment helps tell the story of this special day.
         </p>
 
       </div>
 
+
+      <!-- =====================================================
+           UPLOAD
+           ===================================================== -->
 
       <div class="upload-area">
 
@@ -923,20 +1295,33 @@
       </div>
 
 
-      <!-- GALLERY -->
+      <!-- =====================================================
+           GALLERY DIVIDER
+           ===================================================== -->
 
-      <div class="gold-ornament">
+      <div class="gold-divider">
         <span></span>
       </div>
+
+
+      <!-- =====================================================
+           GALLERY TITLE
+           ===================================================== -->
 
       <h2 class="gallery-title">
         Memories From The Celebration
       </h2>
 
+
+      <!-- =====================================================
+           GALLERY
+           ===================================================== -->
+
       <div
         id="gallery"
-        class="gallery"
-      ></div>
+        class="gallery">
+      </div>
+
 
     </section>
 
@@ -944,6 +1329,7 @@
     <footer class="footer">
       Made with love for this special celebration
     </footer>
+
 
   </main>
 
@@ -954,13 +1340,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
   <script>
+
+
+    /* =====================================================
+       SUPABASE CONFIGURATION
+       ===================================================== */
 
     const SUPABASE_URL =
       "https://tsyadfkwthcnvflsoinr.supabase.co";
 
     const SUPABASE_KEY =
       "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
+
 
     const supabaseClient =
       window.supabase.createClient(
@@ -977,87 +1370,129 @@
 
       return new Promise((resolve, reject) => {
 
-        const reader = new FileReader();
+        const reader =
+          new FileReader();
 
-        reader.onload = function(event) {
+        reader.onload =
+          function(event) {
 
-          const img = new Image();
+            const img =
+              new Image();
 
-          img.onload = function() {
+            img.onload =
+              function() {
 
-            const maxWidth = 2000;
-            const maxHeight = 2000;
+                const maxWidth = 2000;
+                const maxHeight = 2000;
 
-            let width = img.width;
-            let height = img.height;
+                let width =
+                  img.width;
 
-            if (width > maxWidth || height > maxHeight) {
+                let height =
+                  img.height;
 
-              const ratio = Math.min(
-                maxWidth / width,
-                maxHeight / height
-              );
 
-              width *= ratio;
-              height *= ratio;
-            }
+                if (
+                  width > maxWidth ||
+                  height > maxHeight
+                ) {
 
-            const canvas =
-              document.createElement("canvas");
+                  const ratio =
+                    Math.min(
+                      maxWidth / width,
+                      maxHeight / height
+                    );
 
-            canvas.width = width;
-            canvas.height = height;
+                  width *= ratio;
 
-            const ctx =
-              canvas.getContext("2d");
-
-            ctx.drawImage(
-              img,
-              0,
-              0,
-              width,
-              height
-            );
-
-            canvas.toBlob(
-              blob => {
-
-                if (!blob) {
-                  reject(
-                    new Error(
-                      "Image compression failed."
-                    )
-                  );
-
-                  return;
+                  height *= ratio;
                 }
 
-                const compressedFile =
-                  new File(
-                    [blob],
-                    "photo.jpg",
-                    {
-                      type: "image/jpeg"
-                    }
+
+                const canvas =
+                  document.createElement(
+                    "canvas"
                   );
 
-                resolve(compressedFile);
 
-              },
-              "image/jpeg",
-              0.85
-            );
+                canvas.width =
+                  width;
+
+                canvas.height =
+                  height;
+
+
+                const ctx =
+                  canvas.getContext(
+                    "2d"
+                  );
+
+
+                ctx.drawImage(
+                  img,
+                  0,
+                  0,
+                  width,
+                  height
+                );
+
+
+                canvas.toBlob(
+                  blob => {
+
+                    if (!blob) {
+
+                      reject(
+                        new Error(
+                          "Image compression failed."
+                        )
+                      );
+
+                      return;
+                    }
+
+
+                    const compressedFile =
+                      new File(
+                        [blob],
+                        "photo.jpg",
+                        {
+                          type:
+                            "image/jpeg"
+                        }
+                      );
+
+
+                    resolve(
+                      compressedFile
+                    );
+
+                  },
+                  "image/jpeg",
+                  0.85
+                );
+
+              };
+
+
+            img.onerror =
+              reject;
+
+            img.src =
+              event.target.result;
+
           };
 
-          img.onerror = reject;
 
-          img.src = event.target.result;
-        };
+        reader.onerror =
+          reject;
 
-        reader.onerror = reject;
+        reader.readAsDataURL(
+          file
+        );
 
-        reader.readAsDataURL(file);
       });
+
     }
 
 
@@ -1071,19 +1506,30 @@
         "change",
         async function(event) {
 
-          const files = event.target.files;
+          const files =
+            event.target.files;
 
-          if (!files || files.length === 0) {
+
+          if (
+            !files ||
+            files.length === 0
+          ) {
             return;
           }
 
+
           const status =
-            document.getElementById("status");
+            document.getElementById(
+              "status"
+            );
+
 
           status.textContent =
             `Preparing ${files.length} photo${files.length === 1 ? "" : "s"}...`;
 
+
           let uploaded = 0;
+
 
           try {
 
@@ -1094,7 +1540,10 @@
             ) {
 
               const compressedFile =
-                await compressImage(files[i]);
+                await compressImage(
+                  files[i]
+                );
+
 
               const filePath =
                 "uploads/" +
@@ -1111,14 +1560,21 @@
               const { error } =
                 await supabaseClient
                   .storage
-                  .from("Quince photos")
+                  .from(
+                    "Quince photos"
+                  )
                   .upload(
                     filePath,
                     compressedFile,
                     {
-                      cacheControl: "3600",
-                      contentType: "image/jpeg",
-                      upsert: false
+                      cacheControl:
+                        "3600",
+
+                      contentType:
+                        "image/jpeg",
+
+                      upsert:
+                        false
                     }
                   );
 
@@ -1127,23 +1583,33 @@
                 throw error;
               }
 
+
               uploaded++;
+
 
               status.textContent =
                 `Uploaded ${uploaded} of ${files.length} photos...`;
+
             }
 
 
             status.textContent =
               `✓ ${uploaded} photo${uploaded === 1 ? "" : "s"} added!`;
 
-            event.target.value = "";
+
+            event.target.value =
+              "";
+
 
             loadGallery();
 
+
           } catch (error) {
 
-            console.error(error);
+            console.error(
+              error
+            );
+
 
             status.textContent =
               "Something went wrong while uploading. Please try again.";
@@ -1161,9 +1627,14 @@
     async function loadGallery() {
 
       const gallery =
-        document.getElementById("gallery");
+        document.getElementById(
+          "gallery"
+        );
 
-      gallery.innerHTML = "";
+
+      gallery.innerHTML =
+        "";
+
 
       const {
         data,
@@ -1171,15 +1642,22 @@
       } =
         await supabaseClient
           .storage
-          .from("Quince photos")
+          .from(
+            "Quince photos"
+          )
           .list(
             "uploads",
             {
               limit: 100,
+
               offset: 0,
+
               sortBy: {
-                column: "created_at",
-                order: "desc"
+                column:
+                  "created_at",
+
+                order:
+                  "desc"
               }
             }
           );
@@ -1187,7 +1665,10 @@
 
       if (error) {
 
-        console.error(error);
+        console.error(
+          error
+        );
+
 
         gallery.innerHTML =
           "<p>Unable to load photos.</p>";
@@ -1196,7 +1677,10 @@
       }
 
 
-      if (!data || data.length === 0) {
+      if (
+        !data ||
+        data.length === 0
+      ) {
 
         gallery.innerHTML =
           "<p style='text-align:center; color:#777;'>Photos will appear here after they are uploaded.</p>";
@@ -1205,42 +1689,63 @@
       }
 
 
-      data.forEach(file => {
+      data.forEach(
+        file => {
 
-        const filePath =
-          "uploads/" + file.name;
-
-        const {
-          data: publicUrlData
-        } =
-          supabaseClient
-            .storage
-            .from("Quince photos")
-            .getPublicUrl(filePath);
+          const filePath =
+            "uploads/" +
+            file.name;
 
 
-        const frame =
-          document.createElement("div");
-
-        frame.className =
-          "photo-frame";
-
-
-        const img =
-          document.createElement("img");
-
-        img.src =
-          publicUrlData.publicUrl;
-
-        img.alt =
-          "Quinceañera memory";
+          const {
+            data:
+              publicUrlData
+          } =
+            supabaseClient
+              .storage
+              .from(
+                "Quince photos"
+              )
+              .getPublicUrl(
+                filePath
+              );
 
 
-        frame.appendChild(img);
+          const frame =
+            document.createElement(
+              "div"
+            );
 
-        gallery.appendChild(frame);
 
-      });
+          frame.className =
+            "photo-frame";
+
+
+          const img =
+            document.createElement(
+              "img"
+            );
+
+
+          img.src =
+            publicUrlData.publicUrl;
+
+
+          img.alt =
+            "Quinceañera memory";
+
+
+          frame.appendChild(
+            img
+          );
+
+
+          gallery.appendChild(
+            frame
+          );
+
+        }
+      );
 
     }
 
@@ -1250,6 +1755,7 @@
        ===================================================== */
 
     loadGallery();
+
 
   </script>
 
