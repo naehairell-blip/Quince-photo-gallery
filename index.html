@@ -7,9 +7,9 @@
 
   <title>Quinceañera Gallery</title>
 
-  <!-- Elegant readable font -->
+  <!-- Elegant readable fonts -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap"
     rel="stylesheet"
   >
 
@@ -20,6 +20,20 @@
   <style>
 
     /* ==========================================
+       COLORS
+       ========================================== */
+
+    :root {
+      --emerald: #064d3b;
+      --deep-emerald: #032f25;
+      --gold: #c9a44c;
+      --light-gold: #e3cc82;
+      --cream: #f8f3e7;
+      --dark-text: #173b32;
+    }
+
+
+    /* ==========================================
        GENERAL PAGE
        ========================================== */
 
@@ -27,19 +41,28 @@
       box-sizing: border-box;
     }
 
+
     body {
       margin: 0;
       padding: 0;
       font-family: "Montserrat", Arial, sans-serif;
-      background: #f8f5ed;
-      color: #173b32;
+      background:
+        radial-gradient(
+          circle at top,
+          #0b624c 0%,
+          var(--emerald) 45%,
+          var(--deep-emerald) 100%
+        );
+      color: var(--cream);
+      min-height: 100vh;
     }
 
 
     .container {
+      width: 100%;
       max-width: 950px;
       margin: 0 auto;
-      padding: 30px 20px 50px;
+      padding: 0 18px 50px;
     }
 
 
@@ -48,98 +71,172 @@
        ========================================== */
 
     .header {
+      position: relative;
       text-align: center;
-      background: #064d3b;
-      color: #f8f5ed;
-      padding: 45px 20px 40px;
-      border-radius: 0 0 28px 28px;
-      border-bottom: 5px solid #c9a44c;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
-      margin-bottom: 30px;
+      padding: 60px 20px 50px;
+      overflow: hidden;
     }
 
 
-    .header-decoration {
-      font-size: 22px;
-      color: #d7b65c;
+    .header::before,
+    .header::after {
+      content: "";
+      position: absolute;
+      left: 7%;
+      right: 7%;
+      height: 1px;
+      background:
+        linear-gradient(
+          to right,
+          transparent,
+          var(--gold),
+          transparent
+        );
+    }
+
+
+    .header::before {
+      top: 30px;
+    }
+
+
+    .header::after {
+      bottom: 25px;
+    }
+
+
+    .ornament {
+      color: var(--gold);
+      font-size: 30px;
       letter-spacing: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
 
     h1 {
       margin: 0;
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: clamp(42px, 10vw, 68px);
+      font-family: "Cinzel", Georgia, serif;
+      font-size: clamp(38px, 9vw, 64px);
       font-weight: 600;
-      letter-spacing: 1px;
-      line-height: 1;
+      letter-spacing: 2px;
+      line-height: 1.15;
+      color: var(--light-gold);
+      text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.25);
     }
 
 
-    .subtitle {
-      margin: 15px auto 0;
+    .header-subtitle {
       max-width: 600px;
-      font-size: 14px;
-      line-height: 1.7;
-      color: #f3ead2;
+      margin: 18px auto 0;
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--cream);
+      letter-spacing: 0.4px;
     }
 
 
     /* ==========================================
-       SECTION TITLES
+       ORNATE DECORATIVE FRAME
        ========================================== */
 
-    .section-title {
-      text-align: center;
-      margin: 35px 0 18px;
+    .gold-frame {
+      position: relative;
+      border: 1px solid var(--gold);
+      padding: 8px;
+      margin-bottom: 28px;
     }
 
 
-    .section-title h2 {
+    .gold-frame::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border: 1px solid rgba(227, 204, 130, 0.55);
+      pointer-events: none;
+    }
+
+
+    .corner {
+      position: absolute;
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 28px;
+      line-height: 1;
+      z-index: 2;
+    }
+
+
+    .corner.top-left {
+      top: -4px;
+      left: -4px;
+    }
+
+
+    .corner.top-right {
+      top: -4px;
+      right: -4px;
+      transform: rotate(90deg);
+    }
+
+
+    .corner.bottom-left {
+      bottom: -4px;
+      left: -4px;
+      transform: rotate(-90deg);
+    }
+
+
+    .corner.bottom-right {
+      bottom: -4px;
+      right: -4px;
+      transform: rotate(180deg);
+    }
+
+
+    /* ==========================================
+       UPLOAD CARD
+       ========================================== */
+
+    .upload-card {
+      background: var(--cream);
+      color: var(--dark-text);
+      padding: 35px 25px;
+      text-align: center;
+      position: relative;
+    }
+
+
+    .upload-card h2 {
       margin: 0;
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 35px;
+      font-family: "Cinzel", Georgia, serif;
+      font-size: 30px;
       font-weight: 600;
-      color: #064d3b;
+      color: var(--emerald);
+      letter-spacing: 1px;
     }
 
 
-    .gold-line {
-      width: 70px;
-      height: 2px;
-      background: #c9a44c;
-      margin: 10px auto 0;
-    }
-
-
-    /* ==========================================
-       UPLOAD BOX
-       ========================================== */
-
-    .upload-box {
-      background: #fffdf8;
-      padding: 30px 25px;
-      border-radius: 20px;
-      border: 1px solid #d8c58c;
-      box-shadow: 0 5px 20px rgba(6, 77, 59, 0.08);
-      text-align: center;
-    }
-
-
-    .upload-box h2 {
-      margin: 0 0 8px;
-      font-family: "Cormorant Garamond", Georgia, serif;
-      font-size: 32px;
-      font-weight: 600;
-      color: #064d3b;
+    .gold-divider {
+      width: 90px;
+      height: 1px;
+      margin: 13px auto 15px;
+      background:
+        linear-gradient(
+          to right,
+          transparent,
+          var(--gold),
+          transparent
+        );
     }
 
 
     .upload-description {
-      margin: 0 0 20px;
+      max-width: 500px;
+      margin: 0 auto 22px;
       font-size: 13px;
-      color: #66736e;
+      line-height: 1.7;
+      color: #596760;
     }
 
 
@@ -149,27 +246,31 @@
 
     .upload-button {
       display: inline-block;
-      padding: 13px 25px;
-      border-radius: 10px;
-      background: #064d3b;
-      color: #fffdf8;
-      border: 2px solid #c9a44c;
+      padding: 14px 28px;
+      background: var(--emerald);
+      color: var(--light-gold);
+      border: 1px solid var(--gold);
       font-family: "Montserrat", Arial, sans-serif;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
+      letter-spacing: 0.5px;
+      border-radius: 3px;
       cursor: pointer;
-      transition: 0.2s ease;
+      transition: all 0.2s ease;
+      box-shadow:
+        0 4px 12px rgba(3, 47, 37, 0.2);
     }
 
 
     .upload-button:hover {
-      background: #0b614b;
-      transform: translateY(-1px);
+      background: #08644c;
+      box-shadow:
+        0 5px 16px rgba(3, 47, 37, 0.3);
     }
 
 
     .upload-button:active {
-      transform: translateY(0);
+      transform: translateY(1px);
     }
 
 
@@ -183,14 +284,48 @@
        ========================================== */
 
     #status {
+      min-height: 24px;
       margin-top: 18px;
-      padding: 10px;
-      min-height: 25px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       line-height: 1.5;
+      color: var(--emerald);
       word-break: break-word;
-      color: #064d3b;
+    }
+
+
+    /* ==========================================
+       GALLERY SECTION
+       ========================================== */
+
+    .gallery-section {
+      background: var(--cream);
+      color: var(--dark-text);
+      padding: 30px 18px 35px;
+      position: relative;
+    }
+
+
+    .gallery-title {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+
+    .gallery-title h2 {
+      margin: 0;
+      font-family: "Cinzel", Georgia, serif;
+      font-size: 31px;
+      font-weight: 600;
+      color: var(--emerald);
+      letter-spacing: 0.8px;
+    }
+
+
+    .gallery-title p {
+      margin: 9px 0 0;
+      font-size: 12px;
+      color: #6b756f;
     }
 
 
@@ -200,23 +335,37 @@
 
     #gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-template-columns:
+        repeat(auto-fill, minmax(145px, 1fr));
       gap: 16px;
-      margin-top: 20px;
     }
 
 
     .photo {
       width: 100%;
-      height: 230px;
+      height: 220px;
       object-fit: cover;
-      border-radius: 12px;
       display: block;
-      background: #e9e4d7;
-      border: 3px solid #fffdf8;
+      background: #e8e0ce;
+
+      border: 3px solid var(--cream);
+
       box-shadow:
-        0 3px 12px rgba(6, 77, 59, 0.12),
-        0 0 0 1px #d8c58c;
+        0 0 0 1px var(--gold),
+        0 5px 14px rgba(3, 47, 37, 0.16);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+
+    .photo:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 0 0 1px var(--gold),
+        0 7px 18px rgba(3, 47, 37, 0.22);
     }
 
 
@@ -224,10 +373,14 @@
       text-align: center;
       grid-column: 1 / -1;
       padding: 45px 20px;
-      color: #6d7772;
+
       background: #fffdf8;
-      border: 1px solid #ded4b8;
-      border-radius: 15px;
+
+      border: 1px solid var(--gold);
+
+      color: #6b756f;
+
+      font-size: 13px;
     }
 
 
@@ -237,17 +390,17 @@
 
     .footer {
       text-align: center;
-      margin-top: 45px;
-      padding-top: 25px;
-      border-top: 1px solid #d8c58c;
-      color: #6d7772;
-      font-size: 12px;
+      padding: 28px 15px 10px;
+      color: #d9c98e;
+      font-size: 11px;
+      letter-spacing: 0.4px;
     }
 
 
-    .footer-symbol {
-      color: #c9a44c;
-      font-size: 18px;
+    .footer-ornament {
+      font-family: Georgia, serif;
+      font-size: 25px;
+      color: var(--gold);
       margin-bottom: 8px;
     }
 
@@ -259,30 +412,56 @@
     @media (max-width: 600px) {
 
       .container {
-        padding: 20px 14px 40px;
+        padding-left: 12px;
+        padding-right: 12px;
       }
+
 
       .header {
-        padding: 38px 15px 32px;
-        border-radius: 0 0 22px 22px;
+        padding-top: 52px;
+        padding-bottom: 42px;
       }
+
 
       h1 {
-        font-size: 48px;
+        font-size: 43px;
+        letter-spacing: 1px;
       }
 
-      .subtitle {
-        font-size: 13px;
+
+      .header-subtitle {
+        font-size: 12px;
       }
 
-      .upload-box {
-        padding: 25px 18px;
+
+      .upload-card {
+        padding: 30px 18px;
       }
+
+
+      .upload-card h2 {
+        font-size: 27px;
+      }
+
+
+      .gallery-section {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+
+      .gallery-title h2 {
+        font-size: 27px;
+      }
+
 
       #gallery {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns:
+          repeat(2, 1fr);
+
         gap: 12px;
       }
+
 
       .photo {
         height: 210px;
@@ -302,21 +481,23 @@
        HEADER
        ========================================== -->
 
-  <div class="header">
+  <header class="header">
 
-    <div class="header-decoration">
-      ✦ ✧ ✦
+    <div class="ornament">
+      ❧ ❦ ❧
     </div>
 
     <h1>
       Quinceañera Gallery
     </h1>
 
-    <p class="subtitle">
-      Share your favorite moments and memories from this special celebration.
+    <p class="header-subtitle">
+      Share your favorite moments and memories
+      from this special celebration.
     </p>
 
-  </div>
+  </header>
+
 
 
   <div class="container">
@@ -326,66 +507,95 @@
          UPLOAD SECTION
          ========================================== -->
 
-    <div class="upload-box">
+    <div class="gold-frame">
 
-      <h2>
-        Share Your Photos
-      </h2>
-
-      <p class="upload-description">
-        Select one or more photos from the celebration to add them to the gallery.
-      </p>
+      <span class="corner top-left">❧</span>
+      <span class="corner top-right">❧</span>
+      <span class="corner bottom-left">❧</span>
+      <span class="corner bottom-right">❧</span>
 
 
-      <label
-        for="upload"
-        class="upload-button"
-      >
-        Choose Photos
-      </label>
+      <section class="upload-card">
+
+        <h2>
+          Share Your Photos
+        </h2>
+
+        <div class="gold-divider"></div>
+
+        <p class="upload-description">
+          Select one or more photos from the celebration
+          and add them to the gallery.
+        </p>
 
 
-      <input
-        type="file"
-        id="upload"
-        accept="image/*"
-        multiple
-      >
+        <label
+          for="upload"
+          class="upload-button"
+        >
+          Choose Photos
+        </label>
 
 
-      <div id="status">
-        Ready. Choose one or more photos to begin.
-      </div>
+        <input
+          type="file"
+          id="upload"
+          accept="image/*"
+          multiple
+        >
 
-    </div>
 
+        <div id="status">
+          Ready. Choose one or more photos to begin.
+        </div>
 
-    <!-- ==========================================
-         GALLERY TITLE
-         ========================================== -->
-
-    <div class="section-title">
-
-      <h2>
-        Memories From The Celebration
-      </h2>
-
-      <div class="gold-line"></div>
+      </section>
 
     </div>
+
 
 
     <!-- ==========================================
          GALLERY
          ========================================== -->
 
-    <div id="gallery">
+    <div class="gold-frame">
 
-      <div class="empty">
-        Gallery loading...
-      </div>
+      <span class="corner top-left">❧</span>
+      <span class="corner top-right">❧</span>
+      <span class="corner bottom-left">❧</span>
+      <span class="corner bottom-right">❧</span>
+
+
+      <section class="gallery-section">
+
+        <div class="gallery-title">
+
+          <h2>
+            Memories From The Celebration
+          </h2>
+
+          <div class="gold-divider"></div>
+
+          <p>
+            A collection of memories shared by family and friends.
+          </p>
+
+        </div>
+
+
+        <div id="gallery">
+
+          <div class="empty">
+            Gallery loading...
+          </div>
+
+        </div>
+
+      </section>
 
     </div>
+
 
 
     <!-- ==========================================
@@ -394,16 +604,18 @@
 
     <div class="footer">
 
-      <div class="footer-symbol">
-        ✦
+      <div class="footer-ornament">
+        ❧
       </div>
 
-      A collection of memories from a beautiful celebration.
+      Thank you for helping capture
+      the memories of this special day.
 
     </div>
 
 
   </div>
+
 
 
   <script>
@@ -486,8 +698,6 @@
                   let height =
                     image.height;
 
-
-                  // Keep original proportions
 
                   if (
                     width > MAX_WIDTH ||
@@ -877,7 +1087,7 @@
             }
 
 
-            // Add photo to gallery
+            // Add uploaded photo
 
             addPhoto(filePath);
 
