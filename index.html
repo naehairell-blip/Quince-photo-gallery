@@ -7,121 +7,343 @@
 
   <title>Quinceañera Gallery</title>
 
+  <!-- Elegant readable font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
   <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
   <style>
+
+    /* ==========================================
+       GENERAL PAGE
+       ========================================== */
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: #faf7f2;
-      color: #333;
+      padding: 0;
+      font-family: "Montserrat", Arial, sans-serif;
+      background: #f8f5ed;
+      color: #173b32;
     }
+
 
     .container {
-      max-width: 900px;
+      max-width: 950px;
       margin: 0 auto;
+      padding: 30px 20px 50px;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
 
-    .subtitle {
-      text-align: center;
-      margin-bottom: 25px;
-    }
+    /* ==========================================
+       HEADER
+       ========================================== */
 
-    .upload-box {
-      background: white;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    .header {
       text-align: center;
+      background: #064d3b;
+      color: #f8f5ed;
+      padding: 45px 20px 40px;
+      border-radius: 0 0 28px 28px;
+      border-bottom: 5px solid #c9a44c;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
       margin-bottom: 30px;
     }
 
-    #upload {
-      width: 100%;
-      margin: 15px 0;
-      padding: 10px;
+
+    .header-decoration {
+      font-size: 22px;
+      color: #d7b65c;
+      letter-spacing: 8px;
+      margin-bottom: 12px;
     }
 
-    #status {
-      margin-top: 15px;
-      padding: 12px;
-      font-weight: bold;
-      min-height: 30px;
-      word-break: break-word;
+
+    h1 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(42px, 10vw, 68px);
+      font-weight: 600;
+      letter-spacing: 1px;
+      line-height: 1;
     }
 
-    #gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 15px;
+
+    .subtitle {
+      margin: 15px auto 0;
+      max-width: 600px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #f3ead2;
     }
 
-    .photo {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 12px;
-      display: block;
-      background: #eee;
-    }
 
-    .empty {
+    /* ==========================================
+       SECTION TITLES
+       ========================================== */
+
+    .section-title {
       text-align: center;
-      grid-column: 1 / -1;
-      padding: 30px;
-      color: #777;
+      margin: 35px 0 18px;
     }
+
+
+    .section-title h2 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 35px;
+      font-weight: 600;
+      color: #064d3b;
+    }
+
+
+    .gold-line {
+      width: 70px;
+      height: 2px;
+      background: #c9a44c;
+      margin: 10px auto 0;
+    }
+
+
+    /* ==========================================
+       UPLOAD BOX
+       ========================================== */
+
+    .upload-box {
+      background: #fffdf8;
+      padding: 30px 25px;
+      border-radius: 20px;
+      border: 1px solid #d8c58c;
+      box-shadow: 0 5px 20px rgba(6, 77, 59, 0.08);
+      text-align: center;
+    }
+
+
+    .upload-box h2 {
+      margin: 0 0 8px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: #064d3b;
+    }
+
+
+    .upload-description {
+      margin: 0 0 20px;
+      font-size: 13px;
+      color: #66736e;
+    }
+
+
+    /* ==========================================
+       UPLOAD BUTTON
+       ========================================== */
 
     .upload-button {
       display: inline-block;
-      padding: 12px 20px;
+      padding: 13px 25px;
       border-radius: 10px;
-      background: #333;
-      color: white;
-      font-weight: bold;
+      background: #064d3b;
+      color: #fffdf8;
+      border: 2px solid #c9a44c;
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
+      transition: 0.2s ease;
     }
 
+
     .upload-button:hover {
-      opacity: 0.85;
+      background: #0b614b;
+      transform: translateY(-1px);
     }
+
+
+    .upload-button:active {
+      transform: translateY(0);
+    }
+
 
     #upload {
       display: none;
     }
+
+
+    /* ==========================================
+       STATUS
+       ========================================== */
+
+    #status {
+      margin-top: 18px;
+      padding: 10px;
+      min-height: 25px;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.5;
+      word-break: break-word;
+      color: #064d3b;
+    }
+
+
+    /* ==========================================
+       GALLERY
+       ========================================== */
+
+    #gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+
+    .photo {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      background: #e9e4d7;
+      border: 3px solid #fffdf8;
+      box-shadow:
+        0 3px 12px rgba(6, 77, 59, 0.12),
+        0 0 0 1px #d8c58c;
+    }
+
+
+    .empty {
+      text-align: center;
+      grid-column: 1 / -1;
+      padding: 45px 20px;
+      color: #6d7772;
+      background: #fffdf8;
+      border: 1px solid #ded4b8;
+      border-radius: 15px;
+    }
+
+
+    /* ==========================================
+       FOOTER
+       ========================================== */
+
+    .footer {
+      text-align: center;
+      margin-top: 45px;
+      padding-top: 25px;
+      border-top: 1px solid #d8c58c;
+      color: #6d7772;
+      font-size: 12px;
+    }
+
+
+    .footer-symbol {
+      color: #c9a44c;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+
+    /* ==========================================
+       MOBILE
+       ========================================== */
+
+    @media (max-width: 600px) {
+
+      .container {
+        padding: 20px 14px 40px;
+      }
+
+      .header {
+        padding: 38px 15px 32px;
+        border-radius: 0 0 22px 22px;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      .subtitle {
+        font-size: 13px;
+      }
+
+      .upload-box {
+        padding: 25px 18px;
+      }
+
+      #gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .photo {
+        height: 210px;
+      }
+
+    }
+
   </style>
+
 </head>
 
 
 <body>
 
-  <div class="container">
 
-    <h1>Quinceañera Gallery</h1>
+  <!-- ==========================================
+       HEADER
+       ========================================== -->
+
+  <div class="header">
+
+    <div class="header-decoration">
+      ✦ ✧ ✦
+    </div>
+
+    <h1>
+      Quinceañera Gallery
+    </h1>
 
     <p class="subtitle">
-      Upload and share your favorite photos from the celebration! 📸
+      Share your favorite moments and memories from this special celebration.
     </p>
 
+  </div>
+
+
+  <div class="container">
+
+
+    <!-- ==========================================
+         UPLOAD SECTION
+         ========================================== -->
 
     <div class="upload-box">
 
-      <h2>Upload Photos</h2>
+      <h2>
+        Share Your Photos
+      </h2>
 
-      <label for="upload" class="upload-button">
+      <p class="upload-description">
+        Select one or more photos from the celebration to add them to the gallery.
+      </p>
+
+
+      <label
+        for="upload"
+        class="upload-button"
+      >
         Choose Photos
       </label>
+
 
       <input
         type="file"
@@ -130,6 +352,7 @@
         multiple
       >
 
+
       <div id="status">
         Ready. Choose one or more photos to begin.
       </div>
@@ -137,18 +360,54 @@
     </div>
 
 
-    <h2>Photos</h2>
+    <!-- ==========================================
+         GALLERY TITLE
+         ========================================== -->
+
+    <div class="section-title">
+
+      <h2>
+        Memories From The Celebration
+      </h2>
+
+      <div class="gold-line"></div>
+
+    </div>
+
+
+    <!-- ==========================================
+         GALLERY
+         ========================================== -->
 
     <div id="gallery">
+
       <div class="empty">
         Gallery loading...
       </div>
+
     </div>
+
+
+    <!-- ==========================================
+         FOOTER
+         ========================================== -->
+
+    <div class="footer">
+
+      <div class="footer-symbol">
+        ✦
+      </div>
+
+      A collection of memories from a beautiful celebration.
+
+    </div>
+
 
   </div>
 
 
   <script>
+
 
     // ==========================================
     // SUPABASE SETTINGS
@@ -157,8 +416,10 @@
     const SUPABASE_URL =
       "https://tsyadfkwthcnvflsoinr.supabase.co";
 
+
     const SUPABASE_KEY =
       "sb_publishable_l9cupNWcrUKor17lW0H1bQ_jjRYHrBC";
+
 
     const BUCKET_NAME =
       "Quince photos";
@@ -171,8 +432,10 @@
     const uploadInput =
       document.getElementById("upload");
 
+
     const status =
       document.getElementById("status");
+
 
     const gallery =
       document.getElementById("gallery");
@@ -201,11 +464,13 @@
           const reader =
             new FileReader();
 
+
           reader.onload =
             function(event) {
 
               const image =
                 new Image();
+
 
               image.onload =
                 function() {
@@ -213,14 +478,16 @@
                   const MAX_WIDTH = 2000;
                   const MAX_HEIGHT = 2000;
 
+
                   let width =
                     image.width;
+
 
                   let height =
                     image.height;
 
 
-                  // Keep the original proportions
+                  // Keep original proportions
 
                   if (
                     width > MAX_WIDTH ||
@@ -230,8 +497,10 @@
                     const widthRatio =
                       MAX_WIDTH / width;
 
+
                     const heightRatio =
                       MAX_HEIGHT / height;
+
 
                     const ratio =
                       Math.min(
@@ -239,11 +508,18 @@
                         heightRatio
                       );
 
+
                     width =
-                      Math.round(width * ratio);
+                      Math.round(
+                        width * ratio
+                      );
+
 
                     height =
-                      Math.round(height * ratio);
+                      Math.round(
+                        height * ratio
+                      );
+
                   }
 
 
@@ -252,8 +528,10 @@
                       "canvas"
                     );
 
+
                   canvas.width =
                     width;
+
 
                   canvas.height =
                     height;
@@ -261,6 +539,7 @@
 
                   const context =
                     canvas.getContext("2d");
+
 
                   context.drawImage(
                     image,
@@ -294,7 +573,8 @@
                             ""
                           ) + ".jpg",
                           {
-                            type: "image/jpeg"
+                            type:
+                              "image/jpeg"
                           }
                         );
 
@@ -368,8 +648,10 @@
       image.src =
         publicResult.data.publicUrl;
 
+
       image.alt =
         "Quinceañera photo";
+
 
       image.className =
         "photo";
@@ -412,9 +694,11 @@
             result.error.message +
             "</div>";
 
+
           status.textContent =
             "Gallery error: " +
             result.error.message;
+
 
           return;
         }
@@ -433,8 +717,10 @@
             "No photos uploaded yet." +
             "</div>";
 
+
           status.textContent =
             "Gallery is ready.";
+
 
           return;
         }
@@ -463,9 +749,13 @@
           result.data.length +
           " photo(s) found.";
 
-      } catch (error) {
+      }
+
+
+      catch (error) {
 
         console.error(error);
+
 
         status.textContent =
           "Gallery error: " +
@@ -485,7 +775,9 @@
       async function() {
 
         const files =
-          Array.from(uploadInput.files);
+          Array.from(
+            uploadInput.files
+          );
 
 
         if (files.length === 0) {
@@ -501,6 +793,7 @@
 
         let successful =
           0;
+
 
         let failed =
           0;
@@ -526,7 +819,7 @@
               "...";
 
 
-            // Compress the photo
+            // Compress photo
 
             const compressedFile =
               await compressImage(
@@ -576,25 +869,31 @@
                 result.error
               );
 
+
               failed++;
+
 
               continue;
             }
 
 
-            // Show photo immediately
+            // Add photo to gallery
 
             addPhoto(filePath);
 
+
             successful++;
 
+          }
 
-          } catch (error) {
+
+          catch (error) {
 
             console.error(
               "Photo upload error:",
               error
             );
+
 
             failed++;
 
@@ -612,7 +911,10 @@
             successful +
             " photo(s) uploaded successfully! 🎉";
 
-        } else {
+        }
+
+
+        else {
 
           status.textContent =
             successful +
@@ -637,7 +939,9 @@
 
     loadPhotos();
 
+
   </script>
+
 
 </body>
 
