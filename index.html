@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Quinceañera Photo Gallery</title>
+  <title>Quinceañera Gallery</title>
 
+  <!-- Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
@@ -81,6 +82,24 @@
       padding: 30px;
       color: #777;
     }
+
+    .upload-button {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: #333;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .upload-button:hover {
+      opacity: 0.85;
+    }
+
+    #upload {
+      display: none;
+    }
   </style>
 </head>
 
@@ -89,7 +108,7 @@
 
   <div class="container">
 
-    <h1>Quinceañera Photo Gallery</h1>
+    <h1>Quinceañera Gallery</h1>
 
     <p class="subtitle">
       Upload and share your favorite photos from the celebration! 📸
@@ -98,16 +117,21 @@
 
     <div class="upload-box">
 
-      <h2>Upload a Photo</h2>
+      <h2>Upload Photos</h2>
+
+      <label for="upload" class="upload-button">
+        Choose Photos
+      </label>
 
       <input
         type="file"
         id="upload"
         accept="image/*"
+        multiple
       >
 
       <div id="status">
-        Ready. Choose a photo to begin.
+        Ready. Choose one or more photos to begin.
       </div>
 
     </div>
@@ -158,213 +182,202 @@
     // CREATE SUPABASE CLIENT
     // ==========================================
 
-    let supabaseClient = null;
+    const supabaseClient =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
 
-    try {
 
-      if (!window.supabase) {
+    // ==========================================
+    // COMPRESS IMAGE
+    // ==========================================
 
-        status.textContent =
-          "ERROR: Supabase library did not load.";
+    function compressImage(file) {
 
-      } else {
+      return new Promise(
+        function(resolve, reject) {
 
-        supabaseClient =
-          window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-          );
+          const reader =
+            new FileReader();
 
-        console.log(
-          "Supabase client created successfully."
-        );
+          reader.onload =
+            function(event) {
 
-      }
+              const image =
+                new Image();
 
-    } catch (error) {
+              image.onload =
+                function() {
 
-      status.textContent =
-        "ERROR creating Supabase client: " +
-        error.message;
+                  const MAX_WIDTH = 2000;
+                  const MAX_HEIGHT = 2000;
 
-      console.error(error);
+                  let width =
+                    image.width;
+
+                  let height =
+                    image.height;
+
+
+                  // Keep the original proportions
+
+                  if (
+                    width > MAX_WIDTH ||
+                    height > MAX_HEIGHT
+                  ) {
+
+                    const widthRatio =
+                      MAX_WIDTH / width;
+
+                    const heightRatio =
+                      MAX_HEIGHT / height;
+
+                    const ratio =
+                      Math.min(
+                        widthRatio,
+                        heightRatio
+                      );
+
+                    width =
+                      Math.round(width * ratio);
+
+                    height =
+                      Math.round(height * ratio);
+                  }
+
+
+                  const canvas =
+                    document.createElement(
+                      "canvas"
+                    );
+
+                  canvas.width =
+                    width;
+
+                  canvas.height =
+                    height;
+
+
+                  const context =
+                    canvas.getContext("2d");
+
+                  context.drawImage(
+                    image,
+                    0,
+                    0,
+                    width,
+                    height
+                  );
+
+
+                  canvas.toBlob(
+                    function(blob) {
+
+                      if (!blob) {
+
+                        reject(
+                          new Error(
+                            "Image compression failed."
+                          )
+                        );
+
+                        return;
+                      }
+
+
+                      const compressedFile =
+                        new File(
+                          [blob],
+                          file.name.replace(
+                            /\.[^/.]+$/,
+                            ""
+                          ) + ".jpg",
+                          {
+                            type: "image/jpeg"
+                          }
+                        );
+
+
+                      resolve(
+                        compressedFile
+                      );
+
+                    },
+                    "image/jpeg",
+                    0.85
+                  );
+
+                };
+
+
+              image.onerror =
+                function() {
+
+                  reject(
+                    new Error(
+                      "Could not read this image."
+                    )
+                  );
+
+                };
+
+
+              image.src =
+                event.target.result;
+
+            };
+
+
+          reader.onerror =
+            function() {
+
+              reject(
+                new Error(
+                  "Could not read the selected file."
+                )
+              );
+
+            };
+
+
+          reader.readAsDataURL(file);
+
+        }
+      );
 
     }
 
 
     // ==========================================
-    // TEST UPLOAD
+    // ADD PHOTO TO GALLERY
     // ==========================================
 
-    uploadInput.addEventListener(
-      "change",
-      async function () {
+    function addPhoto(filePath) {
 
-        console.log("CHANGE EVENT FIRED");
-
-        status.textContent =
-          "Step 1: Photo selected.";
-
-        const file =
-          uploadInput.files[0];
+      const publicResult =
+        supabaseClient.storage
+          .from(BUCKET_NAME)
+          .getPublicUrl(filePath);
 
 
-        if (!file) {
-
-          status.textContent =
-            "No photo was selected.";
-
-          return;
-        }
+      const image =
+        document.createElement("img");
 
 
-        console.log(
-          "Selected file:",
-          file
-        );
+      image.src =
+        publicResult.data.publicUrl;
+
+      image.alt =
+        "Quinceañera photo";
+
+      image.className =
+        "photo";
 
 
-        status.textContent =
-          "Step 2: Photo selected successfully. " +
-          "Preparing upload...";
+      gallery.prepend(image);
 
-
-        if (!supabaseClient) {
-
-          status.textContent =
-            "ERROR: Supabase client is not available.";
-
-          return;
-        }
-
-
-        // Create a unique filename
-
-        const extension =
-          file.name.includes(".")
-            ? file.name.substring(
-                file.name.lastIndexOf(".")
-              )
-            : "";
-
-        const fileName =
-          Date.now() +
-          "_" +
-          Math.random()
-            .toString(36)
-            .substring(2, 10) +
-          extension;
-
-
-        const filePath =
-          "uploads/" + fileName;
-
-
-        console.log(
-          "Uploading to:",
-          filePath
-        );
-
-
-        status.textContent =
-          "Step 3: Uploading photo to Supabase...";
-
-
-        try {
-
-          const result =
-            await supabaseClient.storage
-              .from(BUCKET_NAME)
-              .upload(
-                filePath,
-                file,
-                {
-                  cacheControl: "3600",
-                  contentType: file.type,
-                  upsert: false
-                }
-              );
-
-
-          console.log(
-            "SUPABASE RESULT:",
-            result
-          );
-
-
-          if (result.error) {
-
-            status.textContent =
-              "UPLOAD ERROR: " +
-              result.error.message;
-
-            console.error(
-              "Supabase upload error:",
-              result.error
-            );
-
-            return;
-          }
-
-
-          status.textContent =
-            "Step 4: Upload successful! 🎉";
-
-
-          // Get public URL
-
-          const publicResult =
-            supabaseClient.storage
-              .from(BUCKET_NAME)
-              .getPublicUrl(filePath);
-
-
-          console.log(
-            "PUBLIC URL:",
-            publicResult.data.publicUrl
-          );
-
-
-          // Display uploaded photo
-
-          const image =
-            document.createElement("img");
-
-          image.src =
-            publicResult.data.publicUrl;
-
-          image.alt =
-            "Quinceañera photo";
-
-          image.className =
-            "photo";
-
-
-          gallery.prepend(image);
-
-
-          status.textContent =
-            "Photo uploaded successfully! 🎉";
-
-
-          uploadInput.value = "";
-
-
-        } catch (error) {
-
-          console.error(
-            "UNEXPECTED ERROR:",
-            error
-          );
-
-          status.textContent =
-            "UNEXPECTED ERROR: " +
-            error.message;
-
-        }
-
-      }
-    );
+    }
 
 
     // ==========================================
@@ -373,16 +386,7 @@
 
     async function loadPhotos() {
 
-      if (!supabaseClient) {
-        return;
-      }
-
-
       try {
-
-        status.textContent =
-          "Checking photo gallery...";
-
 
         const result =
           await supabaseClient.storage
@@ -398,12 +402,6 @@
                 }
               }
             );
-
-
-        console.log(
-          "GALLERY RESULT:",
-          result
-        );
 
 
         if (result.error) {
@@ -432,18 +430,18 @@
 
           gallery.innerHTML =
             '<div class="empty">' +
-            "No photos in the gallery yet." +
+            "No photos uploaded yet." +
             "</div>";
 
           status.textContent =
-            "Gallery connected. No photos found.";
+            "Gallery is ready.";
 
           return;
         }
 
 
         result.data.forEach(
-          function (file) {
+          function(file) {
 
             if (!file.name) {
               return;
@@ -454,27 +452,7 @@
               "uploads/" + file.name;
 
 
-            const publicResult =
-              supabaseClient.storage
-                .from(BUCKET_NAME)
-                .getPublicUrl(filePath);
-
-
-            const image =
-              document.createElement("img");
-
-
-            image.src =
-              publicResult.data.publicUrl;
-
-            image.alt =
-              "Quinceañera photo";
-
-            image.className =
-              "photo";
-
-
-            gallery.appendChild(image);
+            addPhoto(filePath);
 
           }
         );
@@ -485,13 +463,9 @@
           result.data.length +
           " photo(s) found.";
 
-
       } catch (error) {
 
-        console.error(
-          "GALLERY ERROR:",
-          error
-        );
+        console.error(error);
 
         status.textContent =
           "Gallery error: " +
@@ -503,7 +477,162 @@
 
 
     // ==========================================
-    // START
+    // UPLOAD MULTIPLE PHOTOS
+    // ==========================================
+
+    uploadInput.addEventListener(
+      "change",
+      async function() {
+
+        const files =
+          Array.from(uploadInput.files);
+
+
+        if (files.length === 0) {
+          return;
+        }
+
+
+        status.textContent =
+          "Preparing " +
+          files.length +
+          " photo(s)...";
+
+
+        let successful =
+          0;
+
+        let failed =
+          0;
+
+
+        for (
+          let i = 0;
+          i < files.length;
+          i++
+        ) {
+
+          const originalFile =
+            files[i];
+
+
+          try {
+
+            status.textContent =
+              "Uploading photo " +
+              (i + 1) +
+              " of " +
+              files.length +
+              "...";
+
+
+            // Compress the photo
+
+            const compressedFile =
+              await compressImage(
+                originalFile
+              );
+
+
+            // Create unique filename
+
+            const uniqueName =
+              Date.now() +
+              "_" +
+              Math.random()
+                .toString(36)
+                .substring(2, 10) +
+              "_" +
+              i +
+              ".jpg";
+
+
+            const filePath =
+              "uploads/" +
+              uniqueName;
+
+
+            // Upload to Supabase
+
+            const result =
+              await supabaseClient.storage
+                .from(BUCKET_NAME)
+                .upload(
+                  filePath,
+                  compressedFile,
+                  {
+                    cacheControl: "3600",
+                    contentType:
+                      "image/jpeg",
+                    upsert: false
+                  }
+                );
+
+
+            if (result.error) {
+
+              console.error(
+                "Upload failed:",
+                result.error
+              );
+
+              failed++;
+
+              continue;
+            }
+
+
+            // Show photo immediately
+
+            addPhoto(filePath);
+
+            successful++;
+
+
+          } catch (error) {
+
+            console.error(
+              "Photo upload error:",
+              error
+            );
+
+            failed++;
+
+          }
+
+        }
+
+
+        // Final status
+
+        if (failed === 0) {
+
+          status.textContent =
+            "All " +
+            successful +
+            " photo(s) uploaded successfully! 🎉";
+
+        } else {
+
+          status.textContent =
+            successful +
+            " photo(s) uploaded successfully. " +
+            failed +
+            " photo(s) failed.";
+
+        }
+
+
+        // Clear file picker
+
+        uploadInput.value = "";
+
+      }
+    );
+
+
+    // ==========================================
+    // START GALLERY
     // ==========================================
 
     loadPhotos();
